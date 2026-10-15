@@ -76,7 +76,8 @@ ${needYou.length ? `<h4>Need you</h4><ul class="fixlist">${needYou.map((i) => { 
   if (r.comparison) {
     const c = r.comparison;
     parts.push(`<h2>Before and after</h2><p>${plural(c.resolved.length, "issue")} gone, ${plural(c.added.length, "new issue")}${c.added.length ? " (listed and marked \"New since the last run\" below)" : ""}.</p>
-${c.resolved.length ? `<ul class="fixlist">${c.resolved.map((i) => `<li>✓ <b>${esc(i.title)}</b> <span class="kind">${esc(i.severity)} · ${esc(i.pages.slice(0, 3).join(", "))}</span></li>`).join("")}</ul>` : ""}`);
+${c.resolved.length ? `<ul class="fixlist">${c.resolved.map((i) => `<li>✓ <b>${esc(i.title)}</b> <span class="kind">${esc(i.severity)} · ${esc(i.pages.slice(0, 3).join(", "))}</span></li>`).join("")}</ul>` : ""}
+${c.changedLevel?.length ? `<h4>Changed level</h4><ul class="fixlist">${c.changedLevel.map((i) => `<li>${["Critical", "High", "Medium", "Low"].indexOf(i.to) > ["Critical", "High", "Medium", "Low"].indexOf(i.from) ? "↓" : "↑"} <b>${esc(i.title)}</b> <span class="kind">${esc(i.from)} → ${esc(i.to)} · ${esc(i.pages.slice(0, 3).join(", "))}</span></li>`).join("")}</ul>` : ""}`);
   }
   return parts.join("\n");
 }
@@ -195,7 +196,7 @@ ${sections}
     "",
     ...(flowsOk.length ? ["**Visitor journeys that work:** " + flowsOk.join(" · "), ""] : []),
     ...(r.fixes ? ["### Automatic fixes", "", ...r.fixes.map((f) => `- **${STATUS[f.status]?.[0] ?? f.status}**: ${f.title}. ${f.summary ?? ""} ${f.verified ? `Re-test: ${f.verified}.` : ""} ${f.reason ?? ""}`), ""] : []),
-    ...(r.comparison ? [`**Before and after:** ${r.comparison.resolved.length} gone, ${r.comparison.added.length} new.`, ...r.comparison.added.map((i) => `- New: ${i.severity} · ${i.title} · ${i.pages.slice(0, 3).join(", ")}`), ""] : []),
+    ...(r.comparison ? [`**Before and after:** ${r.comparison.resolved.length} gone, ${r.comparison.added.length} new${r.comparison.changedLevel?.length ? `, ${r.comparison.changedLevel.length} changed level (${r.comparison.changedLevel.map((i) => `${i.title}: ${i.from} → ${i.to}`).join("; ")})` : ""}.`, ...r.comparison.added.map((i) => `- New: ${i.severity} · ${i.title} · ${i.pages.slice(0, 3).join(", ")}`), ""] : []),
     ...(r.perf.length ? ["### Speed on a phone", "", "| Page | Score | LCP | CLS | TBT |", "|---|---|---|---|---|",
       ...r.perf.map((p) => p.error ? `| ${p.page} | couldn't measure | | | |` : `| ${p.page} | ${p.score} | ${(p.lcp / 1000).toFixed(1)}s | ${p.cls.toFixed(2)} | ${Math.round(p.tbt)}ms |`), ""] : []),
   ];

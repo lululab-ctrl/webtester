@@ -4,11 +4,12 @@
 import fs from "node:fs";
 import path from "node:path";
 import { AxeBuilder } from "@axe-core/playwright";
+import { resolveFile } from "../server.mjs";
 
 const SAME = (u, base) => { try { return new URL(u).origin === new URL(base).origin; } catch { return false; } };
 const short = (u, base) => (SAME(u, base) ? new URL(u).pathname + new URL(u).search : u);
 
-export async function newContext(browser, { device, lang, base, offline, localUrl }) {
+export async function newContext(browser, { device, lang, base, offline, localDir }) {
   const ctx = await browser.newContext({
     viewport: { width: device.width, height: device.height },
     isMobile: browser.browserType().name() !== "firefox" && !!device.mobile,
@@ -27,20 +28,28 @@ export async function newContext(browser, { device, lang, base, offline, localUr
       if (t && t.tagName === "SCRIPT") window.__qaScriptErrors.push(t.src || "(inline module script)");
     }, true);
   });
-  if (localUrl) {
-    // The browser visits the live address, but every page and file comes from the copy being tested.
+  if (localDir) {
+    // The browser visits the live address, but every page and file comes straight from the copy being tested
+    // (read from disk: no local web server in between that could drop requests under load).
     // Servers that only answer the real site (CORS) then behave exactly as they will after publishing.
     await ctx.route((url) => SAME(url.href, base), async (route) => {
       const u = new URL(route.request().url());
+      const r = resolveFile(localDir, u.pathname);
       try {
-        const res = await route.fetch({ url: localUrl + u.pathname + u.search, maxRedirects: 0 });
-        await route.fulfill({ response: res });
-      } catch { await route.abort("failed").catch(() => {}); }   // the page may have closed meanwhile
+        if (r.status === 301) await route.fulfill({ status: 301, headers: { Location: r.location + u.search } });
+        else if (r.file) await route.fulfill({ status: r.status, path: r.file, contentType: r.type });
+        else await route.fulfill({ status: r.status, body: "" });
+      } catch { /* the page closed meanwhile */ }
     });
   }
   if (offline) {
     // This machine can't reach the internet: skip outside requests instead of reporting them as failures.
-    await ctx.route((url) => !SAME(url.href, base), (route) => route.abort("blockedbyclient").catch(() => {}));
+    // QA_MIRRORS (optional) points to {"<address start>": "<local file>"} for outside files the site can't work without.
+    const mirrors = process.env.QA_MIRRORS ? JSON.parse(fs.readFileSync(process.env.QA_MIRRORS, "utf8")) : {};
+    await ctx.route((url) => !SAME(url.href, base), (route) => {
+      const hit = Object.entries(mirrors).find(([prefix]) => route.request().url().startsWith(prefix));
+      return (hit ? route.fulfill({ path: hit[1], contentType: "text/javascript" }) : route.abort("blockedbyclient")).catch(() => {});
+    });
   }
   return ctx;
 }

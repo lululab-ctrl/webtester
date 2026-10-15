@@ -12,29 +12,35 @@ const TYPES = {
   ".xml": "application/xml", ".pdf": "application/pdf", ".mp4": "video/mp4", ".webm": "video/webm",
 };
 
+/** Which file answers a request path, the way GitHub Pages / Vercel would: folders serve their
+ *  index.html, "/about" also finds about.html, unknown paths get 404.html with status 404. */
+export function resolveFile(root, pathname) {
+  root = path.resolve(root);
+  let file = path.join(root, decodeURIComponent(pathname));
+  if (!file.startsWith(root)) return { status: 403 };
+  try {
+    if (fs.statSync(file).isDirectory()) {
+      if (!pathname.endsWith("/")) return { status: 301, location: pathname + "/" };
+      file = path.join(file, "index.html");
+    }
+  } catch { /* not found: handled below */ }
+  if (!fs.existsSync(file) && fs.existsSync(file + ".html")) file += ".html";
+  if (fs.existsSync(file) && fs.statSync(file).isFile()) return { status: 200, file, type: TYPES[path.extname(file).toLowerCase()] ?? "application/octet-stream" };
+  const nf = path.join(root, "404.html");
+  return fs.existsSync(nf) ? { status: 404, file: nf, type: TYPES[".html"] } : { status: 404 };
+}
+
 export function startServer(root, port = 0) {
   root = path.resolve(root);
   const server = http.createServer((req, res) => {
     const url = new URL(req.url, "http://x");
-    let file = path.join(root, decodeURIComponent(url.pathname));
-    if (!file.startsWith(root)) { res.writeHead(403); return res.end(); }
-    try {
-      if (fs.statSync(file).isDirectory()) {
-        if (!url.pathname.endsWith("/")) { res.writeHead(301, { Location: url.pathname + "/" + url.search }); return res.end(); }
-        file = path.join(file, "index.html");
-      }
-    } catch { /* not found: handled below */ }
-    if (!fs.existsSync(file) && fs.existsSync(file + ".html")) file += ".html";
-    let status = 200;
-    if (!fs.existsSync(file) || fs.statSync(file).isDirectory()) {
-      status = 404;
-      file = path.join(root, "404.html");
-      if (!fs.existsSync(file)) { res.writeHead(404, { "Content-Type": "text/plain" }); return res.end("Not found"); }
-    }
-    res.writeHead(status, { "Content-Type": TYPES[path.extname(file).toLowerCase()] ?? "application/octet-stream" });
-    fs.createReadStream(file).pipe(res);
+    const r = resolveFile(root, url.pathname);
+    if (r.status === 301) { res.writeHead(301, { Location: r.location + url.search }); return res.end(); }
+    if (!r.file) { res.writeHead(r.status, { "Content-Type": "text/plain" }); return res.end(r.status === 404 ? "Not found" : ""); }
+    res.writeHead(r.status, { "Content-Type": r.type });
+    fs.createReadStream(r.file).pipe(res);
   });
   return new Promise((resolve) => server.listen(port, "127.0.0.1", () => {
-    resolve({ url: `http://127.0.0.1:${server.address().port}`, close: () => new Promise((r) => server.close(r)) });
+    resolve({ url: `http://${"127.0.0.1"}:${server.address().port}`, close: () => new Promise((r) => server.close(r)) });
   }));
 }

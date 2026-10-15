@@ -294,7 +294,7 @@ jobs:
           git -C site config user.name "site-qa[bot]"; git -C site config user.email "site-qa-bot@users.noreply.github.com"
           git -C site checkout -q "$(cat work/start-sha)"
           n=$(ls work/patch 2>/dev/null | wc -l)
-          if [ "$n" -gt 0 ]; then git -C site -c core.hooksPath=/dev/null am -q work/patch/*.patch; fi
+          if [ "$n" -gt 0 ]; then git -C site -c core.hooksPath=/dev/null am -q "$PWD"/work/patch/*.patch; fi
           echo "changed=$n" >> "$GITHUB_OUTPUT"
 
       - name: Install the test tools

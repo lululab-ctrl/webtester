@@ -6,7 +6,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { newContext } from "./pages.mjs";
 
-export async function runFlows(browser, browserName, { config, base, offline, localUrl, shotDir }) {
+export async function runFlows(browser, browserName, { config, base, offline, localDir, shotDir }) {
   const found = [];
   const passed = [];
   const devices = [config.devices.find((d) => d.mobile) ?? config.devices[0], config.devices.find((d) => !d.mobile) ?? config.devices.at(-1)];
@@ -14,7 +14,7 @@ export async function runFlows(browser, browserName, { config, base, offline, lo
     if (flow.needsNetwork && offline) continue;
     for (const device of devices) {
       const lang = config.languages?.[0] ?? { code: "en", label: "English" };
-      const ctx = await newContext(browser, { device, lang, base, offline, localUrl });
+      const ctx = await newContext(browser, { device, lang, base, offline, localDir });
       const page = await ctx.newPage();
       let stepNo = 0;
       try {

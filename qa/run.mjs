@@ -74,7 +74,7 @@ if (ROOT) {
   log(`Testing the live website ${config.liveUrl}`);
 }
 base = base.replace(/\/$/, "");
-const localUrl = server ? base : null;
+const localDir = server ? siteDir : null;   // browsers get the copy's files straight from disk
 const pageBase = new URL(config.liveUrl).origin;
 if (config.isNew) notes.push(`This site has no settings file yet, so the standard checks were used. Add it with the "Add or edit a website" form to list its key pages and visitor journeys.`);
 if (offline) notes.push("Run without internet access: outside services weren't reached, so problems involving them can't show up in this run.");
@@ -115,7 +115,7 @@ async function pass(browserName, devs, { deep = false, shotsOn = [] } = {}, page
   const jobs = pages.flatMap((p) => langs.filter((l) => !(l.skipPages ?? []).some((x) => p.startsWith(x)))
     .flatMap((lang) => devs.map((device) => ({ p, lang, device }))));
   await pool(jobs, 4, async ({ p, lang, device }) => {
-    const ctx = await newContext(b, { device, lang, base: pageBase, offline, localUrl });
+    const ctx = await newContext(b, { device, lang, base: pageBase, offline, localDir });
     const r = await visit(ctx, {
       url: pageBase + p, base: pageBase, device, lang, browserName, deep, contentRules: (config.contentRules ?? []).filter((c) => !(offline && c.needsNetwork)),
       shotDir: shotsOn.includes(device.name) ? SHOTS : null,
@@ -176,7 +176,7 @@ for (const name of ["firefox", "webkit"]) {
 const flowsPassed = [];
 for (const [name, b] of Object.entries(browsers)) {
   log(`Running ${config.flows?.length ?? 0} visitor journeys in ${label[name]}…`);
-  const r = await runFlows(b, name, { config, base: pageBase, offline, localUrl, shotDir: SHOTS });
+  const r = await runFlows(b, name, { config, base: pageBase, offline, localDir, shotDir: SHOTS });
   findings.push(...r.found);
   flowsPassed.push(...r.passed);
 }
@@ -236,10 +236,12 @@ for (const f of findings) {
     : f.kind ? `kind:${f.kind}`
     : f.rule.startsWith("perf-") ? "perf"
     : f.detail.replace(/\d+px too wide/, "").replace(/\(\d+ places?:.*$/, "");
-  const key = `${f.rule}|${severity}|${sameness}`;
+  // The level isn't part of an issue's identity: a page that gets faster stays "the same issue", just less serious.
+  const key = `${f.rule}|${sameness}`;
   const g = groups.get(key) ?? { key, rule: f.rule, severity, category: rule.category, title: f.custom?.title ?? f.ruleTitle ?? rule.title,
     ruleTitle: rule.title, why: f.custom?.why ?? rule.why, fix: f.custom?.fix ?? rule.fix, learnMore: f.learnMore, note: f.note,
     details: new Set(), pages: new Set(), devices: new Set(), browsers: new Set(), langs: new Set(), shots: new Set(), snippets: new Set(), axeId: f.axeId, fixHint: f.fixHint, heavy: new Map() };
+  if (SEVERITIES.indexOf(severity) < SEVERITIES.indexOf(g.severity)) g.severity = severity;   // the worst one counts
   g.details.add(f.detail);
   if (f.page) g.pages.add(f.page);
   for (const p of f.alsoOn ?? []) g.pages.add(p);
@@ -276,10 +278,16 @@ if (opt("--compare") && fs.existsSync(opt("--compare"))) {
   const before = JSON.parse(fs.readFileSync(opt("--compare"), "utf8"));
   const beforeIds = new Set(before.issues.map((i) => i.id));
   const nowIds = new Set(issues.map((i) => i.id));
-  for (const i of issues) i.status = beforeIds.has(i.id) ? "still" : "new";
+  const beforeById = new Map(before.issues.map((i) => [i.id, i]));
+  for (const i of issues) {
+    i.status = beforeIds.has(i.id) ? "still" : "new";
+    const was = beforeById.get(i.id)?.severity;
+    if (was && was !== i.severity) i.severityBefore = was;
+  }
   comparison = {
     resolved: before.issues.filter((i) => !nowIds.has(i.id)).map((i) => ({ id: i.id, severity: i.severity, title: i.title, pages: i.pages, details: i.details.slice(0, 2) })),
     added: issues.filter((i) => i.status === "new").map((i) => ({ id: i.id, severity: i.severity, title: i.title, pages: i.pages, details: i.details.slice(0, 2) })),
+    changedLevel: issues.filter((i) => i.severityBefore).map((i) => ({ id: i.id, title: i.title, from: i.severityBefore, to: i.severity, pages: i.pages })),
   };
 }
 attachGuidance(issues, config, { headers: headers.checked, root: ROOT });
