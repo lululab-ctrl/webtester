@@ -48,3 +48,10 @@ export function siteRecord({ domain, name, repo, branch, build, serveDir, pages,
   delete rec.liveUrl; // always follows the domain, so editing the domain is enough
   return JSON.parse(JSON.stringify(rec));
 }
+
+// Turns a file pattern ("presets/**", "*.html", "src/**/*.njk") into a matcher for paths like presets/he/index.html.
+export function globToRegex(g) {
+  return new RegExp("^" + g.replace(/[.+^${}()|[\]\\]/g, "\\$&")
+    .replace(/\*\*\//g, "\u0001").replace(/\*\*/g, "\u0002").replace(/\*/g, "[^/]*").replace(/\?/g, "[^/]")
+    .replace(/\u0001/g, "(?:.*/)?").replace(/\u0002/g, ".*") + "$");
+}

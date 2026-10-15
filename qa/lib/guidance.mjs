@@ -1,3 +1,4 @@
+import { globToRegex } from "./config.mjs";
 // For every issue: who can fix it, and exactly what to change.
 //   fixBy "built-in": a mechanical fix the tool applies itself, then re-tests (qa/fix.mjs)
 //   fixBy "claude":   Claude attempts it in the fix run, then the tool re-tests
@@ -38,7 +39,7 @@ export function attachGuidance(issues, site, { headers = [], root = null } = {})
   const hasCode = !!(site.repo || root);
   const claudeOrYou = (why) => (hasCode ? { fixBy: "claude" } : { fixBy: "you", fixNote: why ?? "Needs the site's code. Add the code repository to this site's settings to let Claude fix it." });
   // Page files the site builds from other files can't be edited directly: Claude fixes their source instead.
-  const globs = (site.generated ?? []).map((g) => new RegExp("^" + g.replace(/[.+^${}()|[\]\\]/g, "\\$&").replace(/\*\*/g, "§").replace(/\*/g, "[^/]*").replace(/§/g, ".*") + "$"));
+  const globs = (site.generated ?? []).map(globToRegex);
   const editable = !(site.build && !site.sourceDir);
   const pageGenerated = (p) => { const f = p.split("?")[0].replace(/^\//, "").replace(/\/$/, "/index.html").replace(/^$/, "index.html"); return globs.some((re) => re.test(f)); };
   const builtinOrYou = (i) => {

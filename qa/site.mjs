@@ -20,13 +20,20 @@ if (cmd === "save") {
   const domain = normalizeDomain(opt("--domain"));
   const prevDomain = opt("--previous") ? normalizeDomain(opt("--previous")) : null;
   const prevFile = siteFile(HUB, prevDomain ?? domain);
+  if (prevDomain && prevDomain !== domain) {
+    if (!fs.existsSync(prevFile)) { console.error(`There's no website "${prevDomain}" in the list, so there's nothing to move. Check the old domain in SITES.md.`); process.exit(1); }
+    if (fs.existsSync(siteFile(HUB, domain))) { console.error(`"${domain}" is already in the list. Remove it first, or edit it directly.`); process.exit(1); }
+  }
   const previous = fs.existsSync(prevFile) ? JSON.parse(fs.readFileSync(prevFile, "utf8")) : {};
+  // A name that was just the old domain follows the new domain.
+  if (prevDomain && previous.name === previous.domain) delete previous.name;
   const blank = (v) => (v === undefined || v === "" ? undefined : v);
+  const unlink = opt("--repo") === "none";
   const rec = siteRecord({
-    domain, previous, name: blank(opt("--name")), repo: blank(opt("--repo")), pages: blank(opt("--pages")),
+    domain, previous, name: blank(opt("--name")), repo: unlink ? "" : blank(opt("--repo")), pages: blank(opt("--pages")),
     build: blank(opt("--build")), serveDir: blank(opt("--publish-folder")),
   });
-  if (opt("--repo") === "none") delete rec.repo;
+  if (unlink) delete rec.repo;
   fs.writeFileSync(siteFile(HUB, domain), JSON.stringify(rec, null, 2) + "\n");
   // Changing the domain moves the site's settings, known issues and reports along with it.
   if (prevDomain && prevDomain !== domain) {

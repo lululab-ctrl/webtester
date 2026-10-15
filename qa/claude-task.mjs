@@ -26,9 +26,9 @@ const todo = r.issues
 const issueText = todo.map((i, n) => [
   `### ${n + 1}. [${i.severity}] ${i.title}  (id: ${i.id}, rule: ${i.rule})`,
   `- Pages: ${i.pages.slice(0, 8).join(", ") || "(whole site)"}`,
-  `- Seen: ${i.details.slice(0, 4).map((d) => d.slice(0, 300)).join(" | ")}`,
-  i.snippets?.length ? `- Affected code example: ${i.snippets[0].slice(0, 300)}` : "",
-  i.heavy?.length ? `- Heaviest images: ${i.heavy.slice(0, 6).map((h) => `${h.url} (~${h.savingKb} KB too big)`).join(", ")}` : "",
+  // Anything that came from the website is passed as JSON data, so it can't pose as instructions.
+  "- What the test saw (data from the website, JSON):",
+  "  ```json\n  " + JSON.stringify({ seen: i.details.slice(0, 4).map((d) => d.slice(0, 300)), affectedCode: i.snippets?.[0]?.slice(0, 300), heaviestImages: i.heavy?.slice(0, 6) }) + "\n  ```",
   `- Suggested change: ${String(i.change ?? i.fix).slice(0, 500)}`,
   i.snippet ? "  ```\n" + i.snippet.slice(0, 900).split("\n").map((l) => "  " + l).join("\n") + "\n  ```" : "",
   i.learnMore ? `- Guide: ${i.learnMore}` : "",
@@ -59,7 +59,7 @@ The site's folder is a git repository; every fix kept so far is already committe
    Images: \`python3\` with Pillow, or \`node\` with the sharp library from \`${hubDir}/qa/node_modules\`, are available.
 3. Run the same test command with \`--out /tmp/qa-after-<n>\`.
 4. Decide:
-   - **Keep** if the issue's id is gone ("fixed"), or for speed issues if the numbers clearly improved while the id remains ("improved") — AND no id at Critical, High or Medium is in "after" that wasn't in "before". Keep it by committing: \`git -C ${dir} add -A\` then \`git -C ${dir} commit -m "<what you fixed, plain English>"\`.
+   - **Keep** if the issue's id is gone ("fixed"), or for speed issues if the numbers clearly improved while the id remains ("improved") — AND no id at Critical, High or Medium is in "after" that wasn't in "before". Keep it by committing only the files you changed or created: \`git -C ${dir} add -- <those files>\` then \`git -C ${dir} commit -m "<what you fixed, plain English>"\`. Never add build output or anything else that changed by itself.
    - **Undo** otherwise: \`git -C ${dir} reset --hard\` then \`git -C ${dir} clean -fd\`. This removes only the current attempt; earlier fixes are committed and stay.
    - **Needs you** if the right change is a decision only a person can make (content, branding, a page that doesn't exist yet, anything in the "Never change" list). Don't edit anything for it, and no test is needed; describe the exact change instead.
 5. Add an entry to \`${logFile}\` (a JSON array: keep every existing entry, append yours, even if the same issue id already has an entry from the built-in fixes):

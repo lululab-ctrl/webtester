@@ -13,7 +13,7 @@ import path from "node:path";
 import os from "node:os";
 import { execFileSync, execSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
-import { loadSite } from "./lib/config.mjs";
+import { loadSite, globToRegex } from "./lib/config.mjs";
 
 const QA = path.dirname(fileURLToPath(import.meta.url));
 const HUB = path.resolve(QA, "..");
@@ -23,6 +23,7 @@ const site = loadSite(HUB, opt("--site"));
 const ROOT = path.resolve(opt("--root"));
 const before = JSON.parse(fs.readFileSync(opt("--results"), "utf8"));
 const LOG = path.resolve(opt("--log") ?? "fixes.json");
+const COMMIT = args.includes("--commit");   // commit each kept fix in the site's git repository
 // Where the published files come from. Without a build step that's the served folder; with a build that
 // copies files unchanged, "sourceDir" says where the originals are. Otherwise page fixes are left to Claude.
 const SRC = site.sourceDir ?? (!site.build ? (site.serveDir ?? ".") : null);
@@ -32,7 +33,7 @@ const fixes = fs.existsSync(LOG) ? JSON.parse(fs.readFileSync(LOG, "utf8")) : []
 const save = () => fs.writeFileSync(LOG, JSON.stringify(fixes, null, 2));
 
 // Files the site generates from other files must be fixed at their source, which needs judgement: leave them to Claude.
-const generated = (site.generated ?? []).map((g) => new RegExp("^" + g.replace(/[.+^${}()|[\]\\]/g, "\\$&").replace(/\*\*/g, "§").replace(/\*/g, "[^/]*").replace(/§/g, ".*") + "$"));
+const generated = (site.generated ?? []).map(globToRegex);
 const isGenerated = (rel) => generated.some((re) => re.test(rel));
 
 function pageFile(page) {
@@ -52,35 +53,52 @@ function retest(pages, { perf = false } = {}) {
   const a = [path.join(QA, "run.mjs"), "--site", site.domain, "--root", ROOT, "--pages", pages.join(","), "--out", out, "--quick"];
   if (perf) a.push("--with-perf");
   try { execFileSync("node", a, { stdio: ["ignore", "ignore", "inherit"], cwd: HUB }); } catch { /* exit 1 just means serious issues exist */ }
-  return JSON.parse(fs.readFileSync(path.join(out, "results.json"), "utf8"));
+  const f = path.join(out, "results.json");
+  if (!fs.existsSync(f)) throw new Error("the re-test couldn't finish");
+  return JSON.parse(fs.readFileSync(f, "utf8"));
 }
 
 const WORSE = ["Critical", "High", "Medium"];
 async function attempt({ issue, pages, title, apply, perf = false, judge }) {
   pages = [...new Set(pages)].slice(0, 12);
-  log(`${title}: testing ${pages.join(", ")} before the fix…`);
-  const pre = retest(pages, { perf });
+  const entry = { by: "built-in", issueId: issue.id, rule: issue.rule, severity: issue.severity, title };
   const backups = new Map();
-  const touch = (file) => { if (!backups.has(file)) backups.set(file, fs.readFileSync(file)); };
-  const summary = await apply(touch);
-  const files = [...backups.keys()];
-  const entry = { by: "built-in", issueId: issue.id, rule: issue.rule, severity: issue.severity, title, files: files.map(rel), summary };
-  if (!files.length) { fixes.push({ ...entry, status: "skipped", reason: summary || "Nothing to change in the source files." }); save(); return; }
-  log(`${title}: testing again after changing ${files.length} file(s)…`);
-  const post = retest(pages, { perf });
-  const preIds = new Set(pre.issues.map((i) => i.id));
-  const added = post.issues.filter((i) => !preIds.has(i.id) && WORSE.includes(i.severity));
-  const verdict = judge ? judge(pre, post) : { ok: !post.issues.some((i) => i.id === issue.id), detail: "The issue no longer appears on these pages." };
-  if (verdict.ok && !added.length) {
-    fixes.push({ ...entry, status: verdict.status ?? "fixed", verified: verdict.detail });
-    log(`${title}: kept (${verdict.detail})`);
-  } else {
-    for (const [file, data] of backups) fs.writeFileSync(file, data);
-    const reason = !verdict.ok ? `The re-test still showed the problem (${verdict.detail}).` : `It caused new issues: ${added.map((i) => `${i.severity} "${i.title}" on ${i.pages.slice(0, 2).join(", ")}`).join("; ")}.`;
-    fixes.push({ ...entry, status: "undone", reason });
-    log(`${title}: undone. ${reason}`);
+  const restore = () => { for (const [file, data] of backups) data === null ? fs.rmSync(file, { force: true }) : fs.writeFileSync(file, data); };
+  // Whatever happens (a crash in a fix or a test), changed files are put back unless the fix was verified.
+  let kept = false;
+  try {
+    log(`${title}: testing ${pages.join(", ")} before the fix…`);
+    const pre = retest(pages, { perf });
+    const touch = (file) => { if (!backups.has(file)) backups.set(file, fs.existsSync(file) ? fs.readFileSync(file) : null); };
+    const summary = await apply(touch);
+    const files = [...backups.keys()];
+    Object.assign(entry, { files: files.map(rel), summary });
+    if (!files.length) { fixes.push({ ...entry, status: "skipped", reason: summary || "Nothing to change in the source files." }); return; }
+    log(`${title}: testing again after changing ${files.length} file(s)…`);
+    const post = retest(pages, { perf });
+    const preIds = new Set(pre.issues.map((i) => i.id));
+    const added = post.issues.filter((i) => !preIds.has(i.id) && WORSE.includes(i.severity));
+    const verdict = judge ? judge(pre, post) : { ok: !post.issues.some((i) => i.id === issue.id), detail: "The issue no longer appears on these pages." };
+    if (verdict.ok && !added.length) {
+      kept = true;
+      fixes.push({ ...entry, status: verdict.status ?? "fixed", verified: verdict.detail });
+      log(`${title}: kept (${verdict.detail})`);
+      if (COMMIT) {   // each kept fix is its own commit, holding only the files it changed
+        execFileSync("git", ["-C", ROOT, "add", "--", ...files.map(rel)]);
+        execFileSync("git", ["-C", ROOT, "commit", "-q", "-m", `${title} (re-tested)`, "-m", summary]);
+      }
+    } else {
+      const reason = !verdict.ok ? `The re-test still showed the problem (${verdict.detail}).` : `It caused new issues: ${added.map((i) => `${i.severity} "${i.title}" on ${i.pages.slice(0, 2).join(", ")}`).join("; ")}.`;
+      fixes.push({ ...entry, status: "undone", reason });
+      log(`${title}: undone. ${reason}`);
+    }
+  } catch (e) {
+    fixes.push({ ...entry, status: "undone", reason: `The fix or its test failed to run (${String(e.message).split("\n")[0].slice(0, 200)}), so nothing was kept.` });
+    log(`${title}: undone after an error: ${e.message}`);
+  } finally {
+    if (!kept) restore();
+    save();
   }
-  save();
 }
 
 // Adds a tag right after <head …> (or edits <html …>) in each page's own file.
@@ -158,7 +176,9 @@ async function shrinkImages(issue) {
 async function httpsLinks(issue) {
   const urls = issue.details.map((d) => d.match(/http:\/\/[^\s"')]+/)?.[0]).filter(Boolean);
   if (!SERVE) return;
-  const files = execSync(`grep -rlI --exclude-dir=node_modules --exclude-dir=.git -e "http://" .`, { cwd: SERVE, encoding: "utf8" }).split("\n").filter(Boolean);
+  let files = [];
+  try { files = execFileSync("grep", ["-rlI", "--exclude-dir=node_modules", "--exclude-dir=.git", "-e", "http://", "."], { cwd: SERVE, encoding: "utf8" }).split("\n").filter(Boolean); }
+  catch (e) { if (e.status !== 1) throw e; }   // 1 = no matches
   const ok = [];
   for (const u of new Set(urls)) {
     try { const r = await fetch(u.replace(/^http:/, "https:"), { method: "HEAD", signal: AbortSignal.timeout(10000) }); if (r.ok) ok.push(u); } catch {}
@@ -184,8 +204,8 @@ async function updateLibraries(issue) {
     issue, title: "Update libraries with known security holes", pages: site.pages.slice(0, 3),
     apply: (touch) => {
       for (const f of ["package.json", "package-lock.json"]) touch(path.join(ROOT, f));
-      try { execSync("npm audit fix --no-fund", { cwd: ROOT, stdio: "ignore" }); } catch {}
-      return "Ran npm audit fix (only updates that don't break compatibility).";
+      try { execSync("npm audit fix --no-fund --package-lock-only", { cwd: ROOT, stdio: "ignore" }); } catch {}
+      return "Updated the library versions recorded in package-lock.json with npm audit fix (only updates that don't break compatibility).";
     },
     judge: () => {
       let left = 0;
