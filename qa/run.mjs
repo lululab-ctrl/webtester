@@ -101,6 +101,7 @@ const findings = [];
 const linkMap = new Map(); // link → pages it appears on
 const pagesDom = [];
 const visited = [];
+const missing = new Set();   // pages that answered 404 etc.
 const siteTexts = new Map(); // the site's own HTML and scripts as the browser received them (for the secret scan)
 const isPageLink = (u) => !/\.(pdf|zip|jpe?g|png|webp|gif|svg|mp4|cube|xmp|dng)$/i.test(u.pathname) && !(config.crawl?.exclude ?? []).some((x) => u.pathname.startsWith(x));
 
@@ -120,6 +121,13 @@ async function pass(browserName, devs, { deep = false, shotsOn = [] } = {}, page
       shotDir: shotsOn.includes(device.name) ? SHOTS : null,
     });
     await ctx.close();
+    // A page that doesn't exist isn't checked further: the link check reports links to it,
+    // and a listed key page that's missing is reported here.
+    if (r.status >= 400) {
+      missing.add(p);
+      if ((config.pages ?? []).includes(p) && deep && lang === langs[0]) findings.push({ rule: "broken-link", detail: `${p} answered ${r.status}: a key page in this site's settings doesn't exist`, page: p, severity: "High" });
+      return;
+    }
     findings.push(...r.found);
     for (const [u, t] of r.texts ?? []) siteTexts.set(u, t);
     if (deep) {
@@ -153,6 +161,7 @@ if (config.crawl?.enabled) {
     pages = [...pages, ...extra];
   }
 }
+pages = pages.filter((p) => !missing.has(p));
 
 // ── 4. Every page on every screen size, then other browsers ──────────────
 log(`Checking ${pages.length} pages on ${devices.length - 1} more screen sizes…`);

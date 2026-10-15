@@ -162,7 +162,14 @@ jobs:
 
       - name: Built-in fixes (each one re-tested, undone if it doesn't help)
         if: steps.ready.outputs.ok == 'true'
-        run: node qa/fix.mjs --site "$DOMAIN" --root site --results work/before/results.json --log work/fixes.json
+        run: |
+          git -C site config user.name "site-qa[bot]"; git -C site config user.email "site-qa-bot@users.noreply.github.com"
+          mkdir -p work && git -C site rev-parse HEAD > work/start-sha
+          # The site's build output is never part of a fix.
+          out=$(jq -r 'if .build then (.serveDir // "") else "" end' "sites/$DOMAIN.json"); [ -n "$out" ] && [ "$out" != "." ] && echo "/$out/" >> site/.git/info/exclude
+          node qa/fix.mjs --site "$DOMAIN" --root site --results work/before/results.json --log work/fixes.json
+          # Keep them as their own commit, so undoing a later attempt can never touch them.
+          git -C site add -A && { git -C site diff --cached --quiet || git -C site commit -q -m "Built-in fixes: each re-tested on the affected pages"; }
 
       - name: Test again and write Claude's task
         id: task
@@ -182,17 +189,19 @@ jobs:
           prompt: "Follow the instructions in qa-task.md exactly, from start to finish."
           claude_args: |
             --max-turns 250
-            --allowedTools "Read,Write,Edit,MultiEdit,Glob,Grep,LS,Bash(node:*),Bash(npm:*),Bash(npx:*),Bash(python3:*),Bash(git -C site status:*),Bash(git -C site diff:*),Bash(git -C site checkout:*),Bash(ls:*),Bash(cat:*),Bash(jq:*)"
+            --allowedTools "Read,Write,Edit,MultiEdit,Glob,Grep,LS,Bash(node:*),Bash(npm:*),Bash(npx:*),Bash(python3:*),Bash(git -C site status:*),Bash(git -C site diff:*),Bash(git -C site log:*),Bash(git -C site add:*),Bash(git -C site commit:*),Bash(git -C site reset --hard:*),Bash(git -C site clean -fd:*),Bash(ls:*),Bash(cat:*),Bash(jq:*),Bash(mkdir:*)"
 
       - name: Final test, compared with before
         id: final
         if: steps.ready.outputs.ok == 'true'
         run: |
           [ -f work/fixes.json ] || echo "[]" > work/fixes.json
+          # Anything left uncommitted (an unfinished attempt) is dropped first: only re-tested, committed fixes count.
+          git -C site reset -q --hard && git -C site clean -qfd
           node qa/run.mjs --site "$DOMAIN" --root site --quick --with-perf --compare work/before/results.json --fixes work/fixes.json --out work/after || true
           # A pull request is opened only if the fixes didn't add any serious problem.
           added=$(jq '[.comparison.added[] | select(.severity == "Critical" or .severity == "High")] | length' work/after/results.json)
-          changed=$(git -C site status --porcelain | wc -l)
+          changed=$(git -C site rev-list --count "$(cat work/start-sha)..HEAD")
           echo "added=$added" >> "$GITHUB_OUTPUT"; echo "changed=$changed" >> "$GITHUB_OUTPUT"
           cat work/after/summary.md work/after/details.md | sed 's/<!-- qa-results:.*-->//' >> "$GITHUB_STEP_SUMMARY"
 
@@ -209,10 +218,7 @@ jobs:
           fi
           branch="qa-fixes/$(date -u +%Y-%m-%d-%H%M)"
           cd site
-          git config user.name "site-qa[bot]"; git config user.email "site-qa-bot@users.noreply.github.com"
           git checkout -q -b "$branch"
-          git add -A
-          git commit -q -m "Fixes from the site test ($(date -u +%Y-%m-%d))" -m "Each change was re-tested; changes that didn't help or caused new problems were undone. Full report: $RUN_URL"
           git push -q "https://x-access-token:${GH_TOKEN}@github.com/${REPO}.git" "$branch"
           base=$(gh api "repos/$REPO" --jq .default_branch)
           { echo "Automatic fixes from **Test a website**. Every change was re-tested on the affected pages; changes that didn't fix the problem or caused a new one were undone."; echo; echo "**Before merging:** check the pages in the preview, and review any wording Claude wrote (titles, descriptions, alt text)."; echo; echo "Full run: $RUN_URL"; echo; sed 's/<!-- qa-results:.*-->//' ../work/after/summary.md ../work/after/details.md; } | head -c 60000 > ../pr.md

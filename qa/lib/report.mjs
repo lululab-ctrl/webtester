@@ -60,15 +60,18 @@ function issueCard(i, r) {
 function fixSection(r) {
   const parts = [];
   if (r.fixes) {
+    // An issue can have several entries (e.g. a built-in attempt undone, then Claude fixed it): count each issue once.
+    const keptIds = new Set(r.fixes.filter((f) => ["fixed", "improved"].includes(f.status)).map((f) => f.issueId));
     const kept = r.fixes.filter((f) => ["fixed", "improved"].includes(f.status));
-    const undone = r.fixes.filter((f) => f.status === "undone");
-    const fixedIds = new Set(kept.map((f) => f.issueId));
+    const undone = r.fixes.filter((f) => f.status === "undone" && !keptIds.has(f.issueId));
+    const fixedIds = keptIds;
+    const needYouEntries = r.fixes.filter((f) => f.status === "needs-you" && !keptIds.has(f.issueId));
     const needYou = r.issues.filter((i) => !fixedIds.has(i.id) && (i.fixBy === "you" || r.fixes.some((f) => f.issueId === i.id && ["undone", "needs-you"].includes(f.status))));
     parts.push(`<h2>Automatic fixes</h2>
-<div class="fixgrid"><div class="count"><b class="clean">${kept.length}</b><span>fixed and re-tested</span></div><div class="count"><b>${undone.length}</b><span>tried, then undone</span></div><div class="count"><b class="sev-high">${needYou.length}</b><span>need you</span></div></div>
+<div class="fixgrid"><div class="count"><b class="clean">${keptIds.size}</b><span>issues fixed and re-tested</span></div><div class="count"><b>${undone.length}</b><span>tried, then undone</span></div><div class="count"><b class="sev-high">${needYou.length}</b><span>need you</span></div></div>
 ${kept.length ? `<h4>Fixed and re-tested</h4><ul class="fixlist">${kept.map((f) => `<li><b>${esc(f.title)}</b>: ${esc(f.summary ?? "")} <span class="kind">${esc(f.verified ?? "")}</span></li>`).join("")}</ul>` : ""}
 ${undone.length ? `<h4>Tried, then undone</h4><ul class="fixlist">${undone.map((f) => `<li><b>${esc(f.title)}</b>: ${esc(f.reason ?? "")}</li>`).join("")}</ul>` : ""}
-${needYou.length ? `<h4>Need you</h4><ul class="fixlist">${needYou.map((i) => `<li><a href="#i-${i.id}">${esc(i.title)}</a> <span class="kind">(${esc(i.severity)})</span></li>`).join("")}</ul>` : ""}`);
+${needYou.length ? `<h4>Need you</h4><ul class="fixlist">${needYou.map((i) => { const e = needYouEntries.find((f) => f.issueId === i.id); return `<li><a href="#i-${i.id}">${esc(i.title)}</a> <span class="kind">(${esc(i.severity)})</span>${e?.change ? `<br>${esc(e.reason ?? "")} <b>Change:</b> ${esc(e.change)}` : ""}</li>`; }).join("")}</ul>` : ""}`);
   }
   if (r.comparison) {
     const c = r.comparison;
