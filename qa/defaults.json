@@ -1,0 +1,33 @@
+{
+  "$comment": "Settings every site starts with. A site's own file in sites/ overrides any of these.",
+  "pages": ["/"],
+  "crawl": { "enabled": true, "maxPages": 30, "exclude": [] },
+  "languages": [{ "code": "en", "label": "Main language" }],
+  "devices": [
+    { "name": "iPhone SE", "width": 375, "height": 667, "mobile": true },
+    { "name": "iPhone 15", "width": 393, "height": 852, "mobile": true },
+    { "name": "Galaxy S23", "width": 360, "height": 780, "mobile": true },
+    { "name": "iPad Mini", "width": 768, "height": 1024, "mobile": true },
+    { "name": "iPad Pro landscape", "width": 1366, "height": 1024, "mobile": true },
+    { "name": "Laptop", "width": 1280, "height": 800 },
+    { "name": "Desktop", "width": 1920, "height": 1080 }
+  ],
+  "browsers": ["chromium", "firefox", "webkit"],
+  "performanceBudget": { "score": 70, "lcpMs": 2500, "cls": 0.1, "tbtMs": 300 },
+  "searchEngines": { "private": [], "launched": true },
+  "flows": [
+    {
+      "name": "A missing page shows an error page with a way back",
+      "severity": "Low",
+      "steps": [
+        { "goto": "/this-page-does-not-exist-qa-check/", "expectStatus": 404 },
+        { "expectVisible": "a[href]" }
+      ]
+    }
+  ],
+  "contentRules": [],
+  "downgrade": [],
+  "gate": { "blockOn": ["Critical", "High"] },
+  "serveDir": ".",
+  "branch": "main"
+}

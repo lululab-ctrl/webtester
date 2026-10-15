@@ -1,0 +1,239 @@
+# ============================================================================
+# Test a website — Actions → "Test a website" → Run workflow.
+#   1. Type the domain (a saved one, or a new one: it's added to the list).
+#   2. Optionally tick "Fix" to have problems fixed in the site's code.
+# Results: this run's summary page, SITES.md, and reports/<domain>/ in this repository.
+# ============================================================================
+name: Test a website
+run-name: "Test ${{ inputs.website }}${{ inputs.fix && ' and fix' || '' }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      website:
+        description: "Website to test: its domain, e.g. tours.mw.photography (new ones are added to the list)"
+        required: true
+        type: string
+      depth:
+        description: "How thorough"
+        type: choice
+        default: "Full: every browser and screen size (about 10 minutes)"
+        options:
+          - "Full: every browser and screen size (about 10 minutes)"
+          - "Quick: Chrome, 3 screen sizes (about 3 minutes)"
+      fix:
+        description: "Fix what can be fixed safely, re-test, and open a pull request with the fixes (needs the code repository)"
+        type: boolean
+        default: false
+      code_repository:
+        description: "Code repository of this website, as owner/name (saved with the site; leave empty to keep the saved one)"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: site-${{ inputs.website }}
+  cancel-in-progress: false
+
+jobs:
+  test:
+    name: Test the live website
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    outputs:
+      domain: ${{ steps.site.outputs.domain }}
+      repo: ${{ steps.site.outputs.repo }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install the test tools
+        env:
+          QUICK: ${{ startsWith(inputs.depth, 'Quick') }}
+        run: |
+          npm ci --prefix qa --no-audit --no-fund
+          cd qa && if [ "$QUICK" = "true" ]; then npx playwright install --with-deps chromium; else npx playwright install --with-deps chromium firefox webkit; fi
+
+      - name: Find or add the website
+        id: site
+        env:
+          WEBSITE: ${{ inputs.website }}
+          REPO_INPUT: ${{ inputs.code_repository }}
+        run: |
+          domain=$(node --input-type=module -e "import {normalizeDomain} from './qa/lib/config.mjs'; console.log(normalizeDomain(process.env.WEBSITE))")
+          if [ ! -f "sites/$domain.json" ] || [ -n "$REPO_INPUT" ]; then
+            node qa/site.mjs save --domain "$domain" --repo "$REPO_INPUT"
+          fi
+          echo "domain=$domain" >> "$GITHUB_OUTPUT"
+          echo "repo=$(jq -r '.repo // ""' "sites/$domain.json")" >> "$GITHUB_OUTPUT"
+
+      - name: Test the website
+        id: qa
+        continue-on-error: true
+        env:
+          DOMAIN: ${{ steps.site.outputs.domain }}
+          QUICK: ${{ startsWith(inputs.depth, 'Quick') }}
+        run: |
+          extra=(); [ "$QUICK" = "true" ] && extra+=(--quick)
+          node qa/run.mjs --site "$DOMAIN" --out "reports/$DOMAIN/latest" "${extra[@]}"
+
+      - name: Show the results on this page
+        if: always()
+        env:
+          DOMAIN: ${{ steps.site.outputs.domain }}
+        run: |
+          f="reports/$DOMAIN/latest"
+          if [ -f "$f/summary.md" ]; then cat "$f/summary.md" "$f/details.md" | sed 's/<!-- qa-results:.*-->//' >> "$GITHUB_STEP_SUMMARY"
+          else echo "The test stopped before writing a report. Open the 'Test the website' step to see why." >> "$GITHUB_STEP_SUMMARY"; fi
+
+      - name: Attach the full report (with screenshots)
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: report-${{ steps.site.outputs.domain }}
+          path: reports/${{ steps.site.outputs.domain }}/latest/
+          retention-days: 90
+          if-no-files-found: ignore
+
+      - name: Save the results in this repository
+        if: always() && steps.site.outputs.domain != ''
+        env:
+          DOMAIN: ${{ steps.site.outputs.domain }}
+        run: |
+          d="reports/$DOMAIN"
+          if [ -f "$d/latest/results.json" ]; then
+            stamp=$(date -u +%Y-%m-%d_%H%M)
+            mkdir -p "$d/history/$stamp" && cp "$d/latest/"{results.json,summary.md,details.md} "$d/history/$stamp/"
+          fi
+          node qa/site.mjs index
+          .github/scripts/save.sh "Test results for $DOMAIN" sites SITES.md "$d"
+
+  fix:
+    name: Fix, re-test and open a pull request
+    needs: test
+    if: inputs.fix && needs.test.result == 'success'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    env:
+      DOMAIN: ${{ needs.test.outputs.domain }}
+      REPO: ${{ needs.test.outputs.repo }}
+    steps:
+      - name: Check what fixing needs
+        id: ready
+        env:
+          SITES_TOKEN: ${{ secrets.SITES_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          ok=true
+          if [ -z "$REPO" ]; then
+            echo "### Can't fix $DOMAIN yet" >> "$GITHUB_STEP_SUMMARY"
+            echo "Fixes are made in the website's code, and no code repository is saved for it. Run this form again with **Code repository** filled in (owner/name)." >> "$GITHUB_STEP_SUMMARY"; ok=false
+          fi
+          if [ -z "$SITES_TOKEN" ]; then
+            echo "### Missing key: SITES_TOKEN" >> "$GITHUB_STEP_SUMMARY"
+            echo "A GitHub key that can open pull requests on your sites' repositories. See README → Setup." >> "$GITHUB_STEP_SUMMARY"; ok=false
+          fi
+          [ -z "$ANTHROPIC_API_KEY" ] && echo "No ANTHROPIC_API_KEY: only the built-in fixes will run (see README → Setup)." >> "$GITHUB_STEP_SUMMARY"
+          echo "ok=$ok" >> "$GITHUB_OUTPUT"
+          echo "claude=$([ -n "$ANTHROPIC_API_KEY" ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/checkout@v7
+        if: steps.ready.outputs.ok == 'true'
+
+      - name: Get the website's code
+        if: steps.ready.outputs.ok == 'true'
+        uses: actions/checkout@v7
+        with:
+          repository: ${{ needs.test.outputs.repo }}
+          token: ${{ secrets.SITES_TOKEN }}
+          path: site
+          persist-credentials: false   # nothing in the fix steps can push; only the last step does, deliberately
+
+      - name: Install the test tools
+        if: steps.ready.outputs.ok == 'true'
+        run: |
+          npm ci --prefix qa --no-audit --no-fund
+          cd qa && npx playwright install --with-deps chromium
+
+      - name: Test the code before fixing
+        if: steps.ready.outputs.ok == 'true'
+        run: node qa/run.mjs --site "$DOMAIN" --root site --quick --with-perf --out work/before || true
+
+      - name: Built-in fixes (each one re-tested, undone if it doesn't help)
+        if: steps.ready.outputs.ok == 'true'
+        run: node qa/fix.mjs --site "$DOMAIN" --root site --results work/before/results.json --log work/fixes.json
+
+      - name: Test again and write Claude's task
+        id: task
+        if: steps.ready.outputs.ok == 'true'
+        run: |
+          node qa/run.mjs --site "$DOMAIN" --root site --quick --with-perf --out work/mid || true
+          node qa/claude-task.mjs --site "$DOMAIN" --results work/mid/results.json --site-dir site --log work/fixes.json > qa-task.md
+          echo "count=$(grep -c '^### ' qa-task.md || true)" >> "$GITHUB_OUTPUT"
+
+      - name: Claude fixes the rest (each one re-tested, undone if it doesn't help)
+        if: steps.ready.outputs.ok == 'true' && steps.ready.outputs.claude == 'true' && steps.task.outputs.count != '0'
+        continue-on-error: true
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ github.token }}
+          prompt: "Follow the instructions in qa-task.md exactly, from start to finish."
+          claude_args: |
+            --max-turns 250
+            --allowedTools "Read,Write,Edit,MultiEdit,Glob,Grep,LS,Bash(node:*),Bash(npm:*),Bash(npx:*),Bash(python3:*),Bash(git -C site status:*),Bash(git -C site diff:*),Bash(git -C site checkout:*),Bash(ls:*),Bash(cat:*),Bash(jq:*)"
+
+      - name: Final test, compared with before
+        id: final
+        if: steps.ready.outputs.ok == 'true'
+        run: |
+          [ -f work/fixes.json ] || echo "[]" > work/fixes.json
+          node qa/run.mjs --site "$DOMAIN" --root site --quick --with-perf --compare work/before/results.json --fixes work/fixes.json --out work/after || true
+          # A pull request is opened only if the fixes didn't add any serious problem.
+          added=$(jq '[.comparison.added[] | select(.severity == "Critical" or .severity == "High")] | length' work/after/results.json)
+          changed=$(git -C site status --porcelain | wc -l)
+          echo "added=$added" >> "$GITHUB_OUTPUT"; echo "changed=$changed" >> "$GITHUB_OUTPUT"
+          cat work/after/summary.md work/after/details.md | sed 's/<!-- qa-results:.*-->//' >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Open a pull request with the fixes
+        if: steps.ready.outputs.ok == 'true' && steps.final.outputs.changed != '0'
+        env:
+          GH_TOKEN: ${{ secrets.SITES_TOKEN }}
+          ADDED: ${{ steps.final.outputs.added }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          if [ "$ADDED" != "0" ]; then
+            echo "### No pull request: the fixes caused $ADDED new serious issue(s)" >> "$GITHUB_STEP_SUMMARY"
+            echo "Nothing was changed in the website's code. The report above lists what happened." >> "$GITHUB_STEP_SUMMARY"; exit 0
+          fi
+          branch="qa-fixes/$(date -u +%Y-%m-%d-%H%M)"
+          cd site
+          git config user.name "site-qa[bot]"; git config user.email "site-qa-bot@users.noreply.github.com"
+          git checkout -q -b "$branch"
+          git add -A
+          git commit -q -m "Fixes from the site test ($(date -u +%Y-%m-%d))" -m "Each change was re-tested; changes that didn't help or caused new problems were undone. Full report: $RUN_URL"
+          git push -q "https://x-access-token:${GH_TOKEN}@github.com/${REPO}.git" "$branch"
+          base=$(gh api "repos/$REPO" --jq .default_branch)
+          { echo "Automatic fixes from **Test a website**. Every change was re-tested on the affected pages; changes that didn't fix the problem or caused a new one were undone."; echo; echo "**Before merging:** check the pages in the preview, and review any wording Claude wrote (titles, descriptions, alt text)."; echo; echo "Full run: $RUN_URL"; echo; sed 's/<!-- qa-results:.*-->//' ../work/after/summary.md ../work/after/details.md; } | head -c 60000 > ../pr.md
+          url=$(gh pr create --repo "$REPO" --base "$base" --head "$branch" --draft --title "Site test fixes ($(date -u +%Y-%m-%d))" --body-file ../pr.md)
+          echo "### Pull request with the fixes: $url" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Attach the fix report
+        if: always() && steps.ready.outputs.ok == 'true'
+        uses: actions/upload-artifact@v7
+        with:
+          name: fix-report-${{ needs.test.outputs.domain }}
+          path: work/
+          retention-days: 90
+          if-no-files-found: ignore
+
+      - name: Save the fix report in this repository
+        if: always() && steps.ready.outputs.ok == 'true'
+        run: |
+          [ -f work/after/results.json ] || exit 0
+          d="reports/$DOMAIN/fixes/$(date -u +%Y-%m-%d_%H%M)"
+          mkdir -p "$d" && cp work/after/{results.json,summary.md,details.md} work/fixes.json "$d/"
+          [ -f qa-task.md ] && cp qa-task.md "$d/" || true
+          git pull -q --rebase || true
+          .github/scripts/save.sh "Fix results for $DOMAIN" reports

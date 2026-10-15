@@ -1,0 +1,8 @@
+node_modules/
+qa/node_modules/
+work/
+qa-task.md
+pr.md
+site/
+reports/*/latest/screenshots/
+*.local.json

@@ -1,0 +1,87 @@
+# ============================================================================
+# Add or edit a website — Actions → "Add or edit a website" → Run workflow.
+# Adds a website to the list, changes its domain, name, code repository or key pages,
+# or removes it. Tick "Test it now" to start a test straight after.
+# ============================================================================
+name: Add or edit a website
+run-name: "${{ inputs.remove && 'Remove' || 'Save' }} ${{ inputs.website }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      website:
+        description: "Domain, e.g. tours.mw.photography"
+        required: true
+        type: string
+      old_domain:
+        description: "Changing a site's domain? Put its current domain here (settings, known issues and reports move with it)"
+        required: false
+        type: string
+      name:
+        description: "Name to show in the list (optional)"
+        required: false
+        type: string
+      code_repository:
+        description: "Code repository, as owner/name; needed for automatic fixes (optional; type none to unlink)"
+        required: false
+        type: string
+      key_pages:
+        description: "Key pages to always test, comma-separated, e.g. /, /tours/, /contact/ (optional; others are found by following links)"
+        required: false
+        type: string
+      build:
+        description: "Only if the code needs building: the build command, e.g. npm ci && npm run build (optional)"
+        required: false
+        type: string
+      publish_folder:
+        description: "Only with a build: the folder it produces, e.g. dist (optional)"
+        required: false
+        type: string
+      remove:
+        description: "Remove this website from the list"
+        type: boolean
+        default: false
+      test_now:
+        description: "Test it now"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  actions: write   # to start "Test a website" when "Test it now" is ticked
+
+jobs:
+  save:
+    name: Save the website
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Save
+        id: save
+        env:
+          WEBSITE: ${{ inputs.website }}
+          OLD: ${{ inputs.old_domain }}
+          NAME: ${{ inputs.name }}
+          REPO: ${{ inputs.code_repository }}
+          PAGES: ${{ inputs.key_pages }}
+          BUILD: ${{ inputs.build }}
+          PUBLISH: ${{ inputs.publish_folder }}
+          REMOVE: ${{ inputs.remove }}
+        run: |
+          domain=$(node --input-type=module -e "import {normalizeDomain} from './qa/lib/config.mjs'; console.log(normalizeDomain(process.env.WEBSITE))")
+          echo "domain=$domain" >> "$GITHUB_OUTPUT"
+          if [ "$REMOVE" = "true" ]; then node qa/site.mjs remove --domain "$domain"
+          else node qa/site.mjs save --domain "$domain" --previous "$OLD" --name "$NAME" --repo "$REPO" --pages "$PAGES" --build "$BUILD" --publish-folder "$PUBLISH"; fi
+          node qa/site.mjs index
+          { echo "### $([ "$REMOVE" = "true" ] && echo Removed || echo Saved) $domain"; echo; echo '```json'; cat "sites/$domain.json" 2>/dev/null || true; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          .github/scripts/save.sh "$([ "$REMOVE" = "true" ] && echo Remove || echo Save) website $domain" sites SITES.md reports
+
+      - name: Start a test
+        if: ${{ inputs.test_now && !inputs.remove }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DOMAIN: ${{ steps.save.outputs.domain }}
+        run: |
+          gh workflow run test-website.yml --repo "$GITHUB_REPOSITORY" -f website="$DOMAIN"
+          echo "Test started: Actions → Test a website." >> "$GITHUB_STEP_SUMMARY"
