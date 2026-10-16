@@ -1,0 +1,2355 @@
+{
+  "site": "MWP Shop",
+  "domain": "shop.mw.photography",
+  "tested": "live",
+  "liveUrl": "https://shop.mw.photography",
+  "when": "2026-10-16T23:54:41.609Z",
+  "commit": null,
+  "durationS": 447,
+  "mode": "full",
+  "coverage": {
+    "pages": 22,
+    "languages": [
+      "English",
+      "Hebrew"
+    ],
+    "devices": [
+      "iPhone SE (375×667)",
+      "iPhone 15 (393×852)",
+      "Galaxy S23 (360×780)",
+      "iPad Mini (768×1024)",
+      "iPad Pro landscape (1366×1024)",
+      "Laptop (1280×800)",
+      "Desktop (1920×1080)"
+    ],
+    "browsers": [
+      "Chrome / Edge",
+      "Firefox",
+      "Safari (iPhone, Mac)"
+    ],
+    "links": 25,
+    "flows": 7
+  },
+  "verdict": "blocked",
+  "blockOn": [
+    "Critical",
+    "High"
+  ],
+  "counts": {
+    "Critical": 0,
+    "High": 4,
+    "Medium": 11,
+    "Low": 23
+  },
+  "issues": [
+    {
+      "key": "viewport-missing|No viewport tag",
+      "rule": "viewport-missing",
+      "severity": "High",
+      "category": "devices",
+      "title": "The page isn't set up for phones",
+      "ruleTitle": "The page isn't set up for phones",
+      "why": "Without the viewport setting, phones show a shrunken desktop version that visitors have to pinch and zoom.",
+      "fix": "Add <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> inside <head>.",
+      "details": [
+        "No viewport tag"
+      ],
+      "pages": [
+        "/presets/",
+        "/panel/",
+        "/field-guides/",
+        "/presets/he/",
+        "/panel/he/",
+        "/field-guides/he/"
+      ],
+      "devices": [
+        "iPhone SE",
+        "iPhone 15",
+        "Galaxy S23",
+        "iPad Mini",
+        "iPad Pro landscape"
+      ],
+      "browsers": [
+        "Chrome / Edge",
+        "Firefox",
+        "Safari (iPhone, Mac)"
+      ],
+      "langs": [
+        "English",
+        "Hebrew"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "ca57fcfeed",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": true,
+      "fixBy": "claude",
+      "fixNote": "These pages are built from other files, so Claude makes the change at the source.",
+      "change": "In the <head> of /presets/, /panel/, /field-guides/, /presets/he/, /panel/he/, /field-guides/he/, add:",
+      "snippet": "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
+    },
+    {
+      "key": "visible-placeholder|kind:a price of 0.00 (no price set for this product in the admin)",
+      "rule": "visible-placeholder",
+      "severity": "High",
+      "category": "errors",
+      "title": "Visitors can see unfinished text",
+      "ruleTitle": "Visitors can see unfinished text",
+      "why": "Notes meant for the team, filler text or template fields look unprofessional and make visitors doubt the shop is real or finished.",
+      "fix": "Replace the text (or the image or price it refers to) with the final version, then check the page again.",
+      "details": [
+        "Shows a price of 0.00 (no price set for this product in the admin): \"₪0.00\"",
+        "Shows a price of 0.00 (no price set for this product in the admin): \"$0.00\"",
+        "Shows a price of 0.00 (no price set for this product in the admin): \"· $0.00\"",
+        "Shows a price of 0.00 (no price set for this product in the admin): \"· ₪0.00\""
+      ],
+      "pages": [
+        "/",
+        "/presets/",
+        "/panel/",
+        "/field-guides/",
+        "/presets/he/",
+        "/panel/he/",
+        "/field-guides/he/"
+      ],
+      "devices": [
+        "Laptop"
+      ],
+      "browsers": [
+        "Chrome / Edge"
+      ],
+      "langs": [
+        "Hebrew",
+        "English"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "e92632b576",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": true,
+      "fixBy": "you",
+      "fixNote": "Content only you can supply (final text, image or price).",
+      "change": "Replace what's shown: Shows a price of 0.00 (no price set for this product in the admin): \"₪0.00\". Pages: /, /presets/, /panel/, /field-guides/, /presets/he/, /panel/he/ and 1 more."
+    },
+    {
+      "key": "visible-placeholder|kind:a placeholder note",
+      "rule": "visible-placeholder",
+      "severity": "High",
+      "category": "errors",
+      "title": "Visitors can see unfinished text",
+      "ruleTitle": "Visitors can see unfinished text",
+      "why": "Notes meant for the team, filler text or template fields look unprofessional and make visitors doubt the shop is real or finished.",
+      "fix": "Replace the text (or the image or price it refers to) with the final version, then check the page again.",
+      "details": [
+        "Shows a placeholder note: \"PLACEHOLDER: the \"after\" here is Matan's finished edit. Replace with the same RAW edited on\""
+      ],
+      "pages": [
+        "/presets/",
+        "/panel/"
+      ],
+      "devices": [
+        "Laptop"
+      ],
+      "browsers": [
+        "Chrome / Edge"
+      ],
+      "langs": [
+        "English"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "c348dfb8e7",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": true,
+      "fixBy": "you",
+      "fixNote": "Content only you can supply (final text, image or price).",
+      "change": "Replace what's shown: Shows a placeholder note: \"PLACEHOLDER: the \"after\" here is Matan's finished edit. Replace with the same RAW edited on\". Pages: /presets/, /panel/."
+    },
+    {
+      "key": "flow-failed|flow:The shop page lists the products, and a product opens its own page|Step 2 (expectVisible #shop-grid .product-card)",
+      "rule": "flow-failed",
+      "severity": "High",
+      "category": "flows",
+      "title": "Something a visitor does doesn't work",
+      "ruleTitle": "Something a visitor does doesn't work",
+      "why": "This is one of the site's key actions. If it fails here, it fails for real visitors too.",
+      "fix": "Follow the same steps yourself on the device listed. The step that failed is shown; the screenshot shows what the page looked like at that moment.",
+      "details": [
+        "Step 2 (expectVisible #shop-grid .product-card) failed: locator.waitFor: Timeout 8000ms exceeded. · The page showed: \"All products All products Search products Sort by Featured Newest Price: low to high Price: high to low 0 products The first products are being prepared. Check back soon.\"",
+        "Step 2 (expectVisible #shop-grid .product-card) failed: locator.waitFor: Timeout 8000ms exceeded. · The page showed: \"All products All products Search products Sort by 0 products The first products are being prepared. Check back soon.\""
+      ],
+      "pages": [
+        "The shop page lists the products, and a product opens its own page"
+      ],
+      "devices": [
+        "iPhone SE",
+        "Laptop"
+      ],
+      "browsers": [
+        "Chrome / Edge",
+        "Firefox",
+        "Safari (iPhone, Mac)"
+      ],
+      "langs": [],
+      "shots": [
+        "flow_The_shop_page_lists_the_products_and_a_product_ope__iPhone-SE__chromium.jpg",
+        "flow_The_shop_page_lists_the_products_and_a_product_ope__Laptop__chromium.jpg",
+        "flow_The_shop_page_lists_the_products_and_a_product_ope__iPhone-SE__firefox.jpg",
+        "flow_The_shop_page_lists_the_products_and_a_product_ope__Laptop__firefox.jpg"
+      ],
+      "snippets": [],
+      "heavy": [],
+      "id": "b0f48819d1",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": true,
+      "fixBy": "claude",
+      "change": "Follow the steps yourself: Step 2 (expectVisible #shop-grid .product-card) failed: locator.waitFor: Timeout 8000ms exceeded. · The page showed: \"All products All products Search products Sort by Featured Newest Price: low to high Price: high to low 0 products The first products are being prepared. Check back soon.\""
+    },
+    {
+      "key": "a11y|axe:color-contrast",
+      "rule": "a11y",
+      "severity": "Medium",
+      "category": "accessibility",
+      "title": "Elements must meet minimum color contrast ratio thresholds",
+      "ruleTitle": "Accessibility barrier",
+      "why": "Some visitors can't use this part of the page: people using screen readers, keyboard only, zoom, or with low vision or colour blindness. Accessibility is also a legal requirement in many countries, including Israel's accessibility regulations for websites.",
+      "fix": "See the specific rule below; each one links to a guide with the exact fix.",
+      "learnMore": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+      "details": [
+        "Elements must meet minimum color contrast ratio thresholds (2 places: .lrp:nth-child(1) > .hd · .lrp:nth-child(3) > .hd)"
+      ],
+      "pages": [
+        "/presets/",
+        "/presets/he/"
+      ],
+      "devices": [
+        "Laptop"
+      ],
+      "browsers": [
+        "Chrome / Edge"
+      ],
+      "langs": [
+        "English",
+        "Hebrew"
+      ],
+      "shots": [],
+      "snippets": [
+        "<div class=\"hd\">PRESETS</div>",
+        "<div class=\"hd\">פריסטים</div>"
+      ],
+      "axeId": "color-contrast",
+      "fixHint": "Fix any of the following:   Element has insufficient color contrast of 3.16 (foreground color: #777777, background color: #2b2b2b, font size: 7.5pt (10px), font weight: bold). Expected contrast ratio of 4.5:1",
+      "heavy": [],
+      "id": "2d5e174e76",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "change": "Element has insufficient color contrast of 3.16 (foreground color: #777777, background color: #2b2b2b, font size: 7.5pt (10px), font weight: bold). Expected contrast ratio of 4.5:1. See the guide for the exact fix.",
+      "snippet": "Example of what's affected:\n<div class=\"hd\">PRESETS</div>"
+    },
+    {
+      "key": "request-failed|/presets/%7B%7Bcur.before%7D%7D answered 404 (image)",
+      "rule": "request-failed",
+      "severity": "Medium",
+      "category": "errors",
+      "title": "A file or server request failed",
+      "ruleTitle": "A file or server request failed",
+      "why": "The page asked for something (a script, style, image, font, or data from the server) and didn't get it. Missing scripts and styles break the page; missing data shows empty or wrong content.",
+      "fix": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working.",
+      "details": [
+        "/presets/%7B%7Bcur.before%7D%7D answered 404 (image)"
+      ],
+      "pages": [
+        "/presets/",
+        "/presets/he/"
+      ],
+      "devices": [
+        "Laptop",
+        "iPhone SE",
+        "iPhone 15",
+        "Galaxy S23",
+        "iPad Mini",
+        "iPad Pro landscape",
+        "Desktop"
+      ],
+      "browsers": [
+        "Chrome / Edge",
+        "Firefox",
+        "Safari (iPhone, Mac)"
+      ],
+      "langs": [
+        "English",
+        "Hebrew"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "ebe362e995",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "change": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working."
+    },
+    {
+      "key": "request-failed|/presets/%7B%7Bcur.after%7D%7D answered 404 (image)",
+      "rule": "request-failed",
+      "severity": "Medium",
+      "category": "errors",
+      "title": "A file or server request failed",
+      "ruleTitle": "A file or server request failed",
+      "why": "The page asked for something (a script, style, image, font, or data from the server) and didn't get it. Missing scripts and styles break the page; missing data shows empty or wrong content.",
+      "fix": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working.",
+      "details": [
+        "/presets/%7B%7Bcur.after%7D%7D answered 404 (image)"
+      ],
+      "pages": [
+        "/presets/",
+        "/presets/he/"
+      ],
+      "devices": [
+        "Laptop",
+        "iPhone SE",
+        "iPhone 15",
+        "Galaxy S23",
+        "iPad Mini",
+        "iPad Pro landscape",
+        "Desktop"
+      ],
+      "browsers": [
+        "Chrome / Edge",
+        "Firefox",
+        "Safari (iPhone, Mac)"
+      ],
+      "langs": [
+        "English",
+        "Hebrew"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "493fca9fb8",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "change": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working."
+    },
+    {
+      "key": "request-failed|/panel/%7B%7Bcur.before%7D%7D answered 404 (image)",
+      "rule": "request-failed",
+      "severity": "Medium",
+      "category": "errors",
+      "title": "A file or server request failed",
+      "ruleTitle": "A file or server request failed",
+      "why": "The page asked for something (a script, style, image, font, or data from the server) and didn't get it. Missing scripts and styles break the page; missing data shows empty or wrong content.",
+      "fix": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working.",
+      "details": [
+        "/panel/%7B%7Bcur.before%7D%7D answered 404 (image)"
+      ],
+      "pages": [
+        "/panel/",
+        "/panel/he/"
+      ],
+      "devices": [
+        "Laptop",
+        "iPhone SE",
+        "iPhone 15",
+        "Galaxy S23",
+        "iPad Pro landscape",
+        "iPad Mini",
+        "Desktop"
+      ],
+      "browsers": [
+        "Chrome / Edge",
+        "Firefox",
+        "Safari (iPhone, Mac)"
+      ],
+      "langs": [
+        "English",
+        "Hebrew"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "3957aa26bb",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "change": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working."
+    },
+    {
+      "key": "request-failed|/panel/%7B%7Bcur.after%7D%7D answered 404 (image)",
+      "rule": "request-failed",
+      "severity": "Medium",
+      "category": "errors",
+      "title": "A file or server request failed",
+      "ruleTitle": "A file or server request failed",
+      "why": "The page asked for something (a script, style, image, font, or data from the server) and didn't get it. Missing scripts and styles break the page; missing data shows empty or wrong content.",
+      "fix": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working.",
+      "details": [
+        "/panel/%7B%7Bcur.after%7D%7D answered 404 (image)"
+      ],
+      "pages": [
+        "/panel/",
+        "/panel/he/"
+      ],
+      "devices": [
+        "Laptop",
+        "iPhone SE",
+        "iPhone 15",
+        "Galaxy S23",
+        "iPad Pro landscape",
+        "iPad Mini",
+        "Desktop"
+      ],
+      "browsers": [
+        "Chrome / Edge",
+        "Firefox",
+        "Safari (iPhone, Mac)"
+      ],
+      "langs": [
+        "English",
+        "Hebrew"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "ff9925d6fe",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "change": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working."
+    },
+    {
+      "key": "request-failed|/field-guides/%7B%7Bcur.src%7D%7D answered 404 (image)",
+      "rule": "request-failed",
+      "severity": "Medium",
+      "category": "errors",
+      "title": "A file or server request failed",
+      "ruleTitle": "A file or server request failed",
+      "why": "The page asked for something (a script, style, image, font, or data from the server) and didn't get it. Missing scripts and styles break the page; missing data shows empty or wrong content.",
+      "fix": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working.",
+      "details": [
+        "/field-guides/%7B%7Bcur.src%7D%7D answered 404 (image)"
+      ],
+      "pages": [
+        "/field-guides/",
+        "/field-guides/he/"
+      ],
+      "devices": [
+        "Laptop",
+        "iPhone SE",
+        "iPhone 15",
+        "Galaxy S23",
+        "iPad Mini",
+        "iPad Pro landscape",
+        "Desktop"
+      ],
+      "browsers": [
+        "Chrome / Edge",
+        "Firefox",
+        "Safari (iPhone, Mac)"
+      ],
+      "langs": [
+        "English",
+        "Hebrew"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "f1b3dff6ef",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "change": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working."
+    },
+    {
+      "key": "perf-lcp|perf",
+      "rule": "perf-lcp",
+      "severity": "Medium",
+      "category": "performance",
+      "title": "The main content appears late (LCP)",
+      "ruleTitle": "The main content appears late (LCP)",
+      "why": "Largest Contentful Paint is when the biggest thing on screen (usually the hero image) appears. Google's target is under 2.5 seconds.",
+      "fix": "Compress and resize the hero image (WebP/AVIF, no wider than it's shown), and preload it.",
+      "details": [
+        "12.6s (target under 2.5s)",
+        "15.5s (target under 2.5s)",
+        "3.8s (target under 2.5s)"
+      ],
+      "pages": [
+        "/",
+        "/presets/",
+        "/account/"
+      ],
+      "devices": [
+        "Mid-range phone, 4G"
+      ],
+      "browsers": [
+        "Chrome / Edge"
+      ],
+      "langs": [],
+      "shots": [],
+      "snippets": [],
+      "heavy": [
+        {
+          "url": "/assets/pages/img/8726daeb4a1c2551c37d43692b07fa4a.jpg",
+          "savingKb": 376
+        },
+        {
+          "url": "/assets/pages/img/8be22742a3e020062bfe042419b7e7f7.jpg",
+          "savingKb": 277
+        },
+        {
+          "url": "/assets/pages/img/07a726e1ad5390d3edaefb6d26df5150.jpg",
+          "savingKb": 274
+        },
+        {
+          "url": "/assets/pages/img/f424f86bc52a764b29bb6c0ea50eb225.jpg",
+          "savingKb": 241
+        },
+        {
+          "url": "/assets/pages/img/3c14b23dbb00f051684ad60fb205ed10.jpg",
+          "savingKb": 228
+        },
+        {
+          "url": "/assets/pages/img/8cb56471dbe5940badc7a93cad5c8bf1.jpg",
+          "savingKb": 222
+        },
+        {
+          "url": "/assets/pages/img/fbaf19aea2af10f26b2949ab31fff094.jpg",
+          "savingKb": 208
+        },
+        {
+          "url": "/assets/pages/img/5275cc7bcd4fb7560d8f7163592e3122.jpg",
+          "savingKb": 207
+        },
+        {
+          "url": "/assets/pages/img/d5f6d2a7c84cc3346ef45e4922528351.jpg",
+          "savingKb": 200
+        },
+        {
+          "url": "/assets/pages/img/ff95ea5c7aba4eba92df5afc39ee9eb7.jpg",
+          "savingKb": 187
+        }
+      ],
+      "id": "9d082d4108",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "built-in + claude",
+      "fixNote": "The tool shrinks oversized images itself; Claude handles loading order (lazy-loading, deferring scripts).",
+      "change": "Make the images smaller (resize to the size they're shown at, WebP or AVIF, about 80% quality), load images below the first screen with loading=\"lazy\", and let the main image load first with fetchpriority=\"high\". Biggest savings:",
+      "snippet": "/assets/pages/img/8726daeb4a1c2551c37d43692b07fa4a.jpg  (could be ~376 KB smaller)\n/assets/pages/img/8be22742a3e020062bfe042419b7e7f7.jpg  (could be ~277 KB smaller)\n/assets/pages/img/07a726e1ad5390d3edaefb6d26df5150.jpg  (could be ~274 KB smaller)\n/assets/pages/img/f424f86bc52a764b29bb6c0ea50eb225.jpg  (could be ~241 KB smaller)\n/assets/pages/img/3c14b23dbb00f051684ad60fb205ed10.jpg  (could be ~228 KB smaller)\n/assets/pages/img/8cb56471dbe5940badc7a93cad5c8bf1.jpg  (could be ~222 KB smaller)"
+    },
+    {
+      "key": "header-hsts|No Strict-Transport-Security header (GitHub Pages can't send custom headers; see the fix for the workaround or a host that can)",
+      "rule": "header-hsts",
+      "severity": "Medium",
+      "category": "security",
+      "title": "Browsers aren't told to always use the secure address",
+      "ruleTitle": "Browsers aren't told to always use the secure address",
+      "why": "Without HSTS, a visitor's very first request can be sent unencrypted and redirected by an attacker on public Wi-Fi.",
+      "fix": "Send the Strict-Transport-Security header (max-age of at least six months). Most hosts have a switch for this.",
+      "details": [
+        "No Strict-Transport-Security header (GitHub Pages can't send custom headers; see the fix for the workaround or a host that can)"
+      ],
+      "pages": [
+        "/",
+        "/shop/",
+        "/product/?p=mwp-presets",
+        "/presets/",
+        "/panel/",
+        "/field-guides/"
+      ],
+      "devices": [],
+      "browsers": [
+        "live site"
+      ],
+      "langs": [],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "f6b8edf422",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "you",
+      "fixNote": "This site is hosted on GitHub Pages, which can't send security headers. It needs a host change (or Cloudflare in front), which is a decision for you.",
+      "change": "Make the host send this header on every page.",
+      "snippet": "GitHub Pages can't send this header. Options:\n1. Publish through Vercel or Netlify (both read headers from a file in the code), or\n2. Put Cloudflare (free plan) in front of the domain and add the header there:\n   Strict-Transport-Security: max-age=31536000; includeSubDomains"
+    },
+    {
+      "key": "header-csp|No CSP header or meta tag (GitHub Pages can't send custom headers; see the fix for the workaround or a host that can)",
+      "rule": "header-csp",
+      "severity": "Medium",
+      "category": "security",
+      "title": "No Content Security Policy",
+      "ruleTitle": "No Content Security Policy",
+      "why": "A CSP is a whitelist of where scripts may come from. If any bug ever lets someone inject a script, the CSP stops it from running. It's the main safety net against account-stealing attacks.",
+      "fix": "Add a Content-Security-Policy header, or a <meta http-equiv=\"Content-Security-Policy\"> tag when the host can't set headers. Start in report-only mode and tighten it.",
+      "details": [
+        "No CSP header or meta tag (GitHub Pages can't send custom headers; see the fix for the workaround or a host that can)"
+      ],
+      "pages": [
+        "/",
+        "/shop/",
+        "/product/?p=mwp-presets",
+        "/presets/",
+        "/panel/",
+        "/field-guides/"
+      ],
+      "devices": [],
+      "browsers": [
+        "live site"
+      ],
+      "langs": [],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "5a89e03d60",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "you",
+      "fixNote": "This site is hosted on GitHub Pages, which can't send security headers. It needs a host change (or Cloudflare in front), which is a decision for you.",
+      "change": "Add a Content Security Policy. Start with the report-only version below, check nothing breaks for a week, then switch the name to Content-Security-Policy.",
+      "snippet": "GitHub Pages can't send this header. Options:\n1. Publish through Vercel or Netlify (both read headers from a file in the code), or\n2. Put Cloudflare (free plan) in front of the domain and add the header there:\n   Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https: data:; connect-src 'self' https:; frame-ancestors 'none'\n\nWithout header support, a CSP can also go in each page's <head>:\n<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'; script-src 'self' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https: data:; connect-src 'self' https:\">"
+    },
+    {
+      "key": "header-frame|No X-Frame-Options or frame-ancestors (GitHub Pages can't send custom headers; see the fix for the workaround or a host that can)",
+      "rule": "header-frame",
+      "severity": "Medium",
+      "category": "security",
+      "title": "Other sites can embed this page invisibly",
+      "ruleTitle": "Other sites can embed this page invisibly",
+      "why": "An attacker can load the page inside an invisible frame on their own site and trick visitors into clicking buttons (\"clickjacking\").",
+      "fix": "Send X-Frame-Options: DENY or a CSP with frame-ancestors 'none'. (This one can't be set with a <meta> tag.)",
+      "details": [
+        "No X-Frame-Options or frame-ancestors (GitHub Pages can't send custom headers; see the fix for the workaround or a host that can)"
+      ],
+      "pages": [
+        "/",
+        "/shop/",
+        "/product/?p=mwp-presets",
+        "/presets/",
+        "/panel/",
+        "/field-guides/"
+      ],
+      "devices": [],
+      "browsers": [
+        "live site"
+      ],
+      "langs": [],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "fedf4bd24f",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "you",
+      "fixNote": "This site is hosted on GitHub Pages, which can't send security headers. It needs a host change (or Cloudflare in front), which is a decision for you.",
+      "change": "Make the host send this header on every page.",
+      "snippet": "GitHub Pages can't send this header. Options:\n1. Publish through Vercel or Netlify (both read headers from a file in the code), or\n2. Put Cloudflare (free plan) in front of the domain and add the header there:\n   X-Frame-Options: DENY"
+    },
+    {
+      "key": "description-missing|No meta description",
+      "rule": "description-missing",
+      "severity": "Medium",
+      "category": "seo",
+      "title": "The page has no search description",
+      "ruleTitle": "The page has no search description",
+      "why": "The description is the grey text under the title in Google. Without one, Google picks random text from the page, which usually sells it badly.",
+      "fix": "Add <meta name=\"description\" content=\"…\"> with one or two sentences (about 70–160 characters).",
+      "details": [
+        "No meta description"
+      ],
+      "pages": [
+        "/presets/",
+        "/panel/",
+        "/field-guides/",
+        "/presets/he/",
+        "/panel/he/",
+        "/field-guides/he/"
+      ],
+      "devices": [],
+      "browsers": [],
+      "langs": [
+        "English",
+        "Hebrew"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "54602ff55f",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "fixNote": "Claude writes the description from the page's own text; check the wording in the pull request.",
+      "change": "In the <head> of /presets/, /panel/, /field-guides/, /presets/he/, /panel/he/, /field-guides/he/, add one or two sentences (70–160 characters) saying what the page offers:",
+      "snippet": "<meta name=\"description\" content=\"…\">"
+    },
+    {
+      "key": "a11y|axe:heading-order",
+      "rule": "a11y",
+      "severity": "Low",
+      "category": "accessibility",
+      "title": "Heading levels should only increase by one",
+      "ruleTitle": "Accessibility barrier",
+      "why": "Some visitors can't use this part of the page: people using screen readers, keyboard only, zoom, or with low vision or colour blindness. Accessibility is also a legal requirement in many countries, including Israel's accessibility regulations for websites.",
+      "fix": "See the specific rule below; each one links to a guide with the exact fix.",
+      "learnMore": "https://dequeuniversity.com/rules/axe/4.13/heading-order?application=playwright",
+      "details": [
+        "Heading levels should only increase by one (1 place: div:nth-child(2) > h3)"
+      ],
+      "pages": [
+        "/shop/",
+        "/account/",
+        "/support/",
+        "/thank-you/",
+        "/testers/",
+        "/read/",
+        "/shop/?cat=bundle",
+        "/product/",
+        "/support/?topic=download",
+        "/support/?topic=refund",
+        "/account/?next=%2Fread%2F"
+      ],
+      "devices": [
+        "Laptop"
+      ],
+      "browsers": [
+        "Chrome / Edge"
+      ],
+      "langs": [
+        "English",
+        "Hebrew"
+      ],
+      "shots": [],
+      "snippets": [
+        "<h3>Shop</h3>",
+        "<h3>חנות</h3>"
+      ],
+      "axeId": "heading-order",
+      "fixHint": "Fix any of the following:   Heading order invalid",
+      "heavy": [],
+      "id": "a2d4011088",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "change": "Heading order invalid. See the guide for the exact fix.",
+      "snippet": "Example of what's affected:\n<h3>Shop</h3>"
+    },
+    {
+      "key": "a11y|axe:region",
+      "rule": "a11y",
+      "severity": "Low",
+      "category": "accessibility",
+      "title": "All page content should be contained by landmarks",
+      "ruleTitle": "Accessibility barrier",
+      "why": "Some visitors can't use this part of the page: people using screen readers, keyboard only, zoom, or with low vision or colour blindness. Accessibility is also a legal requirement in many countries, including Israel's accessibility regulations for websites.",
+      "fix": "See the specific rule below; each one links to a guide with the exact fix.",
+      "learnMore": "https://dequeuniversity.com/rules/axe/4.13/region?application=playwright",
+      "details": [
+        "All page content should be contained by landmarks (1 place: .announce)",
+        "All page content should be contained by landmarks (51 places: .hero-bg · .hero-copy · .band)",
+        "All page content should be contained by landmarks (37 places: .hero-bg · .hero-copy · .stat:nth-child(1) > .n > .sr)",
+        "All page content should be contained by landmarks (48 places: .hero-bg · .hero-copy · .stat:nth-child(1) > .n > .sr)",
+        "All page content should be contained by landmarks (43 places: #top · .band · #inside > .wrap > .head.rv[data-fx=\"1\"])",
+        "All page content should be contained by landmarks (4 places: .stack-lg > .stack · #gate-form > .field:nth-child(1) · #gate-form > .field:nth-child(2))"
+      ],
+      "pages": [
+        "/shop/",
+        "/product/?p=mwp-presets",
+        "/presets/",
+        "/panel/",
+        "/account/",
+        "/field-guides/",
+        "/support/",
+        "/legal/",
+        "/thank-you/",
+        "/admin/",
+        "/shop/?cat=bundle",
+        "/presets/he/",
+        "/panel/he/",
+        "/field-guides/he/",
+        "/product/",
+        "/support/?topic=download",
+        "/support/?topic=refund",
+        "/account/?next=%2Fread%2F"
+      ],
+      "devices": [
+        "Laptop"
+      ],
+      "browsers": [
+        "Chrome / Edge"
+      ],
+      "langs": [
+        "English",
+        "Hebrew"
+      ],
+      "shots": [],
+      "snippets": [
+        "<div class=\"announce\">",
+        "<img class=\"hero-bg\" src=\"../assets/pages/img/1a2e3ed3f44db1f671babb09a599b29f.jpg\" alt=\"A male lion roaring, photographed by Matan Wild\">",
+        "<img class=\"hero-bg\" src=\"../assets/pages/img/1a2e3ed3f44db1f671babb09a599b29f.jpg\" alt=\"אריה שואג. צילום: מתן וויילד\">"
+      ],
+      "axeId": "region",
+      "fixHint": "Fix any of the following:   Some page content is not contained by landmarks",
+      "heavy": [],
+      "id": "39f973a5a2",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "change": "Some page content is not contained by landmarks. See the guide for the exact fix.",
+      "snippet": "Example of what's affected:\n<div class=\"announce\">"
+    },
+    {
+      "key": "a11y|axe:page-has-heading-one",
+      "rule": "a11y",
+      "severity": "Low",
+      "category": "accessibility",
+      "title": "Page should contain a level-one heading",
+      "ruleTitle": "Accessibility barrier",
+      "why": "Some visitors can't use this part of the page: people using screen readers, keyboard only, zoom, or with low vision or colour blindness. Accessibility is also a legal requirement in many countries, including Israel's accessibility regulations for websites.",
+      "fix": "See the specific rule below; each one links to a guide with the exact fix.",
+      "learnMore": "https://dequeuniversity.com/rules/axe/4.13/page-has-heading-one?application=playwright",
+      "details": [
+        "Page should contain a level-one heading (1 place: html)"
+      ],
+      "pages": [
+        "/product/?p=mwp-presets"
+      ],
+      "devices": [
+        "Laptop"
+      ],
+      "browsers": [
+        "Chrome / Edge"
+      ],
+      "langs": [
+        "English",
+        "Hebrew"
+      ],
+      "shots": [],
+      "snippets": [
+        "<html lang=\"en\" dir=\"ltr\" class=\"\">",
+        "<html lang=\"he\" dir=\"rtl\" class=\"\">"
+      ],
+      "axeId": "page-has-heading-one",
+      "fixHint": "Fix all of the following:   Page must have a level-one heading",
+      "heavy": [],
+      "id": "77b11b3ba3",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "change": "Page must have a level-one heading. See the guide for the exact fix.",
+      "snippet": "Example of what's affected:\n<html lang=\"en\" dir=\"ltr\" class=\"\">"
+    },
+    {
+      "key": "a11y|axe:landmark-one-main",
+      "rule": "a11y",
+      "severity": "Low",
+      "category": "accessibility",
+      "title": "Document should have one main landmark",
+      "ruleTitle": "Accessibility barrier",
+      "why": "Some visitors can't use this part of the page: people using screen readers, keyboard only, zoom, or with low vision or colour blindness. Accessibility is also a legal requirement in many countries, including Israel's accessibility regulations for websites.",
+      "fix": "See the specific rule below; each one links to a guide with the exact fix.",
+      "learnMore": "https://dequeuniversity.com/rules/axe/4.13/landmark-one-main?application=playwright",
+      "details": [
+        "Document should have one main landmark (1 place: html)"
+      ],
+      "pages": [
+        "/admin/"
+      ],
+      "devices": [
+        "Laptop"
+      ],
+      "browsers": [
+        "Chrome / Edge"
+      ],
+      "langs": [
+        "English"
+      ],
+      "shots": [],
+      "snippets": [
+        "<html lang=\"en\" dir=\"ltr\" class=\"\">"
+      ],
+      "axeId": "landmark-one-main",
+      "fixHint": "Fix all of the following:   Document does not have a main landmark",
+      "heavy": [],
+      "id": "fb13b886ba",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "change": "Document does not have a main landmark. See the guide for the exact fix.",
+      "snippet": "Example of what's affected:\n<html lang=\"en\" dir=\"ltr\" class=\"\">"
+    },
+    {
+      "key": "request-failed|/npm/@supabase/auth-js@2.118.0/+esm answered 404 (script)",
+      "rule": "request-failed",
+      "severity": "Low",
+      "category": "errors",
+      "title": "A file or server request failed",
+      "ruleTitle": "A file or server request failed",
+      "why": "The page asked for something (a script, style, image, font, or data from the server) and didn't get it. Missing scripts and styles break the page; missing data shows empty or wrong content.",
+      "fix": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working.",
+      "note": "Safari's engine makes an extra request for the database library's parts at the wrong address. The library itself loads (no script fails, and every journey passes in Safari), so visitors aren't affected. Goes away when the library is copied into the site (see the security item about it).",
+      "details": [
+        "/npm/@supabase/auth-js@2.118.0/+esm answered 404 (script)"
+      ],
+      "pages": [
+        "/",
+        "/shop/",
+        "/product/?p=mwp-presets",
+        "/account/",
+        "/support/",
+        "/legal/",
+        "/thank-you/",
+        "/beta/",
+        "/testers/",
+        "/read/",
+        "/admin/",
+        "/shop/?cat=bundle",
+        "/product/",
+        "/support/?topic=download",
+        "/support/?topic=refund",
+        "/account/?next=%2Fread%2F"
+      ],
+      "devices": [
+        "Laptop",
+        "iPhone 15"
+      ],
+      "browsers": [
+        "Safari (iPhone, Mac)"
+      ],
+      "langs": [
+        "English",
+        "Hebrew"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "712e392cdc",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "change": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working."
+    },
+    {
+      "key": "request-failed|/npm/@supabase/realtime-js@2.118.0/+esm answered 404 (script)",
+      "rule": "request-failed",
+      "severity": "Low",
+      "category": "errors",
+      "title": "A file or server request failed",
+      "ruleTitle": "A file or server request failed",
+      "why": "The page asked for something (a script, style, image, font, or data from the server) and didn't get it. Missing scripts and styles break the page; missing data shows empty or wrong content.",
+      "fix": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working.",
+      "note": "Safari's engine makes an extra request for the database library's parts at the wrong address. The library itself loads (no script fails, and every journey passes in Safari), so visitors aren't affected. Goes away when the library is copied into the site (see the security item about it).",
+      "details": [
+        "/npm/@supabase/realtime-js@2.118.0/+esm answered 404 (script)"
+      ],
+      "pages": [
+        "/",
+        "/shop/",
+        "/product/?p=mwp-presets",
+        "/account/",
+        "/support/",
+        "/legal/",
+        "/thank-you/",
+        "/beta/",
+        "/testers/",
+        "/read/",
+        "/admin/",
+        "/shop/?cat=bundle",
+        "/product/",
+        "/support/?topic=download",
+        "/support/?topic=refund",
+        "/account/?next=%2Fread%2F"
+      ],
+      "devices": [
+        "Laptop",
+        "iPhone 15"
+      ],
+      "browsers": [
+        "Safari (iPhone, Mac)"
+      ],
+      "langs": [
+        "English",
+        "Hebrew"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "3898b55b02",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "change": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working."
+    },
+    {
+      "key": "request-failed|/npm/@supabase/storage-js@2.118.0/+esm answered 404 (script)",
+      "rule": "request-failed",
+      "severity": "Low",
+      "category": "errors",
+      "title": "A file or server request failed",
+      "ruleTitle": "A file or server request failed",
+      "why": "The page asked for something (a script, style, image, font, or data from the server) and didn't get it. Missing scripts and styles break the page; missing data shows empty or wrong content.",
+      "fix": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working.",
+      "note": "Safari's engine makes an extra request for the database library's parts at the wrong address. The library itself loads (no script fails, and every journey passes in Safari), so visitors aren't affected. Goes away when the library is copied into the site (see the security item about it).",
+      "details": [
+        "/npm/@supabase/storage-js@2.118.0/+esm answered 404 (script)"
+      ],
+      "pages": [
+        "/",
+        "/shop/",
+        "/product/?p=mwp-presets",
+        "/account/",
+        "/support/",
+        "/legal/",
+        "/thank-you/",
+        "/beta/",
+        "/testers/",
+        "/read/",
+        "/admin/",
+        "/shop/?cat=bundle",
+        "/product/",
+        "/support/?topic=download",
+        "/support/?topic=refund",
+        "/account/?next=%2Fread%2F"
+      ],
+      "devices": [
+        "Laptop",
+        "iPhone 15"
+      ],
+      "browsers": [
+        "Safari (iPhone, Mac)"
+      ],
+      "langs": [
+        "English",
+        "Hebrew"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "8dfcea2ebd",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "change": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working."
+    },
+    {
+      "key": "request-failed|/npm/@supabase/functions-js@2.118.0/+esm answered 404 (script)",
+      "rule": "request-failed",
+      "severity": "Low",
+      "category": "errors",
+      "title": "A file or server request failed",
+      "ruleTitle": "A file or server request failed",
+      "why": "The page asked for something (a script, style, image, font, or data from the server) and didn't get it. Missing scripts and styles break the page; missing data shows empty or wrong content.",
+      "fix": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working.",
+      "note": "Safari's engine makes an extra request for the database library's parts at the wrong address. The library itself loads (no script fails, and every journey passes in Safari), so visitors aren't affected. Goes away when the library is copied into the site (see the security item about it).",
+      "details": [
+        "/npm/@supabase/functions-js@2.118.0/+esm answered 404 (script)"
+      ],
+      "pages": [
+        "/",
+        "/shop/",
+        "/product/?p=mwp-presets",
+        "/account/",
+        "/support/",
+        "/legal/",
+        "/thank-you/",
+        "/beta/",
+        "/testers/",
+        "/read/",
+        "/admin/",
+        "/shop/?cat=bundle",
+        "/product/",
+        "/support/?topic=download",
+        "/support/?topic=refund",
+        "/account/?next=%2Fread%2F"
+      ],
+      "devices": [
+        "Laptop",
+        "iPhone 15"
+      ],
+      "browsers": [
+        "Safari (iPhone, Mac)"
+      ],
+      "langs": [
+        "English",
+        "Hebrew"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "10d2f6d629",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "change": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working."
+    },
+    {
+      "key": "request-failed|/npm/iceberg-js@0.8.1/+esm answered 404 (script)",
+      "rule": "request-failed",
+      "severity": "Low",
+      "category": "errors",
+      "title": "A file or server request failed",
+      "ruleTitle": "A file or server request failed",
+      "why": "The page asked for something (a script, style, image, font, or data from the server) and didn't get it. Missing scripts and styles break the page; missing data shows empty or wrong content.",
+      "fix": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working.",
+      "note": "Safari's engine makes an extra request for the database library's parts at the wrong address. The library itself loads (no script fails, and every journey passes in Safari), so visitors aren't affected. Goes away when the library is copied into the site (see the security item about it).",
+      "details": [
+        "/npm/iceberg-js@0.8.1/+esm answered 404 (script)"
+      ],
+      "pages": [
+        "/",
+        "/shop/",
+        "/product/?p=mwp-presets",
+        "/account/",
+        "/support/",
+        "/legal/",
+        "/thank-you/",
+        "/beta/",
+        "/testers/",
+        "/read/",
+        "/admin/",
+        "/shop/?cat=bundle",
+        "/product/",
+        "/support/?topic=download",
+        "/support/?topic=refund",
+        "/account/?next=%2Fread%2F"
+      ],
+      "devices": [
+        "Laptop",
+        "iPhone 15"
+      ],
+      "browsers": [
+        "Safari (iPhone, Mac)"
+      ],
+      "langs": [
+        "English",
+        "Hebrew"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "09ba37c922",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "change": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working."
+    },
+    {
+      "key": "request-failed|/npm/tslib@2.8.1/+esm answered 404 (script)",
+      "rule": "request-failed",
+      "severity": "Low",
+      "category": "errors",
+      "title": "A file or server request failed",
+      "ruleTitle": "A file or server request failed",
+      "why": "The page asked for something (a script, style, image, font, or data from the server) and didn't get it. Missing scripts and styles break the page; missing data shows empty or wrong content.",
+      "fix": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working.",
+      "note": "Safari's engine makes an extra request for the database library's parts at the wrong address. The library itself loads (no script fails, and every journey passes in Safari), so visitors aren't affected. Goes away when the library is copied into the site (see the security item about it).",
+      "details": [
+        "/npm/tslib@2.8.1/+esm answered 404 (script)"
+      ],
+      "pages": [
+        "/",
+        "/shop/",
+        "/product/?p=mwp-presets",
+        "/account/",
+        "/support/",
+        "/legal/",
+        "/thank-you/",
+        "/beta/",
+        "/testers/",
+        "/read/",
+        "/admin/",
+        "/shop/?cat=bundle",
+        "/product/",
+        "/support/?topic=download",
+        "/support/?topic=refund",
+        "/account/?next=%2Fread%2F"
+      ],
+      "devices": [
+        "Laptop",
+        "iPhone 15"
+      ],
+      "browsers": [
+        "Safari (iPhone, Mac)"
+      ],
+      "langs": [
+        "English",
+        "Hebrew"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "9d1f52b284",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "change": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working."
+    },
+    {
+      "key": "request-failed|/npm/@supabase/postgrest-js@2.118.0/+esm answered 404 (script)",
+      "rule": "request-failed",
+      "severity": "Low",
+      "category": "errors",
+      "title": "A file or server request failed",
+      "ruleTitle": "A file or server request failed",
+      "why": "The page asked for something (a script, style, image, font, or data from the server) and didn't get it. Missing scripts and styles break the page; missing data shows empty or wrong content.",
+      "fix": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working.",
+      "note": "Safari's engine makes an extra request for the database library's parts at the wrong address. The library itself loads (no script fails, and every journey passes in Safari), so visitors aren't affected. Goes away when the library is copied into the site (see the security item about it).",
+      "details": [
+        "/npm/@supabase/postgrest-js@2.118.0/+esm answered 404 (script)"
+      ],
+      "pages": [
+        "/",
+        "/shop/",
+        "/product/?p=mwp-presets",
+        "/account/",
+        "/support/",
+        "/legal/",
+        "/thank-you/",
+        "/beta/",
+        "/testers/",
+        "/read/",
+        "/admin/",
+        "/shop/?cat=bundle",
+        "/product/",
+        "/support/?topic=download",
+        "/support/?topic=refund",
+        "/account/?next=%2Fread%2F"
+      ],
+      "devices": [
+        "Laptop",
+        "iPhone 15"
+      ],
+      "browsers": [
+        "Safari (iPhone, Mac)"
+      ],
+      "langs": [
+        "English",
+        "Hebrew"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "9cf19b6b46",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "change": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working."
+    },
+    {
+      "key": "request-failed|/npm/@supabase/phoenix@0.4.5/+esm answered 404 (script)",
+      "rule": "request-failed",
+      "severity": "Low",
+      "category": "errors",
+      "title": "A file or server request failed",
+      "ruleTitle": "A file or server request failed",
+      "why": "The page asked for something (a script, style, image, font, or data from the server) and didn't get it. Missing scripts and styles break the page; missing data shows empty or wrong content.",
+      "fix": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working.",
+      "note": "Safari's engine makes an extra request for the database library's parts at the wrong address. The library itself loads (no script fails, and every journey passes in Safari), so visitors aren't affected. Goes away when the library is copied into the site (see the security item about it).",
+      "details": [
+        "/npm/@supabase/phoenix@0.4.5/+esm answered 404 (script)"
+      ],
+      "pages": [
+        "/",
+        "/shop/",
+        "/product/?p=mwp-presets",
+        "/account/",
+        "/support/",
+        "/legal/",
+        "/thank-you/",
+        "/beta/",
+        "/testers/",
+        "/read/",
+        "/admin/",
+        "/shop/?cat=bundle",
+        "/product/",
+        "/support/?topic=download",
+        "/support/?topic=refund",
+        "/account/?next=%2Fread%2F"
+      ],
+      "devices": [
+        "Laptop",
+        "iPhone 15"
+      ],
+      "browsers": [
+        "Safari (iPhone, Mac)"
+      ],
+      "langs": [
+        "English",
+        "Hebrew"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "34beb55e3d",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "change": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working."
+    },
+    {
+      "key": "header-nosniff|Missing (GitHub Pages can't send custom headers; see the fix for the workaround or a host that can)",
+      "rule": "header-nosniff",
+      "severity": "Low",
+      "category": "security",
+      "title": "Missing X-Content-Type-Options",
+      "ruleTitle": "Missing X-Content-Type-Options",
+      "why": "Without it, some browsers guess file types, which can turn an uploaded file into running code.",
+      "fix": "Send X-Content-Type-Options: nosniff.",
+      "details": [
+        "Missing (GitHub Pages can't send custom headers; see the fix for the workaround or a host that can)"
+      ],
+      "pages": [
+        "/",
+        "/shop/",
+        "/product/?p=mwp-presets",
+        "/presets/",
+        "/panel/",
+        "/field-guides/"
+      ],
+      "devices": [],
+      "browsers": [
+        "live site"
+      ],
+      "langs": [],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "2212ebc442",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "you",
+      "fixNote": "This site is hosted on GitHub Pages, which can't send security headers. It needs a host change (or Cloudflare in front), which is a decision for you.",
+      "change": "Make the host send this header on every page.",
+      "snippet": "GitHub Pages can't send this header. Options:\n1. Publish through Vercel or Netlify (both read headers from a file in the code), or\n2. Put Cloudflare (free plan) in front of the domain and add the header there:\n   X-Content-Type-Options: nosniff"
+    },
+    {
+      "key": "header-referrer|No Referrer-Policy header or meta tag",
+      "rule": "header-referrer",
+      "severity": "Low",
+      "category": "security",
+      "title": "No referrer policy",
+      "ruleTitle": "No referrer policy",
+      "why": "Full page addresses (which can include sign-in tokens or order details) may be passed to other sites the visitor goes to.",
+      "fix": "Send Referrer-Policy: strict-origin-when-cross-origin, or add <meta name=\"referrer\" content=\"strict-origin-when-cross-origin\">.",
+      "details": [
+        "No Referrer-Policy header or meta tag"
+      ],
+      "pages": [
+        "/",
+        "/shop/",
+        "/product/?p=mwp-presets",
+        "/presets/",
+        "/panel/",
+        "/field-guides/"
+      ],
+      "devices": [],
+      "browsers": [
+        "live site"
+      ],
+      "langs": [],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "e96471fb8a",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "fixNote": "These pages are built from other files, so Claude makes the change at the source.",
+      "change": "In the <head> of every page, add:",
+      "snippet": "<meta name=\"referrer\" content=\"strict-origin-when-cross-origin\">"
+    },
+    {
+      "key": "robots-blocks-all|robots.txt has \"Disallow: /\" for every search engine. Fine before launch (the settings say the site isn't launched yet); change it on launch day.",
+      "rule": "robots-blocks-all",
+      "severity": "Low",
+      "category": "seo",
+      "title": "Search engines are told to stay away from the whole site",
+      "ruleTitle": "Search engines are told to stay away from the whole site",
+      "why": "robots.txt tells Google and others not to read any page, so the site won't appear in search results at all.",
+      "fix": "If the site is launched, replace robots.txt with the launch version (block only private pages, and point to the sitemap).",
+      "details": [
+        "robots.txt has \"Disallow: /\" for every search engine. Fine before launch (the settings say the site isn't launched yet); change it on launch day."
+      ],
+      "pages": [
+        "/robots.txt"
+      ],
+      "devices": [],
+      "browsers": [],
+      "langs": [],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "6c10999f28",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "you",
+      "fixNote": "Only at launch: it's your call when the site should appear in Google.",
+      "change": "Replace robots.txt with:",
+      "snippet": "User-agent: *\nDisallow:\nDisallow: /admin/\nDisallow: /account/\nDisallow: /thank-you/\nDisallow: /beta/\nDisallow: /testers/\nDisallow: /read/\nSitemap: https://shop.mw.photography/sitemap.xml"
+    },
+    {
+      "key": "social-preview-missing|Missing og:image",
+      "rule": "social-preview-missing",
+      "severity": "Low",
+      "category": "seo",
+      "title": "Links to this page share without a preview",
+      "ruleTitle": "Links to this page share without a preview",
+      "why": "When someone shares the page on WhatsApp, Facebook or LinkedIn, it appears as a bare link instead of a card with an image and title.",
+      "fix": "Add Open Graph tags: og:title, og:description, og:image (1200×630) and og:url.",
+      "details": [
+        "Missing og:image"
+      ],
+      "pages": [
+        "/shop/",
+        "/",
+        "/product/?p=mwp-presets",
+        "/support/",
+        "/legal/",
+        "/shop/?cat=bundle",
+        "/support/?topic=download",
+        "/support/?topic=refund"
+      ],
+      "devices": [],
+      "browsers": [],
+      "langs": [
+        "English",
+        "Hebrew"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "059dcfbe32",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "change": "In the <head> of /shop/, /, /product/?p=mwp-presets, /support/, /legal/, /shop/?cat=bundle and 2 more, add share-preview tags (the image should be 1200×630):",
+      "snippet": "<meta property=\"og:title\" content=\"…\">\n<meta property=\"og:description\" content=\"…\">\n<meta property=\"og:image\" content=\"https://shop.mw.photography/share.jpg\">\n<meta property=\"og:url\" content=\"https://shop.mw.photography/shop/\">"
+    },
+    {
+      "key": "title-length|3 characters: \"MWP\"",
+      "rule": "title-length",
+      "severity": "Low",
+      "category": "seo",
+      "title": "The page title is too short or too long",
+      "ruleTitle": "The page title is too short or too long",
+      "why": "Google cuts titles over about 60 characters, and very short titles don't say enough to earn the click.",
+      "fix": "Aim for 30–60 characters that say what the page is and who it's from.",
+      "details": [
+        "3 characters: \"MWP\""
+      ],
+      "pages": [
+        "/product/?p=mwp-presets"
+      ],
+      "devices": [],
+      "browsers": [],
+      "langs": [
+        "English",
+        "Hebrew"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "7b24f3bee4",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "fixNote": "Claude writes the new title; check the wording in the pull request.",
+      "change": "Give /product/?p=mwp-presets a specific title of 30–60 characters: what the page is, then the brand.",
+      "snippet": "<title>Lightroom presets for wildlife photographers · Brand</title>"
+    },
+    {
+      "key": "h1-missing|No <h1>",
+      "rule": "h1-missing",
+      "severity": "Low",
+      "category": "seo",
+      "title": "The page has no main heading",
+      "ruleTitle": "The page has no main heading",
+      "why": "The main heading (<h1>) tells search engines and screen-reader users what the page is about.",
+      "fix": "Make the page's main headline an <h1>.",
+      "details": [
+        "No <h1>"
+      ],
+      "pages": [
+        "/product/?p=mwp-presets"
+      ],
+      "devices": [],
+      "browsers": [],
+      "langs": [
+        "English",
+        "Hebrew"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "575a9c3cbb",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "change": "Make the main headline of /product/?p=mwp-presets an <h1>."
+    },
+    {
+      "key": "title-length|11 characters: \"MWP Presets\"",
+      "rule": "title-length",
+      "severity": "Low",
+      "category": "seo",
+      "title": "The page title is too short or too long",
+      "ruleTitle": "The page title is too short or too long",
+      "why": "Google cuts titles over about 60 characters, and very short titles don't say enough to earn the click.",
+      "fix": "Aim for 30–60 characters that say what the page is and who it's from.",
+      "details": [
+        "11 characters: \"MWP Presets\""
+      ],
+      "pages": [
+        "/presets/"
+      ],
+      "devices": [],
+      "browsers": [],
+      "langs": [
+        "English"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "5866e39759",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "fixNote": "Claude writes the new title; check the wording in the pull request.",
+      "change": "Give /presets/ a specific title of 30–60 characters: what the page is, then the brand.",
+      "snippet": "<title>Lightroom presets for wildlife photographers · Brand</title>"
+    },
+    {
+      "key": "canonical-missing|No canonical link",
+      "rule": "canonical-missing",
+      "severity": "Low",
+      "category": "seo",
+      "title": "The page doesn't name its main address",
+      "ruleTitle": "The page doesn't name its main address",
+      "why": "Pages reachable at several addresses (with and without .html, with tracking codes) can be counted as duplicates by search engines.",
+      "fix": "Add <link rel=\"canonical\" href=\"https://…/page/\"> with the page's preferred address.",
+      "details": [
+        "No canonical link"
+      ],
+      "pages": [
+        "/presets/",
+        "/panel/",
+        "/field-guides/",
+        "/presets/he/",
+        "/panel/he/",
+        "/field-guides/he/"
+      ],
+      "devices": [],
+      "browsers": [],
+      "langs": [
+        "English",
+        "Hebrew"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "e985f643b2",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "fixNote": "These pages are built from other files, so Claude makes the change at the source.",
+      "change": "In the <head> of each page, add a link to its own address. For /presets/:",
+      "snippet": "<link rel=\"canonical\" href=\"https://shop.mw.photography/presets/\">"
+    },
+    {
+      "key": "social-preview-missing|Missing og:title, og:description, og:image",
+      "rule": "social-preview-missing",
+      "severity": "Low",
+      "category": "seo",
+      "title": "Links to this page share without a preview",
+      "ruleTitle": "Links to this page share without a preview",
+      "why": "When someone shares the page on WhatsApp, Facebook or LinkedIn, it appears as a bare link instead of a card with an image and title.",
+      "fix": "Add Open Graph tags: og:title, og:description, og:image (1200×630) and og:url.",
+      "details": [
+        "Missing og:title, og:description, og:image"
+      ],
+      "pages": [
+        "/presets/",
+        "/panel/",
+        "/field-guides/",
+        "/presets/he/",
+        "/panel/he/",
+        "/field-guides/he/"
+      ],
+      "devices": [],
+      "browsers": [],
+      "langs": [
+        "English",
+        "Hebrew"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "29a1dcd8da",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "change": "In the <head> of /presets/, /panel/, /field-guides/, /presets/he/, /panel/he/, /field-guides/he/, add share-preview tags (the image should be 1200×630):",
+      "snippet": "<meta property=\"og:title\" content=\"…\">\n<meta property=\"og:description\" content=\"…\">\n<meta property=\"og:image\" content=\"https://shop.mw.photography/share.jpg\">\n<meta property=\"og:url\" content=\"https://shop.mw.photography/presets/\">"
+    },
+    {
+      "key": "title-length|10 characters: \"Help · MWP\"",
+      "rule": "title-length",
+      "severity": "Low",
+      "category": "seo",
+      "title": "The page title is too short or too long",
+      "ruleTitle": "The page title is too short or too long",
+      "why": "Google cuts titles over about 60 characters, and very short titles don't say enough to earn the click.",
+      "fix": "Aim for 30–60 characters that say what the page is and who it's from.",
+      "details": [
+        "10 characters: \"Help · MWP\""
+      ],
+      "pages": [
+        "/support/",
+        "/support/?topic=download",
+        "/support/?topic=refund"
+      ],
+      "devices": [],
+      "browsers": [],
+      "langs": [
+        "English"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "470eecb16e",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "fixNote": "Claude writes the new title; check the wording in the pull request.",
+      "change": "Give /support/, /support/?topic=download, /support/?topic=refund a specific title of 30–60 characters: what the page is, then the brand.",
+      "snippet": "<title>Lightroom presets for wildlife photographers · Brand</title>"
+    },
+    {
+      "key": "title-length|10 characters: \"עזרה · MWP\"",
+      "rule": "title-length",
+      "severity": "Low",
+      "category": "seo",
+      "title": "The page title is too short or too long",
+      "ruleTitle": "The page title is too short or too long",
+      "why": "Google cuts titles over about 60 characters, and very short titles don't say enough to earn the click.",
+      "fix": "Aim for 30–60 characters that say what the page is and who it's from.",
+      "details": [
+        "10 characters: \"עזרה · MWP\""
+      ],
+      "pages": [
+        "/support/",
+        "/support/?topic=download",
+        "/support/?topic=refund"
+      ],
+      "devices": [],
+      "browsers": [],
+      "langs": [
+        "Hebrew"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "8a20369a74",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "fixNote": "Claude writes the new title; check the wording in the pull request.",
+      "change": "Give /support/, /support/?topic=download, /support/?topic=refund a specific title of 30–60 characters: what the page is, then the brand.",
+      "snippet": "<title>Lightroom presets for wildlife photographers · Brand</title>"
+    }
+  ],
+  "flowsPassed": [
+    {
+      "flow": "Switching to Hebrew flips the page to right-to-left",
+      "device": "iPhone SE",
+      "browser": "chromium"
+    },
+    {
+      "flow": "Switching to Hebrew flips the page to right-to-left",
+      "device": "Laptop",
+      "browser": "chromium"
+    },
+    {
+      "flow": "The cart opens from the header and closes again",
+      "device": "iPhone SE",
+      "browser": "chromium"
+    },
+    {
+      "flow": "The cart opens from the header and closes again",
+      "device": "Laptop",
+      "browser": "chromium"
+    },
+    {
+      "flow": "A buy button puts that product in the cart",
+      "device": "iPhone SE",
+      "browser": "chromium"
+    },
+    {
+      "flow": "A buy button puts that product in the cart",
+      "device": "Laptop",
+      "browser": "chromium"
+    },
+    {
+      "flow": "My downloads shows the sign-in form, and Create account switches to the sign-up form",
+      "device": "iPhone SE",
+      "browser": "chromium"
+    },
+    {
+      "flow": "My downloads shows the sign-in form, and Create account switches to the sign-up form",
+      "device": "Laptop",
+      "browser": "chromium"
+    },
+    {
+      "flow": "A missing page shows the 404 page with a way back",
+      "device": "iPhone SE",
+      "browser": "chromium"
+    },
+    {
+      "flow": "A missing page shows the 404 page with a way back",
+      "device": "Laptop",
+      "browser": "chromium"
+    },
+    {
+      "flow": "The sign-in form refuses an empty submit without calling the server",
+      "device": "iPhone SE",
+      "browser": "chromium"
+    },
+    {
+      "flow": "The sign-in form refuses an empty submit without calling the server",
+      "device": "Laptop",
+      "browser": "chromium"
+    },
+    {
+      "flow": "Switching to Hebrew flips the page to right-to-left",
+      "device": "iPhone SE",
+      "browser": "firefox"
+    },
+    {
+      "flow": "Switching to Hebrew flips the page to right-to-left",
+      "device": "Laptop",
+      "browser": "firefox"
+    },
+    {
+      "flow": "The cart opens from the header and closes again",
+      "device": "iPhone SE",
+      "browser": "firefox"
+    },
+    {
+      "flow": "The cart opens from the header and closes again",
+      "device": "Laptop",
+      "browser": "firefox"
+    },
+    {
+      "flow": "A buy button puts that product in the cart",
+      "device": "iPhone SE",
+      "browser": "firefox"
+    },
+    {
+      "flow": "A buy button puts that product in the cart",
+      "device": "Laptop",
+      "browser": "firefox"
+    },
+    {
+      "flow": "My downloads shows the sign-in form, and Create account switches to the sign-up form",
+      "device": "iPhone SE",
+      "browser": "firefox"
+    },
+    {
+      "flow": "My downloads shows the sign-in form, and Create account switches to the sign-up form",
+      "device": "Laptop",
+      "browser": "firefox"
+    },
+    {
+      "flow": "A missing page shows the 404 page with a way back",
+      "device": "iPhone SE",
+      "browser": "firefox"
+    },
+    {
+      "flow": "A missing page shows the 404 page with a way back",
+      "device": "Laptop",
+      "browser": "firefox"
+    },
+    {
+      "flow": "The sign-in form refuses an empty submit without calling the server",
+      "device": "iPhone SE",
+      "browser": "firefox"
+    },
+    {
+      "flow": "The sign-in form refuses an empty submit without calling the server",
+      "device": "Laptop",
+      "browser": "firefox"
+    },
+    {
+      "flow": "Switching to Hebrew flips the page to right-to-left",
+      "device": "iPhone SE",
+      "browser": "webkit"
+    },
+    {
+      "flow": "Switching to Hebrew flips the page to right-to-left",
+      "device": "Laptop",
+      "browser": "webkit"
+    },
+    {
+      "flow": "The cart opens from the header and closes again",
+      "device": "iPhone SE",
+      "browser": "webkit"
+    },
+    {
+      "flow": "The cart opens from the header and closes again",
+      "device": "Laptop",
+      "browser": "webkit"
+    },
+    {
+      "flow": "A buy button puts that product in the cart",
+      "device": "iPhone SE",
+      "browser": "webkit"
+    },
+    {
+      "flow": "A buy button puts that product in the cart",
+      "device": "Laptop",
+      "browser": "webkit"
+    },
+    {
+      "flow": "My downloads shows the sign-in form, and Create account switches to the sign-up form",
+      "device": "iPhone SE",
+      "browser": "webkit"
+    },
+    {
+      "flow": "My downloads shows the sign-in form, and Create account switches to the sign-up form",
+      "device": "Laptop",
+      "browser": "webkit"
+    },
+    {
+      "flow": "A missing page shows the 404 page with a way back",
+      "device": "iPhone SE",
+      "browser": "webkit"
+    },
+    {
+      "flow": "A missing page shows the 404 page with a way back",
+      "device": "Laptop",
+      "browser": "webkit"
+    },
+    {
+      "flow": "The sign-in form refuses an empty submit without calling the server",
+      "device": "iPhone SE",
+      "browser": "webkit"
+    },
+    {
+      "flow": "The sign-in form refuses an empty submit without calling the server",
+      "device": "Laptop",
+      "browser": "webkit"
+    }
+  ],
+  "visited": [
+    {
+      "page": "/shop/",
+      "lang": "English",
+      "status": 200,
+      "shot": "shop__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/shop/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "shop__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "home__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/",
+      "lang": "English",
+      "status": 200,
+      "shot": "home__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/product/?p=mwp-presets",
+      "lang": "English",
+      "status": 200,
+      "shot": "product_p_mwp_presets__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/product/?p=mwp-presets",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "product_p_mwp_presets__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/presets/",
+      "lang": "English",
+      "status": 200,
+      "shot": "presets__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/presets/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "presets__he__Laptop__chromium.jpg",
+      "redirectedTo": "/presets/he/"
+    },
+    {
+      "page": "/panel/",
+      "lang": "English",
+      "status": 200,
+      "shot": "panel__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/panel/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "panel__he__Laptop__chromium.jpg",
+      "redirectedTo": "/panel/he/"
+    },
+    {
+      "page": "/account/",
+      "lang": "English",
+      "status": 200,
+      "shot": "account__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/field-guides/",
+      "lang": "English",
+      "status": 200,
+      "shot": "field_guides__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/field-guides/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "field_guides__he__Laptop__chromium.jpg",
+      "redirectedTo": "/field-guides/he/"
+    },
+    {
+      "page": "/account/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "account__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/support/",
+      "lang": "English",
+      "status": 200,
+      "shot": "support__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/support/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "support__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/legal/",
+      "lang": "English",
+      "status": 200,
+      "shot": "legal__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/legal/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "legal__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/thank-you/",
+      "lang": "English",
+      "status": 200,
+      "shot": "thank_you__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/thank-you/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "thank_you__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/beta/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "beta__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/beta/",
+      "lang": "English",
+      "status": 200,
+      "shot": "beta__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/testers/",
+      "lang": "English",
+      "status": 200,
+      "shot": "testers__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/testers/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "testers__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/read/",
+      "lang": "English",
+      "status": 200,
+      "shot": "read__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/admin/",
+      "lang": "English",
+      "status": 200,
+      "shot": "admin__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/read/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "read__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/shop/?cat=bundle",
+      "lang": "English",
+      "status": 200,
+      "shot": "shop_cat_bundle__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/shop/?cat=bundle",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "shop_cat_bundle__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/presets/he/",
+      "lang": "English",
+      "status": 200,
+      "shot": "presets_he__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/presets/he/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "presets_he__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/panel/he/",
+      "lang": "English",
+      "status": 200,
+      "shot": "panel_he__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/panel/he/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "panel_he__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/field-guides/he/",
+      "lang": "English",
+      "status": 200,
+      "shot": "field_guides_he__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/field-guides/he/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "field_guides_he__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/product/",
+      "lang": "English",
+      "status": 200,
+      "shot": "product__en__Laptop__chromium.jpg",
+      "redirectedTo": "/shop/"
+    },
+    {
+      "page": "/product/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "product__he__Laptop__chromium.jpg",
+      "redirectedTo": "/shop/"
+    },
+    {
+      "page": "/support/?topic=download",
+      "lang": "English",
+      "status": 200,
+      "shot": "support_topic_download__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/support/?topic=download",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "support_topic_download__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/support/?topic=refund",
+      "lang": "English",
+      "status": 200,
+      "shot": "support_topic_refund__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/support/?topic=refund",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "support_topic_refund__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/account/?next=%2Fread%2F",
+      "lang": "English",
+      "status": 200,
+      "shot": "account_next_2Fread_2F__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/account/?next=%2Fread%2F",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "account_next_2Fread_2F__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    }
+  ],
+  "perf": [
+    {
+      "page": "/",
+      "score": 73,
+      "lcp": 12647.2735,
+      "cls": 0.017886232654544396,
+      "tbt": 0,
+      "fcp": 1985.085,
+      "weight": 3650801,
+      "tips": [
+        "Use efficient cache lifetimes (about 2.9s faster)",
+        "Improve image delivery (about 2.9s faster)",
+        "Render-blocking requests (about 0.9s faster)"
+      ],
+      "heavy": [
+        {
+          "url": "/assets/pages/img/8726daeb4a1c2551c37d43692b07fa4a.jpg",
+          "savingKb": 376
+        },
+        {
+          "url": "/assets/pages/img/3c14b23dbb00f051684ad60fb205ed10.jpg",
+          "savingKb": 228
+        },
+        {
+          "url": "/assets/pages/img/fbaf19aea2af10f26b2949ab31fff094.jpg",
+          "savingKb": 208
+        },
+        {
+          "url": "/assets/pages/img/5275cc7bcd4fb7560d8f7163592e3122.jpg",
+          "savingKb": 207
+        },
+        {
+          "url": "/assets/pages/img/d5f6d2a7c84cc3346ef45e4922528351.jpg",
+          "savingKb": 200
+        },
+        {
+          "url": "/assets/pages/img/8cb56471dbe5940badc7a93cad5c8bf1.jpg",
+          "savingKb": 183
+        },
+        {
+          "url": "/assets/pages/img/866c1bdb5cf29c21c1a04f6fc87b03e9.jpg",
+          "savingKb": 178
+        },
+        {
+          "url": "/assets/pages/img/1a2e3ed3f44db1f671babb09a599b29f.jpg",
+          "savingKb": 177
+        }
+      ]
+    },
+    {
+      "page": "/shop/",
+      "score": 99,
+      "lcp": 1695.0826499999998,
+      "cls": 0,
+      "tbt": 0,
+      "fcp": 1695.0826499999998,
+      "weight": 209489,
+      "tips": [
+        "Render-blocking requests (about 0.8s faster)"
+      ],
+      "heavy": []
+    },
+    {
+      "page": "/presets/",
+      "score": 70,
+      "lcp": 15542.3322,
+      "cls": 0.007910169226682471,
+      "tbt": 37,
+      "fcp": 2926.1749,
+      "weight": 4419351,
+      "tips": [
+        "Use efficient cache lifetimes (about 4.8s faster)",
+        "Improve image delivery (about 1.9s faster)",
+        "Render-blocking requests (about 1.9s faster)"
+      ],
+      "heavy": [
+        {
+          "url": "/assets/pages/img/8be22742a3e020062bfe042419b7e7f7.jpg",
+          "savingKb": 277
+        },
+        {
+          "url": "/assets/pages/img/07a726e1ad5390d3edaefb6d26df5150.jpg",
+          "savingKb": 274
+        },
+        {
+          "url": "/assets/pages/img/8726daeb4a1c2551c37d43692b07fa4a.jpg",
+          "savingKb": 254
+        },
+        {
+          "url": "/assets/pages/img/f424f86bc52a764b29bb6c0ea50eb225.jpg",
+          "savingKb": 241
+        },
+        {
+          "url": "/assets/pages/img/8cb56471dbe5940badc7a93cad5c8bf1.jpg",
+          "savingKb": 222
+        },
+        {
+          "url": "/assets/pages/img/ff95ea5c7aba4eba92df5afc39ee9eb7.jpg",
+          "savingKb": 187
+        },
+        {
+          "url": "/assets/pages/img/0015a37d9647a275fec7fcd23aa228d9.jpg",
+          "savingKb": 170
+        },
+        {
+          "url": "/assets/pages/img/e83b19474f1b5e07f6d6edc06ca91eb0.jpg",
+          "savingKb": 148
+        }
+      ]
+    },
+    {
+      "page": "/account/",
+      "score": 84,
+      "lcp": 3765.9853000000003,
+      "cls": 0.0050028738624273835,
+      "tbt": 0,
+      "fcp": 2771.0749000000005,
+      "weight": 508976,
+      "tips": [
+        "Render-blocking requests (about 1.9s faster)",
+        "Use efficient cache lifetimes (about 1.0s faster)",
+        "Improve image delivery (about 1.0s faster)"
+      ],
+      "heavy": [
+        {
+          "url": "/assets/pages/img/5275cc7bcd4fb7560d8f7163592e3122.jpg",
+          "savingKb": 191
+        }
+      ]
+    }
+  ],
+  "headers": [
+    {
+      "page": "/",
+      "status": 200,
+      "server": "GitHub.com"
+    },
+    {
+      "page": "/shop/",
+      "status": 200,
+      "server": "GitHub.com"
+    },
+    {
+      "page": "/product/?p=mwp-presets",
+      "status": 200,
+      "server": "GitHub.com"
+    },
+    {
+      "page": "/presets/",
+      "status": 200,
+      "server": "GitHub.com"
+    },
+    {
+      "page": "/panel/",
+      "status": 200,
+      "server": "GitHub.com"
+    },
+    {
+      "page": "/field-guides/",
+      "status": 200,
+      "server": "GitHub.com"
+    }
+  ],
+  "notes": [],
+  "comparison": null,
+  "fixes": null
+}

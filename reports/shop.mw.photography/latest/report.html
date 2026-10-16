@@ -1,0 +1,833 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Site QA Report</title>
+<style>
+:root{--bg:#f6f5f2;--card:#fff;--ink:#1d1d1b;--mute:#6b6a65;--line:#e4e2dc;--crit:#b3261e;--high:#c2410c;--med:#a16207;--low:#4b5563;--good:#15803d;--accent:#8a6d1f;--code:#f1efe9}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#141412;--card:#1d1d1a;--ink:#ecebe6;--mute:#a3a29b;--line:#33322e;--crit:#f2867f;--high:#f59e5b;--med:#e3b341;--low:#9ca3af;--good:#4ade80;--accent:#d8b866;--code:#272622}}
+:root[data-theme=dark]{--bg:#141412;--card:#1d1d1a;--ink:#ecebe6;--mute:#a3a29b;--line:#33322e;--crit:#f2867f;--high:#f59e5b;--med:#e3b341;--low:#9ca3af;--good:#4ade80;--accent:#d8b866;--code:#272622}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:980px;margin:0 auto;padding:32px 16px 64px}
+h1{font-size:28px;margin:0 0 4px;letter-spacing:-.01em}h2{font-size:20px;margin:40px 0 12px}h2 small{color:var(--mute);font-weight:400;font-size:14px;margin-left:6px}
+h3{font-size:17px;margin:8px 0 2px}h4{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--mute);margin:12px 0 4px}
+.meta{color:var(--mute);font-size:13px}a{color:var(--accent)}
+.verdict{border-radius:14px;padding:20px 22px;margin:20px 0;border:1px solid var(--line);background:var(--card);display:flex;gap:16px;align-items:flex-start}
+.verdict .dot{width:14px;height:14px;border-radius:50%;margin-top:6px;flex:none;background:var(--good)}.verdict.blocked .dot{background:var(--crit)}
+.verdict b{font-size:18px;display:block;margin-bottom:2px}
+.counts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0}
+.count{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}.count b{font-size:26px;display:block;font-variant-numeric:tabular-nums}.count span{font-size:13px;color:var(--mute)}
+.count.c-critical b{color:var(--crit)}.count.c-high b{color:var(--high)}.count.c-medium b{color:var(--med)}.count.c-low b{color:var(--low)}
+.cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
+.cat-tile{display:flex;justify-content:space-between;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;text-decoration:none;color:var(--ink);font-size:14px}
+.cat-tile b{font-weight:600;white-space:nowrap}.clean{color:var(--good)}.untested{color:var(--mute);font-weight:400}
+b.sev-critical{color:var(--crit)}b.sev-high{color:var(--high)}b.sev-medium{color:var(--med)}b.sev-low{color:var(--low)}
+.issue{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--low);border-radius:12px;padding:16px 18px;margin:12px 0}
+.issue.sev-critical{border-left-color:var(--crit)}.issue.sev-high{border-left-color:var(--high)}.issue.sev-medium{border-left-color:var(--med)}
+.issue header{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12px}
+.badge{font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--low)}
+.sev-critical .badge{color:var(--crit)}.sev-high .badge{color:var(--high)}.sev-medium .badge{color:var(--med)}
+.tag{border:1px solid var(--line);border-radius:99px;padding:1px 8px;color:var(--mute)}.tag.block{border-color:var(--crit);color:var(--crit);font-weight:600}
+.cat{color:var(--mute);margin-left:auto}.kind{color:var(--mute);margin:0;font-size:13px}
+.where{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;margin:10px 0 0;font-size:13px}.where div{display:contents}.where dt{color:var(--mute)}.where dd{margin:0}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:20px}.cols p{margin:0 0 6px}
+.details{margin:0;padding-left:18px;font-size:13px}.details li{margin:3px 0;overflow-wrap:anywhere}
+code{background:var(--code);border-radius:4px;padding:1px 4px;font:12.5px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}
+.shots{display:flex;gap:8px;margin-top:12px;overflow-x:auto}.shots img{height:150px;border-radius:8px;border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:14px}
+th,td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:left}th{font-size:12px;color:var(--mute);font-weight:600}td.num{text-align:right;font-variant-numeric:tabular-nums}
+td.good{color:var(--good);font-weight:700}td.ok{color:var(--med);font-weight:700}td.bad{color:var(--crit);font-weight:700}
+.passed{columns:2;padding-left:0;list-style:none}.passed li{break-inside:avoid;margin:2px 0}
+.note{font-size:13px;color:var(--mute);border-left:2px solid var(--line);padding-left:10px;margin:10px 0 0}pre{background:var(--code);border-radius:8px;padding:10px 12px;font:12.5px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap;overflow-wrap:anywhere;margin:6px 0}
+.who{font-size:11px;text-transform:none;letter-spacing:0;border-radius:99px;padding:1px 8px;margin-left:6px;border:1px solid var(--line);color:var(--ink)}.who-built-in{border-color:var(--good);color:var(--good)}.who-claude{border-color:var(--accent);color:var(--accent)}.who-you{border-color:var(--high);color:var(--high)}
+.fixstat{margin:10px 0 0;padding:8px 12px;border-radius:8px;background:var(--code);font-size:13.5px}.fixstat.ok b{color:var(--good)}.fixstat.warn b{color:var(--high)}.files{color:var(--mute);font-size:12px;display:block}
+.fixgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.fixgrid .count b{font-size:22px}.fixlist{padding-left:0;list-style:none;font-size:14px}.fixlist li{margin:4px 0}
+@media (max-width:700px){.fixgrid{grid-template-columns:1fr}}
+.notes{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px 12px 34px;font-size:14px;color:var(--mute)}
+.legend{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:14px}
+@media (max-width:700px){.cols{grid-template-columns:1fr}.counts{grid-template-columns:repeat(2,1fr)}.passed{columns:1}.cat{margin-left:0;width:100%}}
+</style></head><body><main>
+<p class="meta">Site QA report · the live website</p>
+<h1>MWP Shop</h1>
+<p class="meta">Tested Fri, 16 Oct 2026 23:54:41 GMT · took 7 min · full check</p>
+
+<div class="verdict blocked"><span class="dot"></span><div>
+<b>Not ready to go live: 4 serious issues</b>These are Critical or High issues that aren't on the known-issues list. Fix them, or ask a reviewer to accept them as known.
+</div></div>
+
+<div class="counts"><div class="count c-critical"><b>0</b><span>Critical</span></div><div class="count c-high"><b>4</b><span>High</span></div><div class="count c-medium"><b>11</b><span>Medium</span></div><div class="count c-low"><b>23</b><span>Low</span></div></div>
+<div class="cats"><a class="cat-tile" href="#c-errors"><span>Bugs and errors</span><b class="sev-high">15 issues</b></a><a class="cat-tile" href="#c-devices"><span>Phones, tablets and browsers</span><b class="sev-high">1 issue</b></a><a class="cat-tile" href="#c-flows"><span>Things visitors do</span><b class="sev-high">1 issue</b></a><a class="cat-tile" href="#c-accessibility"><span>Accessibility</span><b class="sev-medium">5 issues</b></a><a class="cat-tile" href="#c-seo"><span>Search engines and sharing</span><b class="sev-medium">10 issues</b></a><a class="cat-tile" href="#c-security"><span>Security</span><b class="sev-medium">5 issues</b></a><a class="cat-tile" href="#c-performance"><span>Speed</span><b class="sev-medium">1 issue</b></a></div>
+
+
+<h2>What was tested</h2>
+<p>22 pages in English and Hebrew, on 7 screen sizes (iPhone SE (375×667), iPhone 15 (393×852), Galaxy S23 (360×780), iPad Mini (768×1024), iPad Pro landscape (1366×1024), Laptop (1280×800), Desktop (1920×1080)), in Chrome / Edge, Firefox, Safari (iPhone, Mac). 25 links followed. 7 visitor journeys walked through step by step.</p>
+
+<h4>Visitor journeys that work</h4><ul class="passed"><li>✓ Switching to Hebrew flips the page to right-to-left</li><li>✓ The cart opens from the header and closes again</li><li>✓ A buy button puts that product in the cart</li><li>✓ My downloads shows the sign-in form, and Create account switches to the sign-up form</li><li>✓ A missing page shows the 404 page with a way back</li><li>✓ The sign-in form refuses an empty submit without calling the server</li></ul>
+
+<h2>Speed on a phone</h2><p class="meta">Google's scoring: 90+ is good, 50–89 needs work, under 50 is poor. LCP = when the main content appears (target under 2.5s). CLS = how much things jump (target under 0.1). TBT = how long the page ignores taps (target under 300ms).</p>
+<table><thead><tr><th>Page</th><th class="num">Score</th><th class="num">LCP</th><th class="num">CLS</th><th class="num">TBT</th><th class="num">Size</th></tr></thead><tbody><tr><td>/</td><td class="num ok">73</td><td class="num">12.6s</td><td class="num">0.02</td><td class="num">0ms</td><td class="num">3.5 MB</td></tr><tr><td>/shop/</td><td class="num good">99</td><td class="num">1.7s</td><td class="num">0.00</td><td class="num">0ms</td><td class="num">0.2 MB</td></tr><tr><td>/presets/</td><td class="num ok">70</td><td class="num">15.5s</td><td class="num">0.01</td><td class="num">37ms</td><td class="num">4.2 MB</td></tr><tr><td>/account/</td><td class="num ok">84</td><td class="num">3.8s</td><td class="num">0.01</td><td class="num">0ms</td><td class="num">0.5 MB</td></tr></tbody></table>
+
+<h2>What the levels mean</h2>
+<div class="legend"><b class="sev-critical">Critical</b><span>Fix today. Real harm is possible right now.</span><b class="sev-high">High</b><span>Fix before the next release. Visitors or data are affected.</span><b class="sev-medium">Medium</b><span>Fix soon. It hurts some visitors, sales or search ranking.</span><b class="sev-low">Low</b><span>Polish. Worth doing when you're in that area.</span></div>
+
+<section class="category" id="c-errors"><h2>Bugs and errors <small>15 issues</small></h2><article class="issue sev-high" id="i-e92632b576">
+    <header>
+      <span class="badge">High</span>
+      <span class="tag block">Serious, not on the known list</span>
+      <span class="cat">Bugs and errors</span>
+    </header>
+    <h3>Visitors can see unfinished text</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/, /presets/, /panel/, /field-guides/, /presets/he/, /panel/he/, /field-guides/he/</dd></div><div><dt>Screens</dt><dd>Laptop</dd></div><div><dt>Browsers</dt><dd>Chrome / Edge</dd></div><div><dt>Language</dt><dd>Hebrew, English</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>Shows a price of 0.00 (no price set for this product in the admin): &quot;₪0.00&quot;</code></li><li><code>Shows a price of 0.00 (no price set for this product in the admin): &quot;$0.00&quot;</code></li><li><code>Shows a price of 0.00 (no price set for this product in the admin): &quot;· $0.00&quot;</code></li><li><code>Shows a price of 0.00 (no price set for this product in the admin): &quot;· ₪0.00&quot;</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>Notes meant for the team, filler text or template fields look unprofessional and make visitors doubt the shop is real or finished.</p>
+        <h4>What to change <span class="who who-you">Needs you</span></h4>
+        <p>Replace what&#39;s shown: Shows a price of 0.00 (no price set for this product in the admin): &quot;₪0.00&quot;. Pages: /, /presets/, /panel/, /field-guides/, /presets/he/, /panel/he/ and 1 more.</p><p class="kind">Content only you can supply (final text, image or price).</p>
+        </section>
+    </div>
+    
+    
+  </article><article class="issue sev-high" id="i-c348dfb8e7">
+    <header>
+      <span class="badge">High</span>
+      <span class="tag block">Serious, not on the known list</span>
+      <span class="cat">Bugs and errors</span>
+    </header>
+    <h3>Visitors can see unfinished text</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/presets/, /panel/</dd></div><div><dt>Screens</dt><dd>Laptop</dd></div><div><dt>Browsers</dt><dd>Chrome / Edge</dd></div><div><dt>Language</dt><dd>English</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>Shows a placeholder note: &quot;PLACEHOLDER: the &quot;after&quot; here is Matan&#39;s finished edit. Replace with the same RAW edited on&quot;</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>Notes meant for the team, filler text or template fields look unprofessional and make visitors doubt the shop is real or finished.</p>
+        <h4>What to change <span class="who who-you">Needs you</span></h4>
+        <p>Replace what&#39;s shown: Shows a placeholder note: &quot;PLACEHOLDER: the &quot;after&quot; here is Matan&#39;s finished edit. Replace with the same RAW edited on&quot;. Pages: /presets/, /panel/.</p><p class="kind">Content only you can supply (final text, image or price).</p>
+        </section>
+    </div>
+    
+    
+  </article><article class="issue sev-medium" id="i-ebe362e995">
+    <header>
+      <span class="badge">Medium</span>
+      
+      <span class="cat">Bugs and errors</span>
+    </header>
+    <h3>A file or server request failed</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/presets/, /presets/he/</dd></div><div><dt>Screens</dt><dd>all screen sizes</dd></div><div><dt>Browsers</dt><dd>all browsers</dd></div><div><dt>Language</dt><dd>English, Hebrew</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>/presets/%7B%7Bcur.before%7D%7D answered 404 (image)</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>The page asked for something (a script, style, image, font, or data from the server) and didn&#39;t get it. Missing scripts and styles break the page; missing data shows empty or wrong content.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>Check the address listed. If the file moved or was renamed, update the link; if it&#39;s a server call, check the server function is deployed and working.</p>
+        </section>
+    </div>
+    
+    
+  </article><article class="issue sev-medium" id="i-493fca9fb8">
+    <header>
+      <span class="badge">Medium</span>
+      
+      <span class="cat">Bugs and errors</span>
+    </header>
+    <h3>A file or server request failed</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/presets/, /presets/he/</dd></div><div><dt>Screens</dt><dd>all screen sizes</dd></div><div><dt>Browsers</dt><dd>all browsers</dd></div><div><dt>Language</dt><dd>English, Hebrew</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>/presets/%7B%7Bcur.after%7D%7D answered 404 (image)</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>The page asked for something (a script, style, image, font, or data from the server) and didn&#39;t get it. Missing scripts and styles break the page; missing data shows empty or wrong content.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>Check the address listed. If the file moved or was renamed, update the link; if it&#39;s a server call, check the server function is deployed and working.</p>
+        </section>
+    </div>
+    
+    
+  </article><article class="issue sev-medium" id="i-3957aa26bb">
+    <header>
+      <span class="badge">Medium</span>
+      
+      <span class="cat">Bugs and errors</span>
+    </header>
+    <h3>A file or server request failed</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/panel/, /panel/he/</dd></div><div><dt>Screens</dt><dd>all screen sizes</dd></div><div><dt>Browsers</dt><dd>all browsers</dd></div><div><dt>Language</dt><dd>English, Hebrew</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>/panel/%7B%7Bcur.before%7D%7D answered 404 (image)</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>The page asked for something (a script, style, image, font, or data from the server) and didn&#39;t get it. Missing scripts and styles break the page; missing data shows empty or wrong content.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>Check the address listed. If the file moved or was renamed, update the link; if it&#39;s a server call, check the server function is deployed and working.</p>
+        </section>
+    </div>
+    
+    
+  </article><article class="issue sev-medium" id="i-ff9925d6fe">
+    <header>
+      <span class="badge">Medium</span>
+      
+      <span class="cat">Bugs and errors</span>
+    </header>
+    <h3>A file or server request failed</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/panel/, /panel/he/</dd></div><div><dt>Screens</dt><dd>all screen sizes</dd></div><div><dt>Browsers</dt><dd>all browsers</dd></div><div><dt>Language</dt><dd>English, Hebrew</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>/panel/%7B%7Bcur.after%7D%7D answered 404 (image)</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>The page asked for something (a script, style, image, font, or data from the server) and didn&#39;t get it. Missing scripts and styles break the page; missing data shows empty or wrong content.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>Check the address listed. If the file moved or was renamed, update the link; if it&#39;s a server call, check the server function is deployed and working.</p>
+        </section>
+    </div>
+    
+    
+  </article><article class="issue sev-medium" id="i-f1b3dff6ef">
+    <header>
+      <span class="badge">Medium</span>
+      
+      <span class="cat">Bugs and errors</span>
+    </header>
+    <h3>A file or server request failed</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/field-guides/, /field-guides/he/</dd></div><div><dt>Screens</dt><dd>all screen sizes</dd></div><div><dt>Browsers</dt><dd>all browsers</dd></div><div><dt>Language</dt><dd>English, Hebrew</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>/field-guides/%7B%7Bcur.src%7D%7D answered 404 (image)</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>The page asked for something (a script, style, image, font, or data from the server) and didn&#39;t get it. Missing scripts and styles break the page; missing data shows empty or wrong content.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>Check the address listed. If the file moved or was renamed, update the link; if it&#39;s a server call, check the server function is deployed and working.</p>
+        </section>
+    </div>
+    
+    
+  </article><article class="issue sev-low" id="i-712e392cdc">
+    <header>
+      <span class="badge">Low</span>
+      
+      <span class="cat">Bugs and errors</span>
+    </header>
+    <h3>A file or server request failed</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/, /shop/, /product/?p=mwp-presets, /account/, /support/, /legal/, /thank-you/, /beta/ and 8 more</dd></div><div><dt>Screens</dt><dd>Laptop, iPhone 15</dd></div><div><dt>Browsers</dt><dd>Safari (iPhone, Mac)</dd></div><div><dt>Language</dt><dd>English, Hebrew</dd></div></dl>
+    <p class="note">Reviewed: Safari&#39;s engine makes an extra request for the database library&#39;s parts at the wrong address. The library itself loads (no script fails, and every journey passes in Safari), so visitors aren&#39;t affected. Goes away when the library is copied into the site (see the security item about it).</p>
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>/npm/@supabase/auth-js@2.118.0/+esm answered 404 (script)</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>The page asked for something (a script, style, image, font, or data from the server) and didn&#39;t get it. Missing scripts and styles break the page; missing data shows empty or wrong content.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>Check the address listed. If the file moved or was renamed, update the link; if it&#39;s a server call, check the server function is deployed and working.</p>
+        </section>
+    </div>
+    
+    
+  </article><article class="issue sev-low" id="i-3898b55b02">
+    <header>
+      <span class="badge">Low</span>
+      
+      <span class="cat">Bugs and errors</span>
+    </header>
+    <h3>A file or server request failed</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/, /shop/, /product/?p=mwp-presets, /account/, /support/, /legal/, /thank-you/, /beta/ and 8 more</dd></div><div><dt>Screens</dt><dd>Laptop, iPhone 15</dd></div><div><dt>Browsers</dt><dd>Safari (iPhone, Mac)</dd></div><div><dt>Language</dt><dd>English, Hebrew</dd></div></dl>
+    <p class="note">Reviewed: Safari&#39;s engine makes an extra request for the database library&#39;s parts at the wrong address. The library itself loads (no script fails, and every journey passes in Safari), so visitors aren&#39;t affected. Goes away when the library is copied into the site (see the security item about it).</p>
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>/npm/@supabase/realtime-js@2.118.0/+esm answered 404 (script)</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>The page asked for something (a script, style, image, font, or data from the server) and didn&#39;t get it. Missing scripts and styles break the page; missing data shows empty or wrong content.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>Check the address listed. If the file moved or was renamed, update the link; if it&#39;s a server call, check the server function is deployed and working.</p>
+        </section>
+    </div>
+    
+    
+  </article><article class="issue sev-low" id="i-8dfcea2ebd">
+    <header>
+      <span class="badge">Low</span>
+      
+      <span class="cat">Bugs and errors</span>
+    </header>
+    <h3>A file or server request failed</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/, /shop/, /product/?p=mwp-presets, /account/, /support/, /legal/, /thank-you/, /beta/ and 8 more</dd></div><div><dt>Screens</dt><dd>Laptop, iPhone 15</dd></div><div><dt>Browsers</dt><dd>Safari (iPhone, Mac)</dd></div><div><dt>Language</dt><dd>English, Hebrew</dd></div></dl>
+    <p class="note">Reviewed: Safari&#39;s engine makes an extra request for the database library&#39;s parts at the wrong address. The library itself loads (no script fails, and every journey passes in Safari), so visitors aren&#39;t affected. Goes away when the library is copied into the site (see the security item about it).</p>
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>/npm/@supabase/storage-js@2.118.0/+esm answered 404 (script)</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>The page asked for something (a script, style, image, font, or data from the server) and didn&#39;t get it. Missing scripts and styles break the page; missing data shows empty or wrong content.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>Check the address listed. If the file moved or was renamed, update the link; if it&#39;s a server call, check the server function is deployed and working.</p>
+        </section>
+    </div>
+    
+    
+  </article><article class="issue sev-low" id="i-10d2f6d629">
+    <header>
+      <span class="badge">Low</span>
+      
+      <span class="cat">Bugs and errors</span>
+    </header>
+    <h3>A file or server request failed</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/, /shop/, /product/?p=mwp-presets, /account/, /support/, /legal/, /thank-you/, /beta/ and 8 more</dd></div><div><dt>Screens</dt><dd>Laptop, iPhone 15</dd></div><div><dt>Browsers</dt><dd>Safari (iPhone, Mac)</dd></div><div><dt>Language</dt><dd>English, Hebrew</dd></div></dl>
+    <p class="note">Reviewed: Safari&#39;s engine makes an extra request for the database library&#39;s parts at the wrong address. The library itself loads (no script fails, and every journey passes in Safari), so visitors aren&#39;t affected. Goes away when the library is copied into the site (see the security item about it).</p>
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>/npm/@supabase/functions-js@2.118.0/+esm answered 404 (script)</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>The page asked for something (a script, style, image, font, or data from the server) and didn&#39;t get it. Missing scripts and styles break the page; missing data shows empty or wrong content.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>Check the address listed. If the file moved or was renamed, update the link; if it&#39;s a server call, check the server function is deployed and working.</p>
+        </section>
+    </div>
+    
+    
+  </article><article class="issue sev-low" id="i-09ba37c922">
+    <header>
+      <span class="badge">Low</span>
+      
+      <span class="cat">Bugs and errors</span>
+    </header>
+    <h3>A file or server request failed</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/, /shop/, /product/?p=mwp-presets, /account/, /support/, /legal/, /thank-you/, /beta/ and 8 more</dd></div><div><dt>Screens</dt><dd>Laptop, iPhone 15</dd></div><div><dt>Browsers</dt><dd>Safari (iPhone, Mac)</dd></div><div><dt>Language</dt><dd>English, Hebrew</dd></div></dl>
+    <p class="note">Reviewed: Safari&#39;s engine makes an extra request for the database library&#39;s parts at the wrong address. The library itself loads (no script fails, and every journey passes in Safari), so visitors aren&#39;t affected. Goes away when the library is copied into the site (see the security item about it).</p>
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>/npm/iceberg-js@0.8.1/+esm answered 404 (script)</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>The page asked for something (a script, style, image, font, or data from the server) and didn&#39;t get it. Missing scripts and styles break the page; missing data shows empty or wrong content.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>Check the address listed. If the file moved or was renamed, update the link; if it&#39;s a server call, check the server function is deployed and working.</p>
+        </section>
+    </div>
+    
+    
+  </article><article class="issue sev-low" id="i-9d1f52b284">
+    <header>
+      <span class="badge">Low</span>
+      
+      <span class="cat">Bugs and errors</span>
+    </header>
+    <h3>A file or server request failed</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/, /shop/, /product/?p=mwp-presets, /account/, /support/, /legal/, /thank-you/, /beta/ and 8 more</dd></div><div><dt>Screens</dt><dd>Laptop, iPhone 15</dd></div><div><dt>Browsers</dt><dd>Safari (iPhone, Mac)</dd></div><div><dt>Language</dt><dd>English, Hebrew</dd></div></dl>
+    <p class="note">Reviewed: Safari&#39;s engine makes an extra request for the database library&#39;s parts at the wrong address. The library itself loads (no script fails, and every journey passes in Safari), so visitors aren&#39;t affected. Goes away when the library is copied into the site (see the security item about it).</p>
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>/npm/tslib@2.8.1/+esm answered 404 (script)</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>The page asked for something (a script, style, image, font, or data from the server) and didn&#39;t get it. Missing scripts and styles break the page; missing data shows empty or wrong content.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>Check the address listed. If the file moved or was renamed, update the link; if it&#39;s a server call, check the server function is deployed and working.</p>
+        </section>
+    </div>
+    
+    
+  </article><article class="issue sev-low" id="i-9cf19b6b46">
+    <header>
+      <span class="badge">Low</span>
+      
+      <span class="cat">Bugs and errors</span>
+    </header>
+    <h3>A file or server request failed</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/, /shop/, /product/?p=mwp-presets, /account/, /support/, /legal/, /thank-you/, /beta/ and 8 more</dd></div><div><dt>Screens</dt><dd>Laptop, iPhone 15</dd></div><div><dt>Browsers</dt><dd>Safari (iPhone, Mac)</dd></div><div><dt>Language</dt><dd>English, Hebrew</dd></div></dl>
+    <p class="note">Reviewed: Safari&#39;s engine makes an extra request for the database library&#39;s parts at the wrong address. The library itself loads (no script fails, and every journey passes in Safari), so visitors aren&#39;t affected. Goes away when the library is copied into the site (see the security item about it).</p>
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>/npm/@supabase/postgrest-js@2.118.0/+esm answered 404 (script)</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>The page asked for something (a script, style, image, font, or data from the server) and didn&#39;t get it. Missing scripts and styles break the page; missing data shows empty or wrong content.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>Check the address listed. If the file moved or was renamed, update the link; if it&#39;s a server call, check the server function is deployed and working.</p>
+        </section>
+    </div>
+    
+    
+  </article><article class="issue sev-low" id="i-34beb55e3d">
+    <header>
+      <span class="badge">Low</span>
+      
+      <span class="cat">Bugs and errors</span>
+    </header>
+    <h3>A file or server request failed</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/, /shop/, /product/?p=mwp-presets, /account/, /support/, /legal/, /thank-you/, /beta/ and 8 more</dd></div><div><dt>Screens</dt><dd>Laptop, iPhone 15</dd></div><div><dt>Browsers</dt><dd>Safari (iPhone, Mac)</dd></div><div><dt>Language</dt><dd>English, Hebrew</dd></div></dl>
+    <p class="note">Reviewed: Safari&#39;s engine makes an extra request for the database library&#39;s parts at the wrong address. The library itself loads (no script fails, and every journey passes in Safari), so visitors aren&#39;t affected. Goes away when the library is copied into the site (see the security item about it).</p>
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>/npm/@supabase/phoenix@0.4.5/+esm answered 404 (script)</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>The page asked for something (a script, style, image, font, or data from the server) and didn&#39;t get it. Missing scripts and styles break the page; missing data shows empty or wrong content.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>Check the address listed. If the file moved or was renamed, update the link; if it&#39;s a server call, check the server function is deployed and working.</p>
+        </section>
+    </div>
+    
+    
+  </article></section><section class="category" id="c-devices"><h2>Phones, tablets and browsers <small>1 issue</small></h2><article class="issue sev-high" id="i-ca57fcfeed">
+    <header>
+      <span class="badge">High</span>
+      <span class="tag block">Serious, not on the known list</span>
+      <span class="cat">Phones, tablets and browsers</span>
+    </header>
+    <h3>The page isn&#39;t set up for phones</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/presets/, /panel/, /field-guides/, /presets/he/, /panel/he/, /field-guides/he/</dd></div><div><dt>Screens</dt><dd>iPhone SE, iPhone 15, Galaxy S23, iPad Mini, iPad Pro landscape</dd></div><div><dt>Browsers</dt><dd>all browsers</dd></div><div><dt>Language</dt><dd>English, Hebrew</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>No viewport tag</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>Without the viewport setting, phones show a shrunken desktop version that visitors have to pinch and zoom.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>In the &lt;head&gt; of /presets/, /panel/, /field-guides/, /presets/he/, /panel/he/, /field-guides/he/, add:</p><pre>&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;</pre><p class="kind">These pages are built from other files, so Claude makes the change at the source.</p>
+        </section>
+    </div>
+    
+    
+  </article></section><section class="category" id="c-flows"><h2>Things visitors do <small>1 issue</small></h2><article class="issue sev-high" id="i-b0f48819d1">
+    <header>
+      <span class="badge">High</span>
+      <span class="tag block">Serious, not on the known list</span>
+      <span class="cat">Things visitors do</span>
+    </header>
+    <h3>Something a visitor does doesn&#39;t work</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>The shop page lists the products, and a product opens its own page</dd></div><div><dt>Screens</dt><dd>iPhone SE, Laptop</dd></div><div><dt>Browsers</dt><dd>all browsers</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>Step 2 (expectVisible #shop-grid .product-card) failed: locator.waitFor: Timeout 8000ms exceeded. · The page showed: &quot;All products All products Search products Sort by Featured Newest Price: low to high Price: high to low 0 products The first products are being prepared. Check back soon.&quot;</code></li><li><code>Step 2 (expectVisible #shop-grid .product-card) failed: locator.waitFor: Timeout 8000ms exceeded. · The page showed: &quot;All products All products Search products Sort by 0 products The first products are being prepared. Check back soon.&quot;</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>This is one of the site&#39;s key actions. If it fails here, it fails for real visitors too.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>Follow the steps yourself: Step 2 (expectVisible #shop-grid .product-card) failed: locator.waitFor: Timeout 8000ms exceeded. · The page showed: &quot;All products All products Search products Sort by Featured Newest Price: low to high Price: high to low 0 products The first products are being prepared. Check back soon.&quot;</p>
+        </section>
+    </div>
+    
+    <div class="shots"><a href="screenshots/flow_The_shop_page_lists_the_products_and_a_product_ope__iPhone-SE__chromium.jpg" target="_blank" rel="noopener"><img src="screenshots/flow_The_shop_page_lists_the_products_and_a_product_ope__iPhone-SE__chromium.jpg" alt="Screenshot: flow_The_shop_page_lists_the_products_and_a_product_ope__iPhone-SE__chromium.jpg" loading="lazy"></a><a href="screenshots/flow_The_shop_page_lists_the_products_and_a_product_ope__Laptop__chromium.jpg" target="_blank" rel="noopener"><img src="screenshots/flow_The_shop_page_lists_the_products_and_a_product_ope__Laptop__chromium.jpg" alt="Screenshot: flow_The_shop_page_lists_the_products_and_a_product_ope__Laptop__chromium.jpg" loading="lazy"></a><a href="screenshots/flow_The_shop_page_lists_the_products_and_a_product_ope__iPhone-SE__firefox.jpg" target="_blank" rel="noopener"><img src="screenshots/flow_The_shop_page_lists_the_products_and_a_product_ope__iPhone-SE__firefox.jpg" alt="Screenshot: flow_The_shop_page_lists_the_products_and_a_product_ope__iPhone-SE__firefox.jpg" loading="lazy"></a><a href="screenshots/flow_The_shop_page_lists_the_products_and_a_product_ope__Laptop__firefox.jpg" target="_blank" rel="noopener"><img src="screenshots/flow_The_shop_page_lists_the_products_and_a_product_ope__Laptop__firefox.jpg" alt="Screenshot: flow_The_shop_page_lists_the_products_and_a_product_ope__Laptop__firefox.jpg" loading="lazy"></a></div>
+  </article></section><section class="category" id="c-accessibility"><h2>Accessibility <small>5 issues</small></h2><article class="issue sev-medium" id="i-2d5e174e76">
+    <header>
+      <span class="badge">Medium</span>
+      
+      <span class="cat">Accessibility</span>
+    </header>
+    <h3>Elements must meet minimum color contrast ratio thresholds</h3>
+    <p class="kind">Accessibility barrier</p>
+    <dl class="where"><div><dt>Where</dt><dd>/presets/, /presets/he/</dd></div><div><dt>Screens</dt><dd>Laptop</dd></div><div><dt>Browsers</dt><dd>Chrome / Edge</dd></div><div><dt>Language</dt><dd>English, Hebrew</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>Elements must meet minimum color contrast ratio thresholds (2 places: .lrp:nth-child(1) &gt; .hd · .lrp:nth-child(3) &gt; .hd)</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>Some visitors can&#39;t use this part of the page: people using screen readers, keyboard only, zoom, or with low vision or colour blindness. Accessibility is also a legal requirement in many countries, including Israel&#39;s accessibility regulations for websites.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>Element has insufficient color contrast of 3.16 (foreground color: #777777, background color: #2b2b2b, font size: 7.5pt (10px), font weight: bold). Expected contrast ratio of 4.5:1. See the guide for the exact fix.</p><pre>Example of what&#39;s affected:
+&lt;div class=&quot;hd&quot;&gt;PRESETS&lt;/div&gt;</pre>
+        <p><a href="https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright" target="_blank" rel="noopener">Step-by-step guide →</a></p></section>
+    </div>
+    
+    
+  </article><article class="issue sev-low" id="i-a2d4011088">
+    <header>
+      <span class="badge">Low</span>
+      
+      <span class="cat">Accessibility</span>
+    </header>
+    <h3>Heading levels should only increase by one</h3>
+    <p class="kind">Accessibility barrier</p>
+    <dl class="where"><div><dt>Where</dt><dd>/shop/, /account/, /support/, /thank-you/, /testers/, /read/, /shop/?cat=bundle, /product/ and 3 more</dd></div><div><dt>Screens</dt><dd>Laptop</dd></div><div><dt>Browsers</dt><dd>Chrome / Edge</dd></div><div><dt>Language</dt><dd>English, Hebrew</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>Heading levels should only increase by one (1 place: div:nth-child(2) &gt; h3)</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>Some visitors can&#39;t use this part of the page: people using screen readers, keyboard only, zoom, or with low vision or colour blindness. Accessibility is also a legal requirement in many countries, including Israel&#39;s accessibility regulations for websites.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>Heading order invalid. See the guide for the exact fix.</p><pre>Example of what&#39;s affected:
+&lt;h3&gt;Shop&lt;/h3&gt;</pre>
+        <p><a href="https://dequeuniversity.com/rules/axe/4.13/heading-order?application=playwright" target="_blank" rel="noopener">Step-by-step guide →</a></p></section>
+    </div>
+    
+    
+  </article><article class="issue sev-low" id="i-39f973a5a2">
+    <header>
+      <span class="badge">Low</span>
+      
+      <span class="cat">Accessibility</span>
+    </header>
+    <h3>All page content should be contained by landmarks</h3>
+    <p class="kind">Accessibility barrier</p>
+    <dl class="where"><div><dt>Where</dt><dd>/shop/, /product/?p=mwp-presets, /presets/, /panel/, /account/, /field-guides/, /support/, /legal/ and 10 more</dd></div><div><dt>Screens</dt><dd>Laptop</dd></div><div><dt>Browsers</dt><dd>Chrome / Edge</dd></div><div><dt>Language</dt><dd>English, Hebrew</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>All page content should be contained by landmarks (1 place: .announce)</code></li><li><code>All page content should be contained by landmarks (51 places: .hero-bg · .hero-copy · .band)</code></li><li><code>All page content should be contained by landmarks (37 places: .hero-bg · .hero-copy · .stat:nth-child(1) &gt; .n &gt; .sr)</code></li><li><code>All page content should be contained by landmarks (48 places: .hero-bg · .hero-copy · .stat:nth-child(1) &gt; .n &gt; .sr)</code></li><li><code>All page content should be contained by landmarks (43 places: #top · .band · #inside &gt; .wrap &gt; .head.rv[data-fx=&quot;1&quot;])</code></li><li><code>All page content should be contained by landmarks (4 places: .stack-lg &gt; .stack · #gate-form &gt; .field:nth-child(1) · #gate-form &gt; .field:nth-child(2))</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>Some visitors can&#39;t use this part of the page: people using screen readers, keyboard only, zoom, or with low vision or colour blindness. Accessibility is also a legal requirement in many countries, including Israel&#39;s accessibility regulations for websites.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>Some page content is not contained by landmarks. See the guide for the exact fix.</p><pre>Example of what&#39;s affected:
+&lt;div class=&quot;announce&quot;&gt;</pre>
+        <p><a href="https://dequeuniversity.com/rules/axe/4.13/region?application=playwright" target="_blank" rel="noopener">Step-by-step guide →</a></p></section>
+    </div>
+    
+    
+  </article><article class="issue sev-low" id="i-77b11b3ba3">
+    <header>
+      <span class="badge">Low</span>
+      
+      <span class="cat">Accessibility</span>
+    </header>
+    <h3>Page should contain a level-one heading</h3>
+    <p class="kind">Accessibility barrier</p>
+    <dl class="where"><div><dt>Where</dt><dd>/product/?p=mwp-presets</dd></div><div><dt>Screens</dt><dd>Laptop</dd></div><div><dt>Browsers</dt><dd>Chrome / Edge</dd></div><div><dt>Language</dt><dd>English, Hebrew</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>Page should contain a level-one heading (1 place: html)</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>Some visitors can&#39;t use this part of the page: people using screen readers, keyboard only, zoom, or with low vision or colour blindness. Accessibility is also a legal requirement in many countries, including Israel&#39;s accessibility regulations for websites.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>Page must have a level-one heading. See the guide for the exact fix.</p><pre>Example of what&#39;s affected:
+&lt;html lang=&quot;en&quot; dir=&quot;ltr&quot; class=&quot;&quot;&gt;</pre>
+        <p><a href="https://dequeuniversity.com/rules/axe/4.13/page-has-heading-one?application=playwright" target="_blank" rel="noopener">Step-by-step guide →</a></p></section>
+    </div>
+    
+    
+  </article><article class="issue sev-low" id="i-fb13b886ba">
+    <header>
+      <span class="badge">Low</span>
+      
+      <span class="cat">Accessibility</span>
+    </header>
+    <h3>Document should have one main landmark</h3>
+    <p class="kind">Accessibility barrier</p>
+    <dl class="where"><div><dt>Where</dt><dd>/admin/</dd></div><div><dt>Screens</dt><dd>Laptop</dd></div><div><dt>Browsers</dt><dd>Chrome / Edge</dd></div><div><dt>Language</dt><dd>English</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>Document should have one main landmark (1 place: html)</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>Some visitors can&#39;t use this part of the page: people using screen readers, keyboard only, zoom, or with low vision or colour blindness. Accessibility is also a legal requirement in many countries, including Israel&#39;s accessibility regulations for websites.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>Document does not have a main landmark. See the guide for the exact fix.</p><pre>Example of what&#39;s affected:
+&lt;html lang=&quot;en&quot; dir=&quot;ltr&quot; class=&quot;&quot;&gt;</pre>
+        <p><a href="https://dequeuniversity.com/rules/axe/4.13/landmark-one-main?application=playwright" target="_blank" rel="noopener">Step-by-step guide →</a></p></section>
+    </div>
+    
+    
+  </article></section><section class="category" id="c-seo"><h2>Search engines and sharing <small>10 issues</small></h2><article class="issue sev-medium" id="i-54602ff55f">
+    <header>
+      <span class="badge">Medium</span>
+      
+      <span class="cat">Search engines and sharing</span>
+    </header>
+    <h3>The page has no search description</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/presets/, /panel/, /field-guides/, /presets/he/, /panel/he/, /field-guides/he/</dd></div><div><dt>Language</dt><dd>English, Hebrew</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>No meta description</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>The description is the grey text under the title in Google. Without one, Google picks random text from the page, which usually sells it badly.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>In the &lt;head&gt; of /presets/, /panel/, /field-guides/, /presets/he/, /panel/he/, /field-guides/he/, add one or two sentences (70–160 characters) saying what the page offers:</p><pre>&lt;meta name=&quot;description&quot; content=&quot;…&quot;&gt;</pre><p class="kind">Claude writes the description from the page&#39;s own text; check the wording in the pull request.</p>
+        </section>
+    </div>
+    
+    
+  </article><article class="issue sev-low" id="i-6c10999f28">
+    <header>
+      <span class="badge">Low</span>
+      
+      <span class="cat">Search engines and sharing</span>
+    </header>
+    <h3>Search engines are told to stay away from the whole site</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/robots.txt</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>robots.txt has &quot;Disallow: /&quot; for every search engine. Fine before launch (the settings say the site isn&#39;t launched yet); change it on launch day.</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>robots.txt tells Google and others not to read any page, so the site won&#39;t appear in search results at all.</p>
+        <h4>What to change <span class="who who-you">Needs you</span></h4>
+        <p>Replace robots.txt with:</p><pre>User-agent: *
+Disallow:
+Disallow: /admin/
+Disallow: /account/
+Disallow: /thank-you/
+Disallow: /beta/
+Disallow: /testers/
+Disallow: /read/
+Sitemap: https://shop.mw.photography/sitemap.xml</pre><p class="kind">Only at launch: it&#39;s your call when the site should appear in Google.</p>
+        </section>
+    </div>
+    
+    
+  </article><article class="issue sev-low" id="i-059dcfbe32">
+    <header>
+      <span class="badge">Low</span>
+      
+      <span class="cat">Search engines and sharing</span>
+    </header>
+    <h3>Links to this page share without a preview</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/shop/, /, /product/?p=mwp-presets, /support/, /legal/, /shop/?cat=bundle, /support/?topic=download, /support/?topic=refund</dd></div><div><dt>Language</dt><dd>English, Hebrew</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>Missing og:image</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>When someone shares the page on WhatsApp, Facebook or LinkedIn, it appears as a bare link instead of a card with an image and title.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>In the &lt;head&gt; of /shop/, /, /product/?p=mwp-presets, /support/, /legal/, /shop/?cat=bundle and 2 more, add share-preview tags (the image should be 1200×630):</p><pre>&lt;meta property=&quot;og:title&quot; content=&quot;…&quot;&gt;
+&lt;meta property=&quot;og:description&quot; content=&quot;…&quot;&gt;
+&lt;meta property=&quot;og:image&quot; content=&quot;https://shop.mw.photography/share.jpg&quot;&gt;
+&lt;meta property=&quot;og:url&quot; content=&quot;https://shop.mw.photography/shop/&quot;&gt;</pre>
+        </section>
+    </div>
+    
+    
+  </article><article class="issue sev-low" id="i-7b24f3bee4">
+    <header>
+      <span class="badge">Low</span>
+      
+      <span class="cat">Search engines and sharing</span>
+    </header>
+    <h3>The page title is too short or too long</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/product/?p=mwp-presets</dd></div><div><dt>Language</dt><dd>English, Hebrew</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>3 characters: &quot;MWP&quot;</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>Google cuts titles over about 60 characters, and very short titles don&#39;t say enough to earn the click.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>Give /product/?p=mwp-presets a specific title of 30–60 characters: what the page is, then the brand.</p><pre>&lt;title&gt;Lightroom presets for wildlife photographers · Brand&lt;/title&gt;</pre><p class="kind">Claude writes the new title; check the wording in the pull request.</p>
+        </section>
+    </div>
+    
+    
+  </article><article class="issue sev-low" id="i-575a9c3cbb">
+    <header>
+      <span class="badge">Low</span>
+      
+      <span class="cat">Search engines and sharing</span>
+    </header>
+    <h3>The page has no main heading</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/product/?p=mwp-presets</dd></div><div><dt>Language</dt><dd>English, Hebrew</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>No &lt;h1&gt;</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>The main heading (&lt;h1&gt;) tells search engines and screen-reader users what the page is about.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>Make the main headline of /product/?p=mwp-presets an &lt;h1&gt;.</p>
+        </section>
+    </div>
+    
+    
+  </article><article class="issue sev-low" id="i-5866e39759">
+    <header>
+      <span class="badge">Low</span>
+      
+      <span class="cat">Search engines and sharing</span>
+    </header>
+    <h3>The page title is too short or too long</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/presets/</dd></div><div><dt>Language</dt><dd>English</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>11 characters: &quot;MWP Presets&quot;</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>Google cuts titles over about 60 characters, and very short titles don&#39;t say enough to earn the click.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>Give /presets/ a specific title of 30–60 characters: what the page is, then the brand.</p><pre>&lt;title&gt;Lightroom presets for wildlife photographers · Brand&lt;/title&gt;</pre><p class="kind">Claude writes the new title; check the wording in the pull request.</p>
+        </section>
+    </div>
+    
+    
+  </article><article class="issue sev-low" id="i-e985f643b2">
+    <header>
+      <span class="badge">Low</span>
+      
+      <span class="cat">Search engines and sharing</span>
+    </header>
+    <h3>The page doesn&#39;t name its main address</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/presets/, /panel/, /field-guides/, /presets/he/, /panel/he/, /field-guides/he/</dd></div><div><dt>Language</dt><dd>English, Hebrew</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>No canonical link</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>Pages reachable at several addresses (with and without .html, with tracking codes) can be counted as duplicates by search engines.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>In the &lt;head&gt; of each page, add a link to its own address. For /presets/:</p><pre>&lt;link rel=&quot;canonical&quot; href=&quot;https://shop.mw.photography/presets/&quot;&gt;</pre><p class="kind">These pages are built from other files, so Claude makes the change at the source.</p>
+        </section>
+    </div>
+    
+    
+  </article><article class="issue sev-low" id="i-29a1dcd8da">
+    <header>
+      <span class="badge">Low</span>
+      
+      <span class="cat">Search engines and sharing</span>
+    </header>
+    <h3>Links to this page share without a preview</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/presets/, /panel/, /field-guides/, /presets/he/, /panel/he/, /field-guides/he/</dd></div><div><dt>Language</dt><dd>English, Hebrew</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>Missing og:title, og:description, og:image</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>When someone shares the page on WhatsApp, Facebook or LinkedIn, it appears as a bare link instead of a card with an image and title.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>In the &lt;head&gt; of /presets/, /panel/, /field-guides/, /presets/he/, /panel/he/, /field-guides/he/, add share-preview tags (the image should be 1200×630):</p><pre>&lt;meta property=&quot;og:title&quot; content=&quot;…&quot;&gt;
+&lt;meta property=&quot;og:description&quot; content=&quot;…&quot;&gt;
+&lt;meta property=&quot;og:image&quot; content=&quot;https://shop.mw.photography/share.jpg&quot;&gt;
+&lt;meta property=&quot;og:url&quot; content=&quot;https://shop.mw.photography/presets/&quot;&gt;</pre>
+        </section>
+    </div>
+    
+    
+  </article><article class="issue sev-low" id="i-470eecb16e">
+    <header>
+      <span class="badge">Low</span>
+      
+      <span class="cat">Search engines and sharing</span>
+    </header>
+    <h3>The page title is too short or too long</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/support/, /support/?topic=download, /support/?topic=refund</dd></div><div><dt>Language</dt><dd>English</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>10 characters: &quot;Help · MWP&quot;</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>Google cuts titles over about 60 characters, and very short titles don&#39;t say enough to earn the click.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>Give /support/, /support/?topic=download, /support/?topic=refund a specific title of 30–60 characters: what the page is, then the brand.</p><pre>&lt;title&gt;Lightroom presets for wildlife photographers · Brand&lt;/title&gt;</pre><p class="kind">Claude writes the new title; check the wording in the pull request.</p>
+        </section>
+    </div>
+    
+    
+  </article><article class="issue sev-low" id="i-8a20369a74">
+    <header>
+      <span class="badge">Low</span>
+      
+      <span class="cat">Search engines and sharing</span>
+    </header>
+    <h3>The page title is too short or too long</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/support/, /support/?topic=download, /support/?topic=refund</dd></div><div><dt>Language</dt><dd>Hebrew</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>10 characters: &quot;עזרה · MWP&quot;</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>Google cuts titles over about 60 characters, and very short titles don&#39;t say enough to earn the click.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>Give /support/, /support/?topic=download, /support/?topic=refund a specific title of 30–60 characters: what the page is, then the brand.</p><pre>&lt;title&gt;Lightroom presets for wildlife photographers · Brand&lt;/title&gt;</pre><p class="kind">Claude writes the new title; check the wording in the pull request.</p>
+        </section>
+    </div>
+    
+    
+  </article></section><section class="category" id="c-security"><h2>Security <small>5 issues</small></h2><article class="issue sev-medium" id="i-f6b8edf422">
+    <header>
+      <span class="badge">Medium</span>
+      
+      <span class="cat">Security</span>
+    </header>
+    <h3>Browsers aren&#39;t told to always use the secure address</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/, /shop/, /product/?p=mwp-presets, /presets/, /panel/, /field-guides/</dd></div><div><dt>Browsers</dt><dd>live site</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>No Strict-Transport-Security header (GitHub Pages can&#39;t send custom headers; see the fix for the workaround or a host that can)</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>Without HSTS, a visitor&#39;s very first request can be sent unencrypted and redirected by an attacker on public Wi-Fi.</p>
+        <h4>What to change <span class="who who-you">Needs you</span></h4>
+        <p>Make the host send this header on every page.</p><pre>GitHub Pages can&#39;t send this header. Options:
+1. Publish through Vercel or Netlify (both read headers from a file in the code), or
+2. Put Cloudflare (free plan) in front of the domain and add the header there:
+   Strict-Transport-Security: max-age=31536000; includeSubDomains</pre><p class="kind">This site is hosted on GitHub Pages, which can&#39;t send security headers. It needs a host change (or Cloudflare in front), which is a decision for you.</p>
+        </section>
+    </div>
+    
+    
+  </article><article class="issue sev-medium" id="i-5a89e03d60">
+    <header>
+      <span class="badge">Medium</span>
+      
+      <span class="cat">Security</span>
+    </header>
+    <h3>No Content Security Policy</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/, /shop/, /product/?p=mwp-presets, /presets/, /panel/, /field-guides/</dd></div><div><dt>Browsers</dt><dd>live site</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>No CSP header or meta tag (GitHub Pages can&#39;t send custom headers; see the fix for the workaround or a host that can)</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>A CSP is a whitelist of where scripts may come from. If any bug ever lets someone inject a script, the CSP stops it from running. It&#39;s the main safety net against account-stealing attacks.</p>
+        <h4>What to change <span class="who who-you">Needs you</span></h4>
+        <p>Add a Content Security Policy. Start with the report-only version below, check nothing breaks for a week, then switch the name to Content-Security-Policy.</p><pre>GitHub Pages can&#39;t send this header. Options:
+1. Publish through Vercel or Netlify (both read headers from a file in the code), or
+2. Put Cloudflare (free plan) in front of the domain and add the header there:
+   Content-Security-Policy-Report-Only: default-src &#39;self&#39;; script-src &#39;self&#39; https:; style-src &#39;self&#39; &#39;unsafe-inline&#39; https:; img-src &#39;self&#39; data: https:; font-src &#39;self&#39; https: data:; connect-src &#39;self&#39; https:; frame-ancestors &#39;none&#39;
+
+Without header support, a CSP can also go in each page&#39;s &lt;head&gt;:
+&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src &#39;self&#39;; script-src &#39;self&#39; https:; style-src &#39;self&#39; &#39;unsafe-inline&#39; https:; img-src &#39;self&#39; data: https:; font-src &#39;self&#39; https: data:; connect-src &#39;self&#39; https:&quot;&gt;</pre><p class="kind">This site is hosted on GitHub Pages, which can&#39;t send security headers. It needs a host change (or Cloudflare in front), which is a decision for you.</p>
+        </section>
+    </div>
+    
+    
+  </article><article class="issue sev-medium" id="i-fedf4bd24f">
+    <header>
+      <span class="badge">Medium</span>
+      
+      <span class="cat">Security</span>
+    </header>
+    <h3>Other sites can embed this page invisibly</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/, /shop/, /product/?p=mwp-presets, /presets/, /panel/, /field-guides/</dd></div><div><dt>Browsers</dt><dd>live site</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>No X-Frame-Options or frame-ancestors (GitHub Pages can&#39;t send custom headers; see the fix for the workaround or a host that can)</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>An attacker can load the page inside an invisible frame on their own site and trick visitors into clicking buttons (&quot;clickjacking&quot;).</p>
+        <h4>What to change <span class="who who-you">Needs you</span></h4>
+        <p>Make the host send this header on every page.</p><pre>GitHub Pages can&#39;t send this header. Options:
+1. Publish through Vercel or Netlify (both read headers from a file in the code), or
+2. Put Cloudflare (free plan) in front of the domain and add the header there:
+   X-Frame-Options: DENY</pre><p class="kind">This site is hosted on GitHub Pages, which can&#39;t send security headers. It needs a host change (or Cloudflare in front), which is a decision for you.</p>
+        </section>
+    </div>
+    
+    
+  </article><article class="issue sev-low" id="i-2212ebc442">
+    <header>
+      <span class="badge">Low</span>
+      
+      <span class="cat">Security</span>
+    </header>
+    <h3>Missing X-Content-Type-Options</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/, /shop/, /product/?p=mwp-presets, /presets/, /panel/, /field-guides/</dd></div><div><dt>Browsers</dt><dd>live site</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>Missing (GitHub Pages can&#39;t send custom headers; see the fix for the workaround or a host that can)</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>Without it, some browsers guess file types, which can turn an uploaded file into running code.</p>
+        <h4>What to change <span class="who who-you">Needs you</span></h4>
+        <p>Make the host send this header on every page.</p><pre>GitHub Pages can&#39;t send this header. Options:
+1. Publish through Vercel or Netlify (both read headers from a file in the code), or
+2. Put Cloudflare (free plan) in front of the domain and add the header there:
+   X-Content-Type-Options: nosniff</pre><p class="kind">This site is hosted on GitHub Pages, which can&#39;t send security headers. It needs a host change (or Cloudflare in front), which is a decision for you.</p>
+        </section>
+    </div>
+    
+    
+  </article><article class="issue sev-low" id="i-e96471fb8a">
+    <header>
+      <span class="badge">Low</span>
+      
+      <span class="cat">Security</span>
+    </header>
+    <h3>No referrer policy</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/, /shop/, /product/?p=mwp-presets, /presets/, /panel/, /field-guides/</dd></div><div><dt>Browsers</dt><dd>live site</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>No Referrer-Policy header or meta tag</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>Full page addresses (which can include sign-in tokens or order details) may be passed to other sites the visitor goes to.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>In the &lt;head&gt; of every page, add:</p><pre>&lt;meta name=&quot;referrer&quot; content=&quot;strict-origin-when-cross-origin&quot;&gt;</pre><p class="kind">These pages are built from other files, so Claude makes the change at the source.</p>
+        </section>
+    </div>
+    
+    
+  </article></section><section class="category" id="c-performance"><h2>Speed <small>1 issue</small></h2><article class="issue sev-medium" id="i-9d082d4108">
+    <header>
+      <span class="badge">Medium</span>
+      
+      <span class="cat">Speed</span>
+    </header>
+    <h3>The main content appears late (LCP)</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/, /presets/, /account/</dd></div><div><dt>Screens</dt><dd>Mid-range phone, 4G</dd></div><div><dt>Browsers</dt><dd>Chrome / Edge</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>12.6s (target under 2.5s)</code></li><li><code>15.5s (target under 2.5s)</code></li><li><code>3.8s (target under 2.5s)</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>Largest Contentful Paint is when the biggest thing on screen (usually the hero image) appears. Google&#39;s target is under 2.5 seconds.</p>
+        <h4>What to change <span class="who who-built-in">Fixed automatically (the tool and Claude)</span></h4>
+        <p>Make the images smaller (resize to the size they&#39;re shown at, WebP or AVIF, about 80% quality), load images below the first screen with loading=&quot;lazy&quot;, and let the main image load first with fetchpriority=&quot;high&quot;. Biggest savings:</p><pre>/assets/pages/img/8726daeb4a1c2551c37d43692b07fa4a.jpg  (could be ~376 KB smaller)
+/assets/pages/img/8be22742a3e020062bfe042419b7e7f7.jpg  (could be ~277 KB smaller)
+/assets/pages/img/07a726e1ad5390d3edaefb6d26df5150.jpg  (could be ~274 KB smaller)
+/assets/pages/img/f424f86bc52a764b29bb6c0ea50eb225.jpg  (could be ~241 KB smaller)
+/assets/pages/img/3c14b23dbb00f051684ad60fb205ed10.jpg  (could be ~228 KB smaller)
+/assets/pages/img/8cb56471dbe5940badc7a93cad5c8bf1.jpg  (could be ~222 KB smaller)</pre><p class="kind">The tool shrinks oversized images itself; Claude handles loading order (lazy-loading, deferring scripts).</p>
+        </section>
+    </div>
+    
+    
+  </article></section>
+</main></body></html>
