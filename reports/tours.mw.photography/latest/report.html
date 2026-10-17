@@ -47,7 +47,7 @@ td.good{color:var(--good);font-weight:700}td.ok{color:var(--med);font-weight:700
 </style></head><body><main>
 <p class="meta">Site QA report · the live website</p>
 <h1>MW Photo Tours</h1>
-<p class="meta">Tested Sat, 17 Oct 2026 09:04:58 GMT · took 1 min · full check</p>
+<p class="meta">Tested Sat, 17 Oct 2026 14:28:25 GMT · took 1 min · full check</p>
 
 <div class="verdict "><span class="dot"></span><div>
 <b>No serious issues outside the known list</b>Nothing at Critical or High level that isn't already known. 
@@ -63,7 +63,7 @@ td.good{color:var(--good);font-weight:700}td.ok{color:var(--med);font-weight:700
 <h4>Visitor journeys that work</h4><ul class="passed"><li>✓ A missing page shows an error page with a way back</li></ul>
 
 <h2>Speed on a phone</h2><p class="meta">Google's scoring: 90+ is good, 50–89 needs work, under 50 is poor. LCP = when the main content appears (target under 2.5s). CLS = how much things jump (target under 0.1). TBT = how long the page ignores taps (target under 300ms).</p>
-<table><thead><tr><th>Page</th><th class="num">Score</th><th class="num">LCP</th><th class="num">CLS</th><th class="num">TBT</th><th class="num">Size</th></tr></thead><tbody><tr><td>/</td><td class="num ok">86</td><td class="num">4.0s</td><td class="num">0.09</td><td class="num">0ms</td><td class="num">0.6 MB</td></tr></tbody></table>
+<table><thead><tr><th>Page</th><th class="num">Score</th><th class="num">LCP</th><th class="num">CLS</th><th class="num">TBT</th><th class="num">Size</th></tr></thead><tbody><tr><td>/</td><td class="num ok">86</td><td class="num">3.9s</td><td class="num">0.09</td><td class="num">0ms</td><td class="num">0.6 MB</td></tr></tbody></table>
 
 <h2>What the levels mean</h2>
 <div class="legend"><b class="sev-critical">Critical</b><span>Fix today. Real harm is possible right now.</span><b class="sev-high">High</b><span>Fix before the next release. Visitors or data are affected.</span><b class="sev-medium">Medium</b><span>Fix soon. It hurts some visitors, sales or search ranking.</span><b class="sev-low">Low</b><span>Polish. Worth doing when you're in that area.</span></div>
@@ -95,13 +95,13 @@ td.good{color:var(--good);font-weight:700}td.ok{color:var(--med);font-weight:700
     </header>
     <h3>A private page can appear in Google</h3>
     
-    <dl class="where"><div><dt>Where</dt><dd>/, /iceland/, /manas-kaziranga/, /iberian-lynx/, /pyrenees/</dd></div><div><dt>Language</dt><dd>Main language</dd></div></dl>
+    <dl class="where"><div><dt>Where</dt><dd>/, /pyrenees/, /iceland/, /iberian-lynx/, /manas-kaziranga/</dd></div><div><dt>Language</dt><dd>Main language</dd></div></dl>
     
     <div class="cols">
       <section><h4>What we found</h4><ul class="details"><li><code>No noindex tag</code></li></ul></section>
       <section><h4>Why it matters</h4><p>Pages like accounts, admin or link-only programs aren&#39;t meant to be found by searching.</p>
         <h4>What to change <span class="who who-built-in">Fixed automatically by the tool</span></h4>
-        <p>In the &lt;head&gt; of /, /iceland/, /manas-kaziranga/, /iberian-lynx/, /pyrenees/, add:</p><pre>&lt;meta name=&quot;robots&quot; content=&quot;noindex&quot;&gt;</pre>
+        <p>In the &lt;head&gt; of /, /pyrenees/, /iceland/, /iberian-lynx/, /manas-kaziranga/, add:</p><pre>&lt;meta name=&quot;robots&quot; content=&quot;noindex&quot;&gt;</pre>
         </section>
     </div>
     
@@ -227,7 +227,7 @@ Without header support, a CSP can also go in each page&#39;s &lt;head&gt;:
     <dl class="where"><div><dt>Where</dt><dd>/</dd></div><div><dt>Screens</dt><dd>Mid-range phone, 4G</dd></div><div><dt>Browsers</dt><dd>Chrome / Edge</dd></div></dl>
     
     <div class="cols">
-      <section><h4>What we found</h4><ul class="details"><li><code>4.0s (target under 2.5s)</code></li></ul></section>
+      <section><h4>What we found</h4><ul class="details"><li><code>3.9s (target under 2.5s)</code></li></ul></section>
       <section><h4>Why it matters</h4><p>Largest Contentful Paint is when the biggest thing on screen (usually the hero image) appears. Google&#39;s target is under 2.5 seconds.</p>
         <h4>What to change <span class="who who-built-in">Fixed automatically (the tool and Claude)</span></h4>
         <p>Make the images smaller (resize to the size they&#39;re shown at, WebP or AVIF, about 80% quality), load images below the first screen with loading=&quot;lazy&quot;, and let the main image load first with fetchpriority=&quot;high&quot;.</p><pre>&lt;img src=&quot;hero.webp&quot; fetchpriority=&quot;high&quot; alt=&quot;…&quot;&gt;

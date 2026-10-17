@@ -3,9 +3,9 @@
   "domain": "tours.mw.photography",
   "tested": "live",
   "liveUrl": "https://tours.mw.photography",
-  "when": "2026-10-17T09:04:58.233Z",
+  "when": "2026-10-17T14:28:25.032Z",
   "commit": null,
-  "durationS": 53,
+  "durationS": 52,
   "mode": "full",
   "coverage": {
     "pages": 5,
@@ -198,7 +198,7 @@
       "why": "Largest Contentful Paint is when the biggest thing on screen (usually the hero image) appears. Google's target is under 2.5 seconds.",
       "fix": "Compress and resize the hero image (WebP/AVIF, no wider than it's shown), and preload it.",
       "details": [
-        "4.0s (target under 2.5s)"
+        "3.9s (target under 2.5s)"
       ],
       "pages": [
         "/"
@@ -307,10 +307,10 @@
       ],
       "pages": [
         "/",
+        "/pyrenees/",
         "/iceland/",
-        "/manas-kaziranga/",
         "/iberian-lynx/",
-        "/pyrenees/"
+        "/manas-kaziranga/"
       ],
       "devices": [],
       "browsers": [],
@@ -325,7 +325,7 @@
       "known": false,
       "blocking": false,
       "fixBy": "built-in",
-      "change": "In the <head> of /, /iceland/, /manas-kaziranga/, /iberian-lynx/, /pyrenees/, add:",
+      "change": "In the <head> of /, /pyrenees/, /iceland/, /iberian-lynx/, /manas-kaziranga/, add:",
       "snippet": "<meta name=\"robots\" content=\"noindex\">"
     }
   ],
@@ -370,17 +370,17 @@
       "redirectedTo": null
     },
     {
+      "page": "/pyrenees/",
+      "lang": "Main language",
+      "status": 200,
+      "shot": "pyrenees__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
       "page": "/iceland/",
       "lang": "Main language",
       "status": 200,
       "shot": "iceland__en__Laptop__chromium.jpg",
-      "redirectedTo": null
-    },
-    {
-      "page": "/manas-kaziranga/",
-      "lang": "Main language",
-      "status": 200,
-      "shot": "manas_kaziranga__en__Laptop__chromium.jpg",
       "redirectedTo": null
     },
     {
@@ -391,10 +391,10 @@
       "redirectedTo": null
     },
     {
-      "page": "/pyrenees/",
+      "page": "/manas-kaziranga/",
       "lang": "Main language",
       "status": 200,
-      "shot": "pyrenees__en__Laptop__chromium.jpg",
+      "shot": "manas_kaziranga__en__Laptop__chromium.jpg",
       "redirectedTo": null
     }
   ],
@@ -402,11 +402,11 @@
     {
       "page": "/",
       "score": 86,
-      "lcp": 3969.038,
+      "lcp": 3903.735,
       "cls": 0.08700411184282432,
       "tbt": 0,
-      "fcp": 857.038,
-      "weight": 627772,
+      "fcp": 1053.7350000000001,
+      "weight": 627844,
       "tips": [
         "Use efficient cache lifetimes (about 2.7s faster)"
       ],
