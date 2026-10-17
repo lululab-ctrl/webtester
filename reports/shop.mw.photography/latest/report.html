@@ -47,14 +47,14 @@ td.good{color:var(--good);font-weight:700}td.ok{color:var(--med);font-weight:700
 </style></head><body><main>
 <p class="meta">Site QA report · the live website</p>
 <h1>MWP Shop</h1>
-<p class="meta">Tested Sat, 17 Oct 2026 13:51:53 GMT · took 8 min · full check</p>
+<p class="meta">Tested Sat, 17 Oct 2026 14:06:12 GMT · took 7 min · full check</p>
 
 <div class="verdict blocked"><span class="dot"></span><div>
 <b>Not ready to go live: 3 serious issues</b>These are Critical or High issues that aren't on the known-issues list. Fix them, or ask a reviewer to accept them as known.
 </div></div>
 
-<div class="counts"><div class="count c-critical"><b>0</b><span>Critical</span></div><div class="count c-high"><b>3</b><span>High</span></div><div class="count c-medium"><b>6</b><span>Medium</span></div><div class="count c-low"><b>8</b><span>Low</span></div></div>
-<div class="cats"><a class="cat-tile" href="#c-errors"><span>Bugs and errors</span><b class="sev-high">3 issues</b></a><a class="cat-tile" href="#c-devices"><span>Phones, tablets and browsers</span><b class="clean">All clear</b></a><a class="cat-tile" href="#c-flows"><span>Things visitors do</span><b class="sev-high">1 issue</b></a><a class="cat-tile" href="#c-accessibility"><span>Accessibility</span><b class="sev-low">1 issue</b></a><a class="cat-tile" href="#c-seo"><span>Search engines and sharing</span><b class="sev-low">4 issues</b></a><a class="cat-tile" href="#c-security"><span>Security</span><b class="sev-medium">5 issues</b></a><a class="cat-tile" href="#c-performance"><span>Speed</span><b class="sev-medium">3 issues</b></a></div>
+<div class="counts"><div class="count c-critical"><b>0</b><span>Critical</span></div><div class="count c-high"><b>3</b><span>High</span></div><div class="count c-medium"><b>6</b><span>Medium</span></div><div class="count c-low"><b>7</b><span>Low</span></div></div>
+<div class="cats"><a class="cat-tile" href="#c-errors"><span>Bugs and errors</span><b class="sev-high">4 issues</b></a><a class="cat-tile" href="#c-devices"><span>Phones, tablets and browsers</span><b class="clean">All clear</b></a><a class="cat-tile" href="#c-flows"><span>Things visitors do</span><b class="sev-high">1 issue</b></a><a class="cat-tile" href="#c-accessibility"><span>Accessibility</span><b class="sev-low">1 issue</b></a><a class="cat-tile" href="#c-seo"><span>Search engines and sharing</span><b class="sev-low">4 issues</b></a><a class="cat-tile" href="#c-security"><span>Security</span><b class="sev-medium">5 issues</b></a><a class="cat-tile" href="#c-performance"><span>Speed</span><b class="sev-medium">1 issue</b></a></div>
 
 
 <h2>What was tested</h2>
@@ -63,12 +63,12 @@ td.good{color:var(--good);font-weight:700}td.ok{color:var(--med);font-weight:700
 <h4>Visitor journeys that work</h4><ul class="passed"><li>✓ Switching to Hebrew flips the page to right-to-left</li><li>✓ The cart opens from the header and closes again</li><li>✓ A buy button puts that product in the cart</li><li>✓ My downloads shows the sign-in form, and Create account switches to the sign-up form</li><li>✓ A missing page shows the 404 page with a way back</li><li>✓ The sign-in form refuses an empty submit without calling the server</li></ul>
 
 <h2>Speed on a phone</h2><p class="meta">Google's scoring: 90+ is good, 50–89 needs work, under 50 is poor. LCP = when the main content appears (target under 2.5s). CLS = how much things jump (target under 0.1). TBT = how long the page ignores taps (target under 300ms).</p>
-<table><thead><tr><th>Page</th><th class="num">Score</th><th class="num">LCP</th><th class="num">CLS</th><th class="num">TBT</th><th class="num">Size</th></tr></thead><tbody><tr><td>/</td><td class="num ok">85</td><td class="num">3.7s</td><td class="num">0.02</td><td class="num">0ms</td><td class="num">1.5 MB</td></tr><tr><td>/shop/</td><td class="num ok">67</td><td class="num">3.1s</td><td class="num">0.57</td><td class="num">0ms</td><td class="num">0.2 MB</td></tr><tr><td>/presets/</td><td class="num ok">77</td><td class="num">4.8s</td><td class="num">0.00</td><td class="num">0ms</td><td class="num">0.8 MB</td></tr><tr><td>/account/</td><td class="num good">91</td><td class="num">2.9s</td><td class="num">0.03</td><td class="num">4ms</td><td class="num">0.3 MB</td></tr></tbody></table>
+<table><thead><tr><th>Page</th><th class="num">Score</th><th class="num">LCP</th><th class="num">CLS</th><th class="num">TBT</th><th class="num">Size</th></tr></thead><tbody><tr><td>/</td><td class="num good">90</td><td class="num">3.5s</td><td class="num">0.02</td><td class="num">0ms</td><td class="num">1.5 MB</td></tr><tr><td>/shop/</td><td class="num good">99</td><td class="num">1.7s</td><td class="num">0.00</td><td class="num">0ms</td><td class="num">0.2 MB</td></tr><tr><td>/presets/</td><td class="num ok">86</td><td class="num">4.1s</td><td class="num">0.00</td><td class="num">0ms</td><td class="num">0.8 MB</td></tr><tr><td>/account/</td><td class="num good">96</td><td class="num">2.4s</td><td class="num">0.00</td><td class="num">0ms</td><td class="num">0.3 MB</td></tr></tbody></table>
 
 <h2>What the levels mean</h2>
 <div class="legend"><b class="sev-critical">Critical</b><span>Fix today. Real harm is possible right now.</span><b class="sev-high">High</b><span>Fix before the next release. Visitors or data are affected.</span><b class="sev-medium">Medium</b><span>Fix soon. It hurts some visitors, sales or search ranking.</span><b class="sev-low">Low</b><span>Polish. Worth doing when you're in that area.</span></div>
 
-<section class="category" id="c-errors"><h2>Bugs and errors <small>3 issues</small></h2><article class="issue sev-high" id="i-e92632b576">
+<section class="category" id="c-errors"><h2>Bugs and errors <small>4 issues</small></h2><article class="issue sev-high" id="i-e92632b576">
     <header>
       <span class="badge">High</span>
       <span class="tag block">Serious, not on the known list</span>
@@ -79,7 +79,7 @@ td.good{color:var(--good);font-weight:700}td.ok{color:var(--med);font-weight:700
     <dl class="where"><div><dt>Where</dt><dd>/, /presets/, /panel/, /field-guides/, /panel/he/, /presets/he/, /field-guides/he/</dd></div><div><dt>Screens</dt><dd>Laptop</dd></div><div><dt>Browsers</dt><dd>Chrome / Edge</dd></div><div><dt>Language</dt><dd>Hebrew, English</dd></div></dl>
     
     <div class="cols">
-      <section><h4>What we found</h4><ul class="details"><li><code>Shows a price of 0.00 (no price set for this product in the admin): &quot;₪0.00&quot;</code></li><li><code>Shows a price of 0.00 (no price set for this product in the admin): &quot;$0.00&quot;</code></li><li><code>Shows a price of 0.00 (no price set for this product in the admin): &quot;· ₪0.00&quot;</code></li><li><code>Shows a price of 0.00 (no price set for this product in the admin): &quot;· $0.00&quot;</code></li></ul></section>
+      <section><h4>What we found</h4><ul class="details"><li><code>Shows a price of 0.00 (no price set for this product in the admin): &quot;₪0.00&quot;</code></li><li><code>Shows a price of 0.00 (no price set for this product in the admin): &quot;$0.00&quot;</code></li><li><code>Shows a price of 0.00 (no price set for this product in the admin): &quot;· $0.00&quot;</code></li><li><code>Shows a price of 0.00 (no price set for this product in the admin): &quot;· ₪0.00&quot;</code></li></ul></section>
       <section><h4>Why it matters</h4><p>Notes meant for the team, filler text or template fields look unprofessional and make visitors doubt the shop is real or finished.</p>
         <h4>What to change <span class="who who-you">Needs you</span></h4>
         <p>Replace what&#39;s shown: Shows a price of 0.00 (no price set for this product in the admin): &quot;₪0.00&quot;. Pages: /, /presets/, /panel/, /field-guides/, /panel/he/, /presets/he/ and 1 more.</p><p class="kind">Content only you can supply (final text, image or price).</p>
@@ -106,6 +106,25 @@ td.good{color:var(--good);font-weight:700}td.ok{color:var(--med);font-weight:700
     </div>
     
     
+  </article><article class="issue sev-medium" id="i-d3c8da0cb5">
+    <header>
+      <span class="badge">Medium</span>
+      
+      <span class="cat">Bugs and errors</span>
+    </header>
+    <h3>A file or server request failed</h3>
+    
+    <dl class="where"><div><dt>Where</dt><dd>/field-guides/he/</dd></div><div><dt>Screens</dt><dd>Laptop</dd></div><div><dt>Browsers</dt><dd>Chrome / Edge</dd></div><div><dt>Language</dt><dd>Hebrew</dd></div></dl>
+    
+    <div class="cols">
+      <section><h4>What we found</h4><ul class="details"><li><code>/assets/pages/img/6a58bfaef578ead1b5e3a95d1a303169.jpg answered 503 (image)</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>The page asked for something (a script, style, image, font, or data from the server) and didn&#39;t get it. Missing scripts and styles break the page; missing data shows empty or wrong content.</p>
+        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
+        <p>Check the address listed. If the file moved or was renamed, update the link; if it&#39;s a server call, check the server function is deployed and working.</p>
+        </section>
+    </div>
+    
+    
   </article><article class="issue sev-medium" id="i-a677111e3f">
     <header>
       <span class="badge">Medium</span>
@@ -114,7 +133,7 @@ td.good{color:var(--good);font-weight:700}td.ok{color:var(--med);font-weight:700
     </header>
     <h3>The browser reports an error</h3>
     
-    <dl class="where"><div><dt>Where</dt><dd>/product/</dd></div><div><dt>Screens</dt><dd>Laptop</dd></div><div><dt>Browsers</dt><dd>Firefox</dd></div><div><dt>Language</dt><dd>English</dd></div></dl>
+    <dl class="where"><div><dt>Where</dt><dd>/product/</dd></div><div><dt>Screens</dt><dd>iPhone 15, Laptop</dd></div><div><dt>Browsers</dt><dd>Firefox</dd></div><div><dt>Language</dt><dd>English, Hebrew</dd></div></dl>
     
     <div class="cols">
       <section><h4>What we found</h4><ul class="details"><li><code>[JavaScript Error: &quot;downloadable font: download failed (font-family: &quot;Google Sans&quot; style:normal weight:400..700 stretch:100 src index:0): status=2152398850 source: https://fonts.gstatic.com/s/googlesans/v71/4UaRrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iq2vgCI.woff2&quot;]</code></li></ul></section>
@@ -364,7 +383,7 @@ Without header support, a CSP can also go in each page&#39;s &lt;head&gt;:
     </div>
     
     
-  </article></section><section class="category" id="c-performance"><h2>Speed <small>3 issues</small></h2><article class="issue sev-medium" id="i-9d082d4108">
+  </article></section><section class="category" id="c-performance"><h2>Speed <small>1 issue</small></h2><article class="issue sev-medium" id="i-9d082d4108">
     <header>
       <span class="badge">Medium</span>
       
@@ -372,57 +391,18 @@ Without header support, a CSP can also go in each page&#39;s &lt;head&gt;:
     </header>
     <h3>The main content appears late (LCP)</h3>
     
-    <dl class="where"><div><dt>Where</dt><dd>/, /shop/, /presets/, /account/</dd></div><div><dt>Screens</dt><dd>Mid-range phone, 4G</dd></div><div><dt>Browsers</dt><dd>Chrome / Edge</dd></div></dl>
+    <dl class="where"><div><dt>Where</dt><dd>/, /presets/</dd></div><div><dt>Screens</dt><dd>Mid-range phone, 4G</dd></div><div><dt>Browsers</dt><dd>Chrome / Edge</dd></div></dl>
     
     <div class="cols">
-      <section><h4>What we found</h4><ul class="details"><li><code>3.7s (target under 2.5s)</code></li><li><code>3.1s (target under 2.5s)</code></li><li><code>4.8s (target under 2.5s)</code></li><li><code>2.9s (target under 2.5s)</code></li></ul></section>
+      <section><h4>What we found</h4><ul class="details"><li><code>3.5s (target under 2.5s)</code></li><li><code>4.1s (target under 2.5s)</code></li></ul></section>
       <section><h4>Why it matters</h4><p>Largest Contentful Paint is when the biggest thing on screen (usually the hero image) appears. Google&#39;s target is under 2.5 seconds.</p>
         <h4>What to change <span class="who who-built-in">Fixed automatically (the tool and Claude)</span></h4>
-        <p>Make the images smaller (resize to the size they&#39;re shown at, WebP or AVIF, about 80% quality), load images below the first screen with loading=&quot;lazy&quot;, and let the main image load first with fetchpriority=&quot;high&quot;. Biggest savings:</p><pre>/assets/pages/img/1a2e3ed3f44db1f671babb09a599b29f.jpg  (could be ~192 KB smaller)
+        <p>Make the images smaller (resize to the size they&#39;re shown at, WebP or AVIF, about 80% quality), load images below the first screen with loading=&quot;lazy&quot;, and let the main image load first with fetchpriority=&quot;high&quot;. Biggest savings:</p><pre>/assets/pages/img/1a2e3ed3f44db1f671babb09a599b29f.jpg  (could be ~196 KB smaller)
 /assets/pages/img/8cb56471dbe5940badc7a93cad5c8bf1.jpg  (could be ~176 KB smaller)
 /assets/pages/img/5275cc7bcd4fb7560d8f7163592e3122.jpg  (could be ~175 KB smaller)
 /assets/pages/img/d5f6d2a7c84cc3346ef45e4922528351.jpg  (could be ~160 KB smaller)
 /assets/pages/img/ce73f34a054f9959d99fd850c1df9ce5.jpg  (could be ~131 KB smaller)
 /assets/pages/img/6d84bcea4206fe4c622103d7d3aea920.jpg  (could be ~107 KB smaller)</pre><p class="kind">The tool shrinks oversized images itself; Claude handles loading order (lazy-loading, deferring scripts).</p>
-        </section>
-    </div>
-    
-    
-  </article><article class="issue sev-medium" id="i-980ac87c23">
-    <header>
-      <span class="badge">Medium</span>
-      
-      <span class="cat">Speed</span>
-    </header>
-    <h3>The page jumps around while loading (CLS)</h3>
-    
-    <dl class="where"><div><dt>Where</dt><dd>/shop/</dd></div><div><dt>Screens</dt><dd>Mid-range phone, 4G</dd></div><div><dt>Browsers</dt><dd>Chrome / Edge</dd></div></dl>
-    
-    <div class="cols">
-      <section><h4>What we found</h4><ul class="details"><li><code>0.57 (target under 0.1)</code></li></ul></section>
-      <section><h4>Why it matters</h4><p>Content shifting as it loads makes visitors tap the wrong thing. Google&#39;s target is under 0.1.</p>
-        <h4>What to change <span class="who who-built-in">Fixed automatically (the tool and Claude)</span></h4>
-        <p>Give every image and embed a width and height (or CSS aspect-ratio) so the page doesn&#39;t jump while loading.</p><pre>&lt;img src=&quot;photo.jpg&quot; width=&quot;1600&quot; height=&quot;1000&quot; alt=&quot;…&quot;&gt;</pre><p class="kind">The tool shrinks oversized images itself; Claude handles loading order (lazy-loading, deferring scripts).</p>
-        </section>
-    </div>
-    
-    
-  </article><article class="issue sev-low" id="i-2b2c2584be">
-    <header>
-      <span class="badge">Low</span>
-      
-      <span class="cat">Speed</span>
-    </header>
-    <h3>The page is slow on phones</h3>
-    
-    <dl class="where"><div><dt>Where</dt><dd>/shop/</dd></div><div><dt>Screens</dt><dd>Mid-range phone, 4G</dd></div><div><dt>Browsers</dt><dd>Chrome / Edge</dd></div></dl>
-    
-    <div class="cols">
-      <section><h4>What we found</h4><ul class="details"><li><code>Score 67/100 (target 70+). Biggest wins: Render-blocking requests (about 1.6s faster); Use efficient cache lifetimes (about 0.3s faster).</code></li></ul></section>
-      <section><h4>Why it matters</h4><p>Google measures this score on a mid-range phone. Slow pages lose visitors (most leave after about 3 seconds) and rank lower.</p>
-        <h4>What to change <span class="who who-built-in">Fixed automatically (the tool and Claude)</span></h4>
-        <p>Make the images smaller (resize to the size they&#39;re shown at, WebP or AVIF, about 80% quality), load images below the first screen with loading=&quot;lazy&quot;, and let the main image load first with fetchpriority=&quot;high&quot;.</p><pre>&lt;img src=&quot;hero.webp&quot; fetchpriority=&quot;high&quot; alt=&quot;…&quot;&gt;
-&lt;img src=&quot;later.webp&quot; loading=&quot;lazy&quot; alt=&quot;…&quot;&gt;</pre><p class="kind">The tool shrinks oversized images itself; Claude handles loading order (lazy-loading, deferring scripts).</p>
         </section>
     </div>
     

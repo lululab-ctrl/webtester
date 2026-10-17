@@ -3,9 +3,9 @@
   "domain": "shop.mw.photography",
   "tested": "live",
   "liveUrl": "https://shop.mw.photography",
-  "when": "2026-10-17T13:51:53.955Z",
+  "when": "2026-10-17T14:06:12.733Z",
   "commit": null,
-  "durationS": 454,
+  "durationS": 394,
   "mode": "full",
   "coverage": {
     "pages": 22,
@@ -39,7 +39,7 @@
     "Critical": 0,
     "High": 3,
     "Medium": 6,
-    "Low": 8
+    "Low": 7
   },
   "issues": [
     {
@@ -54,8 +54,8 @@
       "details": [
         "Shows a price of 0.00 (no price set for this product in the admin): \"₪0.00\"",
         "Shows a price of 0.00 (no price set for this product in the admin): \"$0.00\"",
-        "Shows a price of 0.00 (no price set for this product in the admin): \"· ₪0.00\"",
-        "Shows a price of 0.00 (no price set for this product in the admin): \"· $0.00\""
+        "Shows a price of 0.00 (no price set for this product in the admin): \"· $0.00\"",
+        "Shows a price of 0.00 (no price set for this product in the admin): \"· ₪0.00\""
       ],
       "pages": [
         "/",
@@ -165,6 +165,40 @@
       "change": "Follow the steps yourself: Step 2 (expectVisible #shop-grid .product-card) failed: locator.waitFor: Timeout 8000ms exceeded. · The page showed: \"All products All products Search products Sort by Featured Newest Price: low to high Price: high to low 0 products The first products are being prepared. Check back soon.\""
     },
     {
+      "key": "request-failed|/assets/pages/img/6a58bfaef578ead1b5e3a95d1a303169.jpg answered 503 (image)",
+      "rule": "request-failed",
+      "severity": "Medium",
+      "category": "errors",
+      "title": "A file or server request failed",
+      "ruleTitle": "A file or server request failed",
+      "why": "The page asked for something (a script, style, image, font, or data from the server) and didn't get it. Missing scripts and styles break the page; missing data shows empty or wrong content.",
+      "fix": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working.",
+      "details": [
+        "/assets/pages/img/6a58bfaef578ead1b5e3a95d1a303169.jpg answered 503 (image)"
+      ],
+      "pages": [
+        "/field-guides/he/"
+      ],
+      "devices": [
+        "Laptop"
+      ],
+      "browsers": [
+        "Chrome / Edge"
+      ],
+      "langs": [
+        "Hebrew"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "d3c8da0cb5",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "change": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working."
+    },
+    {
       "key": "console-error|[JavaScript Error: \"downloadable font: download failed (font-family: \"Google Sans\" style:normal weight:400..700 stretch:100 src index:0): status=2152398850 source: https://fonts.gstatic.com/s/googlesans/v71/4UaRrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iq2vgCI.woff2\"]",
       "rule": "console-error",
       "severity": "Medium",
@@ -180,13 +214,15 @@
         "/product/"
       ],
       "devices": [
+        "iPhone 15",
         "Laptop"
       ],
       "browsers": [
         "Firefox"
       ],
       "langs": [
-        "English"
+        "English",
+        "Hebrew"
       ],
       "shots": [],
       "snippets": [],
@@ -208,16 +244,12 @@
       "why": "Largest Contentful Paint is when the biggest thing on screen (usually the hero image) appears. Google's target is under 2.5 seconds.",
       "fix": "Compress and resize the hero image (WebP/AVIF, no wider than it's shown), and preload it.",
       "details": [
-        "3.7s (target under 2.5s)",
-        "3.1s (target under 2.5s)",
-        "4.8s (target under 2.5s)",
-        "2.9s (target under 2.5s)"
+        "3.5s (target under 2.5s)",
+        "4.1s (target under 2.5s)"
       ],
       "pages": [
         "/",
-        "/shop/",
-        "/presets/",
-        "/account/"
+        "/presets/"
       ],
       "devices": [
         "Mid-range phone, 4G"
@@ -231,7 +263,7 @@
       "heavy": [
         {
           "url": "/assets/pages/img/1a2e3ed3f44db1f671babb09a599b29f.jpg",
-          "savingKb": 192
+          "savingKb": 196
         },
         {
           "url": "/assets/pages/img/8cb56471dbe5940badc7a93cad5c8bf1.jpg",
@@ -269,41 +301,7 @@
       "fixBy": "built-in + claude",
       "fixNote": "The tool shrinks oversized images itself; Claude handles loading order (lazy-loading, deferring scripts).",
       "change": "Make the images smaller (resize to the size they're shown at, WebP or AVIF, about 80% quality), load images below the first screen with loading=\"lazy\", and let the main image load first with fetchpriority=\"high\". Biggest savings:",
-      "snippet": "/assets/pages/img/1a2e3ed3f44db1f671babb09a599b29f.jpg  (could be ~192 KB smaller)\n/assets/pages/img/8cb56471dbe5940badc7a93cad5c8bf1.jpg  (could be ~176 KB smaller)\n/assets/pages/img/5275cc7bcd4fb7560d8f7163592e3122.jpg  (could be ~175 KB smaller)\n/assets/pages/img/d5f6d2a7c84cc3346ef45e4922528351.jpg  (could be ~160 KB smaller)\n/assets/pages/img/ce73f34a054f9959d99fd850c1df9ce5.jpg  (could be ~131 KB smaller)\n/assets/pages/img/6d84bcea4206fe4c622103d7d3aea920.jpg  (could be ~107 KB smaller)"
-    },
-    {
-      "key": "perf-cls|perf",
-      "rule": "perf-cls",
-      "severity": "Medium",
-      "category": "performance",
-      "title": "The page jumps around while loading (CLS)",
-      "ruleTitle": "The page jumps around while loading (CLS)",
-      "why": "Content shifting as it loads makes visitors tap the wrong thing. Google's target is under 0.1.",
-      "fix": "Give images and embeds a width and height (or aspect-ratio), and reserve space for things that load in later, like prices.",
-      "details": [
-        "0.57 (target under 0.1)"
-      ],
-      "pages": [
-        "/shop/"
-      ],
-      "devices": [
-        "Mid-range phone, 4G"
-      ],
-      "browsers": [
-        "Chrome / Edge"
-      ],
-      "langs": [],
-      "shots": [],
-      "snippets": [],
-      "heavy": [],
-      "id": "980ac87c23",
-      "moreDetails": 0,
-      "known": false,
-      "blocking": false,
-      "fixBy": "built-in + claude",
-      "fixNote": "The tool shrinks oversized images itself; Claude handles loading order (lazy-loading, deferring scripts).",
-      "change": "Give every image and embed a width and height (or CSS aspect-ratio) so the page doesn't jump while loading.",
-      "snippet": "<img src=\"photo.jpg\" width=\"1600\" height=\"1000\" alt=\"…\">"
+      "snippet": "/assets/pages/img/1a2e3ed3f44db1f671babb09a599b29f.jpg  (could be ~196 KB smaller)\n/assets/pages/img/8cb56471dbe5940badc7a93cad5c8bf1.jpg  (could be ~176 KB smaller)\n/assets/pages/img/5275cc7bcd4fb7560d8f7163592e3122.jpg  (could be ~175 KB smaller)\n/assets/pages/img/d5f6d2a7c84cc3346ef45e4922528351.jpg  (could be ~160 KB smaller)\n/assets/pages/img/ce73f34a054f9959d99fd850c1df9ce5.jpg  (could be ~131 KB smaller)\n/assets/pages/img/6d84bcea4206fe4c622103d7d3aea920.jpg  (could be ~107 KB smaller)"
     },
     {
       "key": "header-hsts|No Strict-Transport-Security header (GitHub Pages can't send custom headers; see the fix for the workaround or a host that can)",
@@ -457,40 +455,6 @@
       "fixBy": "claude",
       "change": "Page must have a level-one heading. See the guide for the exact fix.",
       "snippet": "Example of what's affected:\n<html lang=\"en\" dir=\"ltr\" class=\"\">"
-    },
-    {
-      "key": "perf-score|perf",
-      "rule": "perf-score",
-      "severity": "Low",
-      "category": "performance",
-      "title": "The page is slow on phones",
-      "ruleTitle": "The page is slow on phones",
-      "why": "Google measures this score on a mid-range phone. Slow pages lose visitors (most leave after about 3 seconds) and rank lower.",
-      "fix": "Start with the biggest savings listed for this page.",
-      "details": [
-        "Score 67/100 (target 70+). Biggest wins: Render-blocking requests (about 1.6s faster); Use efficient cache lifetimes (about 0.3s faster)."
-      ],
-      "pages": [
-        "/shop/"
-      ],
-      "devices": [
-        "Mid-range phone, 4G"
-      ],
-      "browsers": [
-        "Chrome / Edge"
-      ],
-      "langs": [],
-      "shots": [],
-      "snippets": [],
-      "heavy": [],
-      "id": "2b2c2584be",
-      "moreDetails": 0,
-      "known": false,
-      "blocking": false,
-      "fixBy": "built-in + claude",
-      "fixNote": "The tool shrinks oversized images itself; Claude handles loading order (lazy-loading, deferring scripts).",
-      "change": "Make the images smaller (resize to the size they're shown at, WebP or AVIF, about 80% quality), load images below the first screen with loading=\"lazy\", and let the main image load first with fetchpriority=\"high\".",
-      "snippet": "<img src=\"hero.webp\" fetchpriority=\"high\" alt=\"…\">\n<img src=\"later.webp\" loading=\"lazy\" alt=\"…\">"
     },
     {
       "key": "header-nosniff|Missing (GitHub Pages can't send custom headers; see the fix for the workaround or a host that can)",
@@ -895,17 +859,17 @@
       "redirectedTo": null
     },
     {
-      "page": "/shop/",
-      "lang": "English",
-      "status": 200,
-      "shot": "shop__en__Laptop__chromium.jpg",
-      "redirectedTo": null
-    },
-    {
       "page": "/",
       "lang": "Hebrew",
       "status": 200,
       "shot": "home__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/shop/",
+      "lang": "English",
+      "status": 200,
+      "shot": "shop__en__Laptop__chromium.jpg",
       "redirectedTo": null
     },
     {
@@ -931,24 +895,17 @@
     },
     {
       "page": "/presets/",
-      "lang": "Hebrew",
-      "status": 200,
-      "shot": "presets__he__Laptop__chromium.jpg",
-      "redirectedTo": "/presets/he/"
-    },
-    {
-      "page": "/presets/",
       "lang": "English",
       "status": 200,
       "shot": "presets__en__Laptop__chromium.jpg",
       "redirectedTo": null
     },
     {
-      "page": "/panel/",
-      "lang": "English",
+      "page": "/presets/",
+      "lang": "Hebrew",
       "status": 200,
-      "shot": "panel__en__Laptop__chromium.jpg",
-      "redirectedTo": null
+      "shot": "presets__he__Laptop__chromium.jpg",
+      "redirectedTo": "/presets/he/"
     },
     {
       "page": "/panel/",
@@ -958,17 +915,17 @@
       "redirectedTo": "/panel/he/"
     },
     {
-      "page": "/account/",
+      "page": "/panel/",
       "lang": "English",
       "status": 200,
-      "shot": "account__en__Laptop__chromium.jpg",
+      "shot": "panel__en__Laptop__chromium.jpg",
       "redirectedTo": null
     },
     {
-      "page": "/account/",
-      "lang": "Hebrew",
+      "page": "/field-guides/",
+      "lang": "English",
       "status": 200,
-      "shot": "account__he__Laptop__chromium.jpg",
+      "shot": "field_guides__en__Laptop__chromium.jpg",
       "redirectedTo": null
     },
     {
@@ -979,17 +936,17 @@
       "redirectedTo": "/field-guides/he/"
     },
     {
-      "page": "/field-guides/",
-      "lang": "English",
+      "page": "/account/",
+      "lang": "Hebrew",
       "status": 200,
-      "shot": "field_guides__en__Laptop__chromium.jpg",
+      "shot": "account__he__Laptop__chromium.jpg",
       "redirectedTo": null
     },
     {
-      "page": "/support/",
+      "page": "/account/",
       "lang": "English",
       "status": 200,
-      "shot": "support__en__Laptop__chromium.jpg",
+      "shot": "account__en__Laptop__chromium.jpg",
       "redirectedTo": null
     },
     {
@@ -1000,10 +957,10 @@
       "redirectedTo": null
     },
     {
-      "page": "/legal/",
+      "page": "/support/",
       "lang": "English",
       "status": 200,
-      "shot": "legal__en__Laptop__chromium.jpg",
+      "shot": "support__en__Laptop__chromium.jpg",
       "redirectedTo": null
     },
     {
@@ -1011,6 +968,13 @@
       "lang": "Hebrew",
       "status": 200,
       "shot": "legal__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/legal/",
+      "lang": "English",
+      "status": 200,
+      "shot": "legal__en__Laptop__chromium.jpg",
       "redirectedTo": null
     },
     {
@@ -1025,6 +989,13 @@
       "lang": "Hebrew",
       "status": 200,
       "shot": "thank_you__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/testers/",
+      "lang": "English",
+      "status": 200,
+      "shot": "testers__en__Laptop__chromium.jpg",
       "redirectedTo": null
     },
     {
@@ -1043,13 +1014,6 @@
     },
     {
       "page": "/testers/",
-      "lang": "English",
-      "status": 200,
-      "shot": "testers__en__Laptop__chromium.jpg",
-      "redirectedTo": null
-    },
-    {
-      "page": "/testers/",
       "lang": "Hebrew",
       "status": 200,
       "shot": "testers__he__Laptop__chromium.jpg",
@@ -1064,23 +1028,16 @@
     },
     {
       "page": "/read/",
-      "lang": "English",
-      "status": 200,
-      "shot": "read__en__Laptop__chromium.jpg",
-      "redirectedTo": null
-    },
-    {
-      "page": "/read/",
       "lang": "Hebrew",
       "status": 200,
       "shot": "read__he__Laptop__chromium.jpg",
       "redirectedTo": null
     },
     {
-      "page": "/panel/he/",
-      "lang": "Hebrew",
+      "page": "/read/",
+      "lang": "English",
       "status": 200,
-      "shot": "panel_he__he__Laptop__chromium.jpg",
+      "shot": "read__en__Laptop__chromium.jpg",
       "redirectedTo": null
     },
     {
@@ -1091,10 +1048,10 @@
       "redirectedTo": null
     },
     {
-      "page": "/presets/he/",
-      "lang": "English",
+      "page": "/panel/he/",
+      "lang": "Hebrew",
       "status": 200,
-      "shot": "presets_he__en__Laptop__chromium.jpg",
+      "shot": "panel_he__he__Laptop__chromium.jpg",
       "redirectedTo": null
     },
     {
@@ -1105,10 +1062,10 @@
       "redirectedTo": null
     },
     {
-      "page": "/shop/?cat=bundle",
-      "lang": "Hebrew",
+      "page": "/presets/he/",
+      "lang": "English",
       "status": 200,
-      "shot": "shop_cat_bundle__he__Laptop__chromium.jpg",
+      "shot": "presets_he__en__Laptop__chromium.jpg",
       "redirectedTo": null
     },
     {
@@ -1126,6 +1083,13 @@
       "redirectedTo": null
     },
     {
+      "page": "/shop/?cat=bundle",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "shop_cat_bundle__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
       "page": "/field-guides/he/",
       "lang": "Hebrew",
       "status": 200,
@@ -1138,13 +1102,6 @@
       "status": 200,
       "shot": "product__en__Laptop__chromium.jpg",
       "redirectedTo": "/shop/"
-    },
-    {
-      "page": "/support/?topic=download",
-      "lang": "English",
-      "status": 200,
-      "shot": "support_topic_download__en__Laptop__chromium.jpg",
-      "redirectedTo": null
     },
     {
       "page": "/product/",
@@ -1161,17 +1118,17 @@
       "redirectedTo": null
     },
     {
-      "page": "/support/?topic=refund",
+      "page": "/support/?topic=download",
       "lang": "English",
       "status": 200,
-      "shot": "support_topic_refund__en__Laptop__chromium.jpg",
+      "shot": "support_topic_download__en__Laptop__chromium.jpg",
       "redirectedTo": null
     },
     {
       "page": "/support/?topic=refund",
-      "lang": "Hebrew",
+      "lang": "English",
       "status": 200,
-      "shot": "support_topic_refund__he__Laptop__chromium.jpg",
+      "shot": "support_topic_refund__en__Laptop__chromium.jpg",
       "redirectedTo": null
     },
     {
@@ -1187,21 +1144,28 @@
       "status": 200,
       "shot": "account_next_2Fread_2F__he__Laptop__chromium.jpg",
       "redirectedTo": null
+    },
+    {
+      "page": "/support/?topic=refund",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "support_topic_refund__he__Laptop__chromium.jpg",
+      "redirectedTo": null
     }
   ],
   "perf": [
     {
       "page": "/",
-      "score": 85,
-      "lcp": 3650.556,
-      "cls": 0.01788641899470144,
+      "score": 90,
+      "lcp": 3480.938,
+      "cls": 0.017886232654544396,
       "tbt": 0,
-      "fcp": 2899.3925,
-      "weight": 1583949,
+      "fcp": 1926.2865,
+      "weight": 1583922,
       "tips": [
-        "Render-blocking requests (about 1.9s faster)",
-        "Use efficient cache lifetimes (about 0.8s faster)",
-        "Improve image delivery (about 0.8s faster)"
+        "Render-blocking requests (about 0.9s faster)",
+        "Use efficient cache lifetimes (about 0.5s faster)",
+        "Improve image delivery (about 0.5s faster)"
       ],
       "heavy": [
         {
@@ -1240,35 +1204,34 @@
     },
     {
       "page": "/shop/",
-      "score": 67,
-      "lcp": 3056.5773000000004,
-      "cls": 0.5689579917186708,
+      "score": 99,
+      "lcp": 1686.6006000000002,
+      "cls": 0,
       "tbt": 0,
-      "fcp": 2831.4967499999993,
-      "weight": 186644,
+      "fcp": 1686.6006000000002,
+      "weight": 186675,
       "tips": [
-        "Render-blocking requests (about 1.6s faster)",
-        "Use efficient cache lifetimes (about 0.3s faster)"
+        "Render-blocking requests (about 0.8s faster)"
       ],
       "heavy": []
     },
     {
       "page": "/presets/",
-      "score": 77,
-      "lcp": 4804.6903999999995,
+      "score": 86,
+      "lcp": 4059.7154,
       "cls": 0,
       "tbt": 0,
-      "fcp": 2878.30575,
-      "weight": 849691,
+      "fcp": 1832.9229000000003,
+      "weight": 849907,
       "tips": [
-        "Use efficient cache lifetimes (about 1.9s faster)",
+        "Use efficient cache lifetimes (about 2.3s faster)",
         "Improve image delivery (about 1.9s faster)",
-        "Render-blocking requests (about 1.9s faster)"
+        "Render-blocking requests (about 0.7s faster)"
       ],
       "heavy": [
         {
           "url": "/assets/pages/img/1a2e3ed3f44db1f671babb09a599b29f.jpg",
-          "savingKb": 192
+          "savingKb": 196
         },
         {
           "url": "/assets/pages/img/8cb56471dbe5940badc7a93cad5c8bf1.jpg",
@@ -1278,14 +1241,16 @@
     },
     {
       "page": "/account/",
-      "score": 91,
-      "lcp": 2888.6163000000006,
-      "cls": 0.034610603522514126,
-      "tbt": 4,
-      "fcp": 2738.2343,
-      "weight": 297659,
+      "score": 96,
+      "lcp": 2427.9179,
+      "cls": 0.0048151081583848905,
+      "tbt": 0,
+      "fcp": 1901.0716499999999,
+      "weight": 297636,
       "tips": [
-        "Render-blocking requests (about 1.9s faster)"
+        "Render-blocking requests (about 0.8s faster)",
+        "Use efficient cache lifetimes (about 0.7s faster)",
+        "Reduce unused JavaScript (about 0.3s faster)"
       ],
       "heavy": []
     }

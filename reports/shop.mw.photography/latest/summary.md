@@ -2,7 +2,7 @@
 
 | Critical | High | Medium | Low |
 |---|---|---|---|
-| 0 | 3 | 6 | 8 |
+| 0 | 3 | 6 | 7 |
 
 22 pages · English + Hebrew · 7 screen sizes · Chrome / Edge, Firefox, Safari (iPhone, Mac) · 25 links · 7 journeys
 
