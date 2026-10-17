@@ -3,9 +3,9 @@
   "domain": "shop.mw.photography",
   "tested": "live",
   "liveUrl": "https://shop.mw.photography",
-  "when": "2026-10-17T09:20:39.599Z",
+  "when": "2026-10-17T13:51:53.955Z",
   "commit": null,
-  "durationS": 448,
+  "durationS": 454,
   "mode": "full",
   "coverage": {
     "pages": 22,
@@ -39,7 +39,7 @@
     "Critical": 0,
     "High": 3,
     "Medium": 6,
-    "Low": 7
+    "Low": 8
   },
   "issues": [
     {
@@ -62,8 +62,8 @@
         "/presets/",
         "/panel/",
         "/field-guides/",
-        "/presets/he/",
         "/panel/he/",
+        "/presets/he/",
         "/field-guides/he/"
       ],
       "devices": [
@@ -85,7 +85,7 @@
       "blocking": true,
       "fixBy": "you",
       "fixNote": "Content only you can supply (final text, image or price).",
-      "change": "Replace what's shown: Shows a price of 0.00 (no price set for this product in the admin): \"₪0.00\". Pages: /, /presets/, /panel/, /field-guides/, /presets/he/, /panel/he/ and 1 more."
+      "change": "Replace what's shown: Shows a price of 0.00 (no price set for this product in the admin): \"₪0.00\". Pages: /, /presets/, /panel/, /field-guides/, /panel/he/, /presets/he/ and 1 more."
     },
     {
       "key": "visible-placeholder|kind:a placeholder note",
@@ -180,15 +180,13 @@
         "/product/"
       ],
       "devices": [
-        "iPhone 15",
         "Laptop"
       ],
       "browsers": [
         "Firefox"
       ],
       "langs": [
-        "English",
-        "Hebrew"
+        "English"
       ],
       "shots": [],
       "snippets": [],
@@ -210,12 +208,14 @@
       "why": "Largest Contentful Paint is when the biggest thing on screen (usually the hero image) appears. Google's target is under 2.5 seconds.",
       "fix": "Compress and resize the hero image (WebP/AVIF, no wider than it's shown), and preload it.",
       "details": [
-        "3.8s (target under 2.5s)",
+        "3.7s (target under 2.5s)",
+        "3.1s (target under 2.5s)",
         "4.8s (target under 2.5s)",
         "2.9s (target under 2.5s)"
       ],
       "pages": [
         "/",
+        "/shop/",
         "/presets/",
         "/account/"
       ],
@@ -459,6 +459,40 @@
       "snippet": "Example of what's affected:\n<html lang=\"en\" dir=\"ltr\" class=\"\">"
     },
     {
+      "key": "perf-score|perf",
+      "rule": "perf-score",
+      "severity": "Low",
+      "category": "performance",
+      "title": "The page is slow on phones",
+      "ruleTitle": "The page is slow on phones",
+      "why": "Google measures this score on a mid-range phone. Slow pages lose visitors (most leave after about 3 seconds) and rank lower.",
+      "fix": "Start with the biggest savings listed for this page.",
+      "details": [
+        "Score 67/100 (target 70+). Biggest wins: Render-blocking requests (about 1.6s faster); Use efficient cache lifetimes (about 0.3s faster)."
+      ],
+      "pages": [
+        "/shop/"
+      ],
+      "devices": [
+        "Mid-range phone, 4G"
+      ],
+      "browsers": [
+        "Chrome / Edge"
+      ],
+      "langs": [],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "2b2c2584be",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "built-in + claude",
+      "fixNote": "The tool shrinks oversized images itself; Claude handles loading order (lazy-loading, deferring scripts).",
+      "change": "Make the images smaller (resize to the size they're shown at, WebP or AVIF, about 80% quality), load images below the first screen with loading=\"lazy\", and let the main image load first with fetchpriority=\"high\".",
+      "snippet": "<img src=\"hero.webp\" fetchpriority=\"high\" alt=\"…\">\n<img src=\"later.webp\" loading=\"lazy\" alt=\"…\">"
+    },
+    {
       "key": "header-nosniff|Missing (GitHub Pages can't send custom headers; see the fix for the workaround or a host that can)",
       "rule": "header-nosniff",
       "severity": "Low",
@@ -587,8 +621,8 @@
       "devices": [],
       "browsers": [],
       "langs": [
-        "English",
-        "Hebrew"
+        "Hebrew",
+        "English"
       ],
       "shots": [],
       "snippets": [],
@@ -648,8 +682,8 @@
         "/presets/",
         "/panel/",
         "/field-guides/",
-        "/presets/he/",
         "/panel/he/",
+        "/presets/he/",
         "/field-guides/he/"
       ],
       "devices": [],
@@ -666,7 +700,7 @@
       "known": false,
       "blocking": false,
       "fixBy": "claude",
-      "change": "In the <head> of /presets/, /panel/, /field-guides/, /presets/he/, /panel/he/, /field-guides/he/, add share-preview tags (the image should be 1200×630):",
+      "change": "In the <head> of /presets/, /panel/, /field-guides/, /panel/he/, /presets/he/, /field-guides/he/, add share-preview tags (the image should be 1200×630):",
       "snippet": "<meta property=\"og:title\" content=\"…\">\n<meta property=\"og:description\" content=\"…\">\n<meta property=\"og:image\" content=\"https://shop.mw.photography/share.jpg\">\n<meta property=\"og:url\" content=\"https://shop.mw.photography/presets/\">"
     }
   ],
@@ -855,16 +889,16 @@
   "visited": [
     {
       "page": "/shop/",
-      "lang": "English",
+      "lang": "Hebrew",
       "status": 200,
-      "shot": "shop__en__Laptop__chromium.jpg",
+      "shot": "shop__he__Laptop__chromium.jpg",
       "redirectedTo": null
     },
     {
       "page": "/shop/",
-      "lang": "Hebrew",
+      "lang": "English",
       "status": 200,
-      "shot": "shop__he__Laptop__chromium.jpg",
+      "shot": "shop__en__Laptop__chromium.jpg",
       "redirectedTo": null
     },
     {
@@ -924,10 +958,17 @@
       "redirectedTo": "/panel/he/"
     },
     {
-      "page": "/field-guides/",
+      "page": "/account/",
       "lang": "English",
       "status": 200,
-      "shot": "field_guides__en__Laptop__chromium.jpg",
+      "shot": "account__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/account/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "account__he__Laptop__chromium.jpg",
       "redirectedTo": null
     },
     {
@@ -938,17 +979,10 @@
       "redirectedTo": "/field-guides/he/"
     },
     {
-      "page": "/account/",
-      "lang": "Hebrew",
-      "status": 200,
-      "shot": "account__he__Laptop__chromium.jpg",
-      "redirectedTo": null
-    },
-    {
-      "page": "/account/",
+      "page": "/field-guides/",
       "lang": "English",
       "status": 200,
-      "shot": "account__en__Laptop__chromium.jpg",
+      "shot": "field_guides__en__Laptop__chromium.jpg",
       "redirectedTo": null
     },
     {
@@ -967,16 +1001,16 @@
     },
     {
       "page": "/legal/",
-      "lang": "Hebrew",
+      "lang": "English",
       "status": 200,
-      "shot": "legal__he__Laptop__chromium.jpg",
+      "shot": "legal__en__Laptop__chromium.jpg",
       "redirectedTo": null
     },
     {
       "page": "/legal/",
-      "lang": "English",
+      "lang": "Hebrew",
       "status": 200,
-      "shot": "legal__en__Laptop__chromium.jpg",
+      "shot": "legal__he__Laptop__chromium.jpg",
       "redirectedTo": null
     },
     {
@@ -995,16 +1029,16 @@
     },
     {
       "page": "/beta/",
-      "lang": "Hebrew",
+      "lang": "English",
       "status": 200,
-      "shot": "beta__he__Laptop__chromium.jpg",
+      "shot": "beta__en__Laptop__chromium.jpg",
       "redirectedTo": null
     },
     {
       "page": "/beta/",
-      "lang": "English",
+      "lang": "Hebrew",
       "status": 200,
-      "shot": "beta__en__Laptop__chromium.jpg",
+      "shot": "beta__he__Laptop__chromium.jpg",
       "redirectedTo": null
     },
     {
@@ -1022,6 +1056,13 @@
       "redirectedTo": null
     },
     {
+      "page": "/admin/",
+      "lang": "English",
+      "status": 200,
+      "shot": "admin__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
       "page": "/read/",
       "lang": "English",
       "status": 200,
@@ -1036,24 +1077,17 @@
       "redirectedTo": null
     },
     {
-      "page": "/admin/",
-      "lang": "English",
-      "status": 200,
-      "shot": "admin__en__Laptop__chromium.jpg",
-      "redirectedTo": null
-    },
-    {
-      "page": "/shop/?cat=bundle",
-      "lang": "English",
-      "status": 200,
-      "shot": "shop_cat_bundle__en__Laptop__chromium.jpg",
-      "redirectedTo": null
-    },
-    {
-      "page": "/shop/?cat=bundle",
+      "page": "/panel/he/",
       "lang": "Hebrew",
       "status": 200,
-      "shot": "shop_cat_bundle__he__Laptop__chromium.jpg",
+      "shot": "panel_he__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/panel/he/",
+      "lang": "English",
+      "status": 200,
+      "shot": "panel_he__en__Laptop__chromium.jpg",
       "redirectedTo": null
     },
     {
@@ -1071,17 +1105,17 @@
       "redirectedTo": null
     },
     {
-      "page": "/panel/he/",
-      "lang": "English",
+      "page": "/shop/?cat=bundle",
+      "lang": "Hebrew",
       "status": 200,
-      "shot": "panel_he__en__Laptop__chromium.jpg",
+      "shot": "shop_cat_bundle__he__Laptop__chromium.jpg",
       "redirectedTo": null
     },
     {
-      "page": "/panel/he/",
-      "lang": "Hebrew",
+      "page": "/shop/?cat=bundle",
+      "lang": "English",
       "status": 200,
-      "shot": "panel_he__he__Laptop__chromium.jpg",
+      "shot": "shop_cat_bundle__en__Laptop__chromium.jpg",
       "redirectedTo": null
     },
     {
@@ -1106,18 +1140,18 @@
       "redirectedTo": "/shop/"
     },
     {
-      "page": "/product/",
-      "lang": "Hebrew",
-      "status": 200,
-      "shot": "product__he__Laptop__chromium.jpg",
-      "redirectedTo": "/shop/"
-    },
-    {
       "page": "/support/?topic=download",
       "lang": "English",
       "status": 200,
       "shot": "support_topic_download__en__Laptop__chromium.jpg",
       "redirectedTo": null
+    },
+    {
+      "page": "/product/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "product__he__Laptop__chromium.jpg",
+      "redirectedTo": "/shop/"
     },
     {
       "page": "/support/?topic=download",
@@ -1158,16 +1192,16 @@
   "perf": [
     {
       "page": "/",
-      "score": 88,
-      "lcp": 3791.740999999999,
-      "cls": 0.017886232654544396,
+      "score": 85,
+      "lcp": 3650.556,
+      "cls": 0.01788641899470144,
       "tbt": 0,
-      "fcp": 1840.6064999999996,
-      "weight": 1584017,
+      "fcp": 2899.3925,
+      "weight": 1583949,
       "tips": [
-        "Use efficient cache lifetimes (about 0.9s faster)",
-        "Improve image delivery (about 0.9s faster)",
-        "Render-blocking requests (about 0.9s faster)"
+        "Render-blocking requests (about 1.9s faster)",
+        "Use efficient cache lifetimes (about 0.8s faster)",
+        "Improve image delivery (about 0.8s faster)"
       ],
       "heavy": [
         {
@@ -1206,25 +1240,26 @@
     },
     {
       "page": "/shop/",
-      "score": 77,
-      "lcp": 1674.5315999999998,
+      "score": 67,
+      "lcp": 3056.5773000000004,
       "cls": 0.5689579917186708,
-      "tbt": 0.5,
-      "fcp": 1674.5315999999998,
-      "weight": 186734,
+      "tbt": 0,
+      "fcp": 2831.4967499999993,
+      "weight": 186644,
       "tips": [
-        "Render-blocking requests (about 0.8s faster)"
+        "Render-blocking requests (about 1.6s faster)",
+        "Use efficient cache lifetimes (about 0.3s faster)"
       ],
       "heavy": []
     },
     {
       "page": "/presets/",
       "score": 77,
-      "lcp": 4803.0229,
+      "lcp": 4804.6903999999995,
       "cls": 0,
       "tbt": 0,
-      "fcp": 2875.2116499999997,
-      "weight": 849868,
+      "fcp": 2878.30575,
+      "weight": 849691,
       "tips": [
         "Use efficient cache lifetimes (about 1.9s faster)",
         "Improve image delivery (about 1.9s faster)",
@@ -1244,11 +1279,11 @@
     {
       "page": "/account/",
       "score": 91,
-      "lcp": 2879.2567710179,
+      "lcp": 2888.6163000000006,
       "cls": 0.034610603522514126,
-      "tbt": 6.5,
-      "fcp": 2728.89541681432,
-      "weight": 297963,
+      "tbt": 4,
+      "fcp": 2738.2343,
+      "weight": 297659,
       "tips": [
         "Render-blocking requests (about 1.9s faster)"
       ],

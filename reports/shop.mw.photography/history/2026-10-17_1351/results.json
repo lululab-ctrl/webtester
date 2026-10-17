@@ -1,0 +1,1328 @@
+{
+  "site": "MWP Shop",
+  "domain": "shop.mw.photography",
+  "tested": "live",
+  "liveUrl": "https://shop.mw.photography",
+  "when": "2026-10-17T13:51:53.955Z",
+  "commit": null,
+  "durationS": 454,
+  "mode": "full",
+  "coverage": {
+    "pages": 22,
+    "languages": [
+      "English",
+      "Hebrew"
+    ],
+    "devices": [
+      "iPhone SE (375×667)",
+      "iPhone 15 (393×852)",
+      "Galaxy S23 (360×780)",
+      "iPad Mini (768×1024)",
+      "iPad Pro landscape (1366×1024)",
+      "Laptop (1280×800)",
+      "Desktop (1920×1080)"
+    ],
+    "browsers": [
+      "Chrome / Edge",
+      "Firefox",
+      "Safari (iPhone, Mac)"
+    ],
+    "links": 25,
+    "flows": 7
+  },
+  "verdict": "blocked",
+  "blockOn": [
+    "Critical",
+    "High"
+  ],
+  "counts": {
+    "Critical": 0,
+    "High": 3,
+    "Medium": 6,
+    "Low": 8
+  },
+  "issues": [
+    {
+      "key": "visible-placeholder|kind:a price of 0.00 (no price set for this product in the admin)",
+      "rule": "visible-placeholder",
+      "severity": "High",
+      "category": "errors",
+      "title": "Visitors can see unfinished text",
+      "ruleTitle": "Visitors can see unfinished text",
+      "why": "Notes meant for the team, filler text or template fields look unprofessional and make visitors doubt the shop is real or finished.",
+      "fix": "Replace the text (or the image or price it refers to) with the final version, then check the page again.",
+      "details": [
+        "Shows a price of 0.00 (no price set for this product in the admin): \"₪0.00\"",
+        "Shows a price of 0.00 (no price set for this product in the admin): \"$0.00\"",
+        "Shows a price of 0.00 (no price set for this product in the admin): \"· ₪0.00\"",
+        "Shows a price of 0.00 (no price set for this product in the admin): \"· $0.00\""
+      ],
+      "pages": [
+        "/",
+        "/presets/",
+        "/panel/",
+        "/field-guides/",
+        "/panel/he/",
+        "/presets/he/",
+        "/field-guides/he/"
+      ],
+      "devices": [
+        "Laptop"
+      ],
+      "browsers": [
+        "Chrome / Edge"
+      ],
+      "langs": [
+        "Hebrew",
+        "English"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "e92632b576",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": true,
+      "fixBy": "you",
+      "fixNote": "Content only you can supply (final text, image or price).",
+      "change": "Replace what's shown: Shows a price of 0.00 (no price set for this product in the admin): \"₪0.00\". Pages: /, /presets/, /panel/, /field-guides/, /panel/he/, /presets/he/ and 1 more."
+    },
+    {
+      "key": "visible-placeholder|kind:a placeholder note",
+      "rule": "visible-placeholder",
+      "severity": "High",
+      "category": "errors",
+      "title": "Visitors can see unfinished text",
+      "ruleTitle": "Visitors can see unfinished text",
+      "why": "Notes meant for the team, filler text or template fields look unprofessional and make visitors doubt the shop is real or finished.",
+      "fix": "Replace the text (or the image or price it refers to) with the final version, then check the page again.",
+      "details": [
+        "Shows a placeholder note: \"PLACEHOLDER: the \"after\" here is Matan's finished edit. Replace with the same RAW edited on\""
+      ],
+      "pages": [
+        "/presets/",
+        "/panel/"
+      ],
+      "devices": [
+        "Laptop"
+      ],
+      "browsers": [
+        "Chrome / Edge"
+      ],
+      "langs": [
+        "English"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "c348dfb8e7",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": true,
+      "fixBy": "you",
+      "fixNote": "Content only you can supply (final text, image or price).",
+      "change": "Replace what's shown: Shows a placeholder note: \"PLACEHOLDER: the \"after\" here is Matan's finished edit. Replace with the same RAW edited on\". Pages: /presets/, /panel/."
+    },
+    {
+      "key": "flow-failed|flow:The shop page lists the products, and a product opens its own page|Step 2 (expectVisible #shop-grid .product-card)",
+      "rule": "flow-failed",
+      "severity": "High",
+      "category": "flows",
+      "title": "Something a visitor does doesn't work",
+      "ruleTitle": "Something a visitor does doesn't work",
+      "why": "This is one of the site's key actions. If it fails here, it fails for real visitors too.",
+      "fix": "Follow the same steps yourself on the device listed. The step that failed is shown; the screenshot shows what the page looked like at that moment.",
+      "details": [
+        "Step 2 (expectVisible #shop-grid .product-card) failed: locator.waitFor: Timeout 8000ms exceeded. · The page showed: \"All products All products Search products Sort by Featured Newest Price: low to high Price: high to low 0 products The first products are being prepared. Check back soon.\"",
+        "Step 2 (expectVisible #shop-grid .product-card) failed: locator.waitFor: Timeout 8000ms exceeded. · The page showed: \"All products All products Search products Sort by 0 products The first products are being prepared. Check back soon.\""
+      ],
+      "pages": [
+        "The shop page lists the products, and a product opens its own page"
+      ],
+      "devices": [
+        "iPhone SE",
+        "Laptop"
+      ],
+      "browsers": [
+        "Chrome / Edge",
+        "Firefox",
+        "Safari (iPhone, Mac)"
+      ],
+      "langs": [],
+      "shots": [
+        "flow_The_shop_page_lists_the_products_and_a_product_ope__iPhone-SE__chromium.jpg",
+        "flow_The_shop_page_lists_the_products_and_a_product_ope__Laptop__chromium.jpg",
+        "flow_The_shop_page_lists_the_products_and_a_product_ope__iPhone-SE__firefox.jpg",
+        "flow_The_shop_page_lists_the_products_and_a_product_ope__Laptop__firefox.jpg"
+      ],
+      "snippets": [],
+      "heavy": [],
+      "id": "b0f48819d1",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": true,
+      "fixBy": "claude",
+      "change": "Follow the steps yourself: Step 2 (expectVisible #shop-grid .product-card) failed: locator.waitFor: Timeout 8000ms exceeded. · The page showed: \"All products All products Search products Sort by Featured Newest Price: low to high Price: high to low 0 products The first products are being prepared. Check back soon.\""
+    },
+    {
+      "key": "console-error|[JavaScript Error: \"downloadable font: download failed (font-family: \"Google Sans\" style:normal weight:400..700 stretch:100 src index:0): status=2152398850 source: https://fonts.gstatic.com/s/googlesans/v71/4UaRrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iq2vgCI.woff2\"]",
+      "rule": "console-error",
+      "severity": "Medium",
+      "category": "errors",
+      "title": "The browser reports an error",
+      "ruleTitle": "The browser reports an error",
+      "why": "Errors in the browser console often mean something on the page didn't load or run as intended, even if the page looks fine at first glance.",
+      "fix": "Open the page, press F12 and read the Console tab. Fix the cause, or remove the code that triggers it if it's left over.",
+      "details": [
+        "[JavaScript Error: \"downloadable font: download failed (font-family: \"Google Sans\" style:normal weight:400..700 stretch:100 src index:0): status=2152398850 source: https://fonts.gstatic.com/s/googlesans/v71/4UaRrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iq2vgCI.woff2\"]"
+      ],
+      "pages": [
+        "/product/"
+      ],
+      "devices": [
+        "Laptop"
+      ],
+      "browsers": [
+        "Firefox"
+      ],
+      "langs": [
+        "English"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "a677111e3f",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "change": "Open the page, press F12 and read the Console tab. Fix the cause, or remove the code that triggers it if it's left over."
+    },
+    {
+      "key": "perf-lcp|perf",
+      "rule": "perf-lcp",
+      "severity": "Medium",
+      "category": "performance",
+      "title": "The main content appears late (LCP)",
+      "ruleTitle": "The main content appears late (LCP)",
+      "why": "Largest Contentful Paint is when the biggest thing on screen (usually the hero image) appears. Google's target is under 2.5 seconds.",
+      "fix": "Compress and resize the hero image (WebP/AVIF, no wider than it's shown), and preload it.",
+      "details": [
+        "3.7s (target under 2.5s)",
+        "3.1s (target under 2.5s)",
+        "4.8s (target under 2.5s)",
+        "2.9s (target under 2.5s)"
+      ],
+      "pages": [
+        "/",
+        "/shop/",
+        "/presets/",
+        "/account/"
+      ],
+      "devices": [
+        "Mid-range phone, 4G"
+      ],
+      "browsers": [
+        "Chrome / Edge"
+      ],
+      "langs": [],
+      "shots": [],
+      "snippets": [],
+      "heavy": [
+        {
+          "url": "/assets/pages/img/1a2e3ed3f44db1f671babb09a599b29f.jpg",
+          "savingKb": 192
+        },
+        {
+          "url": "/assets/pages/img/8cb56471dbe5940badc7a93cad5c8bf1.jpg",
+          "savingKb": 176
+        },
+        {
+          "url": "/assets/pages/img/5275cc7bcd4fb7560d8f7163592e3122.jpg",
+          "savingKb": 175
+        },
+        {
+          "url": "/assets/pages/img/d5f6d2a7c84cc3346ef45e4922528351.jpg",
+          "savingKb": 160
+        },
+        {
+          "url": "/assets/pages/img/ce73f34a054f9959d99fd850c1df9ce5.jpg",
+          "savingKb": 131
+        },
+        {
+          "url": "/assets/pages/img/6d84bcea4206fe4c622103d7d3aea920.jpg",
+          "savingKb": 107
+        },
+        {
+          "url": "/assets/pages/img/try-raw-clean.jpg",
+          "savingKb": 90
+        },
+        {
+          "url": "/assets/pages/img/2f9794f404a12b19c251a68288a8f543.jpg",
+          "savingKb": 89
+        }
+      ],
+      "id": "9d082d4108",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "built-in + claude",
+      "fixNote": "The tool shrinks oversized images itself; Claude handles loading order (lazy-loading, deferring scripts).",
+      "change": "Make the images smaller (resize to the size they're shown at, WebP or AVIF, about 80% quality), load images below the first screen with loading=\"lazy\", and let the main image load first with fetchpriority=\"high\". Biggest savings:",
+      "snippet": "/assets/pages/img/1a2e3ed3f44db1f671babb09a599b29f.jpg  (could be ~192 KB smaller)\n/assets/pages/img/8cb56471dbe5940badc7a93cad5c8bf1.jpg  (could be ~176 KB smaller)\n/assets/pages/img/5275cc7bcd4fb7560d8f7163592e3122.jpg  (could be ~175 KB smaller)\n/assets/pages/img/d5f6d2a7c84cc3346ef45e4922528351.jpg  (could be ~160 KB smaller)\n/assets/pages/img/ce73f34a054f9959d99fd850c1df9ce5.jpg  (could be ~131 KB smaller)\n/assets/pages/img/6d84bcea4206fe4c622103d7d3aea920.jpg  (could be ~107 KB smaller)"
+    },
+    {
+      "key": "perf-cls|perf",
+      "rule": "perf-cls",
+      "severity": "Medium",
+      "category": "performance",
+      "title": "The page jumps around while loading (CLS)",
+      "ruleTitle": "The page jumps around while loading (CLS)",
+      "why": "Content shifting as it loads makes visitors tap the wrong thing. Google's target is under 0.1.",
+      "fix": "Give images and embeds a width and height (or aspect-ratio), and reserve space for things that load in later, like prices.",
+      "details": [
+        "0.57 (target under 0.1)"
+      ],
+      "pages": [
+        "/shop/"
+      ],
+      "devices": [
+        "Mid-range phone, 4G"
+      ],
+      "browsers": [
+        "Chrome / Edge"
+      ],
+      "langs": [],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "980ac87c23",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "built-in + claude",
+      "fixNote": "The tool shrinks oversized images itself; Claude handles loading order (lazy-loading, deferring scripts).",
+      "change": "Give every image and embed a width and height (or CSS aspect-ratio) so the page doesn't jump while loading.",
+      "snippet": "<img src=\"photo.jpg\" width=\"1600\" height=\"1000\" alt=\"…\">"
+    },
+    {
+      "key": "header-hsts|No Strict-Transport-Security header (GitHub Pages can't send custom headers; see the fix for the workaround or a host that can)",
+      "rule": "header-hsts",
+      "severity": "Medium",
+      "category": "security",
+      "title": "Browsers aren't told to always use the secure address",
+      "ruleTitle": "Browsers aren't told to always use the secure address",
+      "why": "Without HSTS, a visitor's very first request can be sent unencrypted and redirected by an attacker on public Wi-Fi.",
+      "fix": "Send the Strict-Transport-Security header (max-age of at least six months). Most hosts have a switch for this.",
+      "details": [
+        "No Strict-Transport-Security header (GitHub Pages can't send custom headers; see the fix for the workaround or a host that can)"
+      ],
+      "pages": [
+        "/",
+        "/shop/",
+        "/product/?p=mwp-presets",
+        "/presets/",
+        "/panel/",
+        "/field-guides/"
+      ],
+      "devices": [],
+      "browsers": [
+        "live site"
+      ],
+      "langs": [],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "f6b8edf422",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "you",
+      "fixNote": "This site is hosted on GitHub Pages, which can't send security headers. It needs a host change (or Cloudflare in front), which is a decision for you.",
+      "change": "Make the host send this header on every page.",
+      "snippet": "GitHub Pages can't send this header. Options:\n1. Publish through Vercel or Netlify (both read headers from a file in the code), or\n2. Put Cloudflare (free plan) in front of the domain and add the header there:\n   Strict-Transport-Security: max-age=31536000; includeSubDomains"
+    },
+    {
+      "key": "header-csp|No CSP header or meta tag (GitHub Pages can't send custom headers; see the fix for the workaround or a host that can)",
+      "rule": "header-csp",
+      "severity": "Medium",
+      "category": "security",
+      "title": "No Content Security Policy",
+      "ruleTitle": "No Content Security Policy",
+      "why": "A CSP is a whitelist of where scripts may come from. If any bug ever lets someone inject a script, the CSP stops it from running. It's the main safety net against account-stealing attacks.",
+      "fix": "Add a Content-Security-Policy header, or a <meta http-equiv=\"Content-Security-Policy\"> tag when the host can't set headers. Start in report-only mode and tighten it.",
+      "details": [
+        "No CSP header or meta tag (GitHub Pages can't send custom headers; see the fix for the workaround or a host that can)"
+      ],
+      "pages": [
+        "/",
+        "/shop/",
+        "/product/?p=mwp-presets",
+        "/presets/",
+        "/panel/",
+        "/field-guides/"
+      ],
+      "devices": [],
+      "browsers": [
+        "live site"
+      ],
+      "langs": [],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "5a89e03d60",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "you",
+      "fixNote": "This site is hosted on GitHub Pages, which can't send security headers. It needs a host change (or Cloudflare in front), which is a decision for you.",
+      "change": "Add a Content Security Policy. Start with the report-only version below, check nothing breaks for a week, then switch the name to Content-Security-Policy.",
+      "snippet": "GitHub Pages can't send this header. Options:\n1. Publish through Vercel or Netlify (both read headers from a file in the code), or\n2. Put Cloudflare (free plan) in front of the domain and add the header there:\n   Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https: data:; connect-src 'self' https:; frame-ancestors 'none'\n\nWithout header support, a CSP can also go in each page's <head>:\n<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'; script-src 'self' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https: data:; connect-src 'self' https:\">"
+    },
+    {
+      "key": "header-frame|No X-Frame-Options or frame-ancestors (GitHub Pages can't send custom headers; see the fix for the workaround or a host that can)",
+      "rule": "header-frame",
+      "severity": "Medium",
+      "category": "security",
+      "title": "Other sites can embed this page invisibly",
+      "ruleTitle": "Other sites can embed this page invisibly",
+      "why": "An attacker can load the page inside an invisible frame on their own site and trick visitors into clicking buttons (\"clickjacking\").",
+      "fix": "Send X-Frame-Options: DENY or a CSP with frame-ancestors 'none'. (This one can't be set with a <meta> tag.)",
+      "details": [
+        "No X-Frame-Options or frame-ancestors (GitHub Pages can't send custom headers; see the fix for the workaround or a host that can)"
+      ],
+      "pages": [
+        "/",
+        "/shop/",
+        "/product/?p=mwp-presets",
+        "/presets/",
+        "/panel/",
+        "/field-guides/"
+      ],
+      "devices": [],
+      "browsers": [
+        "live site"
+      ],
+      "langs": [],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "fedf4bd24f",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "you",
+      "fixNote": "This site is hosted on GitHub Pages, which can't send security headers. It needs a host change (or Cloudflare in front), which is a decision for you.",
+      "change": "Make the host send this header on every page.",
+      "snippet": "GitHub Pages can't send this header. Options:\n1. Publish through Vercel or Netlify (both read headers from a file in the code), or\n2. Put Cloudflare (free plan) in front of the domain and add the header there:\n   X-Frame-Options: DENY"
+    },
+    {
+      "key": "a11y|axe:page-has-heading-one",
+      "rule": "a11y",
+      "severity": "Low",
+      "category": "accessibility",
+      "title": "Page should contain a level-one heading",
+      "ruleTitle": "Accessibility barrier",
+      "why": "Some visitors can't use this part of the page: people using screen readers, keyboard only, zoom, or with low vision or colour blindness. Accessibility is also a legal requirement in many countries, including Israel's accessibility regulations for websites.",
+      "fix": "See the specific rule below; each one links to a guide with the exact fix.",
+      "learnMore": "https://dequeuniversity.com/rules/axe/4.13/page-has-heading-one?application=playwright",
+      "details": [
+        "Page should contain a level-one heading (1 place: html)"
+      ],
+      "pages": [
+        "/product/?p=mwp-presets"
+      ],
+      "devices": [
+        "Laptop"
+      ],
+      "browsers": [
+        "Chrome / Edge"
+      ],
+      "langs": [
+        "English",
+        "Hebrew"
+      ],
+      "shots": [],
+      "snippets": [
+        "<html lang=\"en\" dir=\"ltr\" class=\"\">",
+        "<html lang=\"he\" dir=\"rtl\" class=\"\">"
+      ],
+      "axeId": "page-has-heading-one",
+      "fixHint": "Fix all of the following:   Page must have a level-one heading",
+      "heavy": [],
+      "id": "77b11b3ba3",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "change": "Page must have a level-one heading. See the guide for the exact fix.",
+      "snippet": "Example of what's affected:\n<html lang=\"en\" dir=\"ltr\" class=\"\">"
+    },
+    {
+      "key": "perf-score|perf",
+      "rule": "perf-score",
+      "severity": "Low",
+      "category": "performance",
+      "title": "The page is slow on phones",
+      "ruleTitle": "The page is slow on phones",
+      "why": "Google measures this score on a mid-range phone. Slow pages lose visitors (most leave after about 3 seconds) and rank lower.",
+      "fix": "Start with the biggest savings listed for this page.",
+      "details": [
+        "Score 67/100 (target 70+). Biggest wins: Render-blocking requests (about 1.6s faster); Use efficient cache lifetimes (about 0.3s faster)."
+      ],
+      "pages": [
+        "/shop/"
+      ],
+      "devices": [
+        "Mid-range phone, 4G"
+      ],
+      "browsers": [
+        "Chrome / Edge"
+      ],
+      "langs": [],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "2b2c2584be",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "built-in + claude",
+      "fixNote": "The tool shrinks oversized images itself; Claude handles loading order (lazy-loading, deferring scripts).",
+      "change": "Make the images smaller (resize to the size they're shown at, WebP or AVIF, about 80% quality), load images below the first screen with loading=\"lazy\", and let the main image load first with fetchpriority=\"high\".",
+      "snippet": "<img src=\"hero.webp\" fetchpriority=\"high\" alt=\"…\">\n<img src=\"later.webp\" loading=\"lazy\" alt=\"…\">"
+    },
+    {
+      "key": "header-nosniff|Missing (GitHub Pages can't send custom headers; see the fix for the workaround or a host that can)",
+      "rule": "header-nosniff",
+      "severity": "Low",
+      "category": "security",
+      "title": "Missing X-Content-Type-Options",
+      "ruleTitle": "Missing X-Content-Type-Options",
+      "why": "Without it, some browsers guess file types, which can turn an uploaded file into running code.",
+      "fix": "Send X-Content-Type-Options: nosniff.",
+      "details": [
+        "Missing (GitHub Pages can't send custom headers; see the fix for the workaround or a host that can)"
+      ],
+      "pages": [
+        "/",
+        "/shop/",
+        "/product/?p=mwp-presets",
+        "/presets/",
+        "/panel/",
+        "/field-guides/"
+      ],
+      "devices": [],
+      "browsers": [
+        "live site"
+      ],
+      "langs": [],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "2212ebc442",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "you",
+      "fixNote": "This site is hosted on GitHub Pages, which can't send security headers. It needs a host change (or Cloudflare in front), which is a decision for you.",
+      "change": "Make the host send this header on every page.",
+      "snippet": "GitHub Pages can't send this header. Options:\n1. Publish through Vercel or Netlify (both read headers from a file in the code), or\n2. Put Cloudflare (free plan) in front of the domain and add the header there:\n   X-Content-Type-Options: nosniff"
+    },
+    {
+      "key": "header-referrer|No Referrer-Policy header or meta tag",
+      "rule": "header-referrer",
+      "severity": "Low",
+      "category": "security",
+      "title": "No referrer policy",
+      "ruleTitle": "No referrer policy",
+      "why": "Full page addresses (which can include sign-in tokens or order details) may be passed to other sites the visitor goes to.",
+      "fix": "Send Referrer-Policy: strict-origin-when-cross-origin, or add <meta name=\"referrer\" content=\"strict-origin-when-cross-origin\">.",
+      "details": [
+        "No Referrer-Policy header or meta tag"
+      ],
+      "pages": [
+        "/",
+        "/shop/",
+        "/product/?p=mwp-presets",
+        "/presets/",
+        "/panel/",
+        "/field-guides/"
+      ],
+      "devices": [],
+      "browsers": [
+        "live site"
+      ],
+      "langs": [],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "e96471fb8a",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "fixNote": "These pages are built from other files, so Claude makes the change at the source.",
+      "change": "In the <head> of every page, add:",
+      "snippet": "<meta name=\"referrer\" content=\"strict-origin-when-cross-origin\">"
+    },
+    {
+      "key": "robots-blocks-all|robots.txt has \"Disallow: /\" for every search engine. Fine before launch (the settings say the site isn't launched yet); change it on launch day.",
+      "rule": "robots-blocks-all",
+      "severity": "Low",
+      "category": "seo",
+      "title": "Search engines are told to stay away from the whole site",
+      "ruleTitle": "Search engines are told to stay away from the whole site",
+      "why": "robots.txt tells Google and others not to read any page, so the site won't appear in search results at all.",
+      "fix": "If the site is launched, replace robots.txt with the launch version (block only private pages, and point to the sitemap).",
+      "details": [
+        "robots.txt has \"Disallow: /\" for every search engine. Fine before launch (the settings say the site isn't launched yet); change it on launch day."
+      ],
+      "pages": [
+        "/robots.txt"
+      ],
+      "devices": [],
+      "browsers": [],
+      "langs": [],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "6c10999f28",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "you",
+      "fixNote": "Only at launch: it's your call when the site should appear in Google.",
+      "change": "Replace robots.txt with:",
+      "snippet": "User-agent: *\nDisallow:\nDisallow: /admin/\nDisallow: /account/\nDisallow: /thank-you/\nDisallow: /beta/\nDisallow: /testers/\nDisallow: /read/\nSitemap: https://shop.mw.photography/sitemap.xml"
+    },
+    {
+      "key": "social-preview-missing|Missing og:image",
+      "rule": "social-preview-missing",
+      "severity": "Low",
+      "category": "seo",
+      "title": "Links to this page share without a preview",
+      "ruleTitle": "Links to this page share without a preview",
+      "why": "When someone shares the page on WhatsApp, Facebook or LinkedIn, it appears as a bare link instead of a card with an image and title.",
+      "fix": "Add Open Graph tags: og:title, og:description, og:image (1200×630) and og:url.",
+      "details": [
+        "Missing og:image"
+      ],
+      "pages": [
+        "/shop/",
+        "/",
+        "/product/?p=mwp-presets",
+        "/support/",
+        "/legal/",
+        "/shop/?cat=bundle",
+        "/support/?topic=download",
+        "/support/?topic=refund"
+      ],
+      "devices": [],
+      "browsers": [],
+      "langs": [
+        "Hebrew",
+        "English"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "059dcfbe32",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "change": "In the <head> of /shop/, /, /product/?p=mwp-presets, /support/, /legal/, /shop/?cat=bundle and 2 more, add share-preview tags (the image should be 1200×630):",
+      "snippet": "<meta property=\"og:title\" content=\"…\">\n<meta property=\"og:description\" content=\"…\">\n<meta property=\"og:image\" content=\"https://shop.mw.photography/share.jpg\">\n<meta property=\"og:url\" content=\"https://shop.mw.photography/shop/\">"
+    },
+    {
+      "key": "h1-missing|No <h1>",
+      "rule": "h1-missing",
+      "severity": "Low",
+      "category": "seo",
+      "title": "The page has no main heading",
+      "ruleTitle": "The page has no main heading",
+      "why": "The main heading (<h1>) tells search engines and screen-reader users what the page is about.",
+      "fix": "Make the page's main headline an <h1>.",
+      "details": [
+        "No <h1>"
+      ],
+      "pages": [
+        "/product/?p=mwp-presets"
+      ],
+      "devices": [],
+      "browsers": [],
+      "langs": [
+        "English",
+        "Hebrew"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "575a9c3cbb",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "change": "Make the main headline of /product/?p=mwp-presets an <h1>."
+    },
+    {
+      "key": "social-preview-missing|Missing og:title, og:description, og:image",
+      "rule": "social-preview-missing",
+      "severity": "Low",
+      "category": "seo",
+      "title": "Links to this page share without a preview",
+      "ruleTitle": "Links to this page share without a preview",
+      "why": "When someone shares the page on WhatsApp, Facebook or LinkedIn, it appears as a bare link instead of a card with an image and title.",
+      "fix": "Add Open Graph tags: og:title, og:description, og:image (1200×630) and og:url.",
+      "details": [
+        "Missing og:title, og:description, og:image"
+      ],
+      "pages": [
+        "/presets/",
+        "/panel/",
+        "/field-guides/",
+        "/panel/he/",
+        "/presets/he/",
+        "/field-guides/he/"
+      ],
+      "devices": [],
+      "browsers": [],
+      "langs": [
+        "English",
+        "Hebrew"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "29a1dcd8da",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "change": "In the <head> of /presets/, /panel/, /field-guides/, /panel/he/, /presets/he/, /field-guides/he/, add share-preview tags (the image should be 1200×630):",
+      "snippet": "<meta property=\"og:title\" content=\"…\">\n<meta property=\"og:description\" content=\"…\">\n<meta property=\"og:image\" content=\"https://shop.mw.photography/share.jpg\">\n<meta property=\"og:url\" content=\"https://shop.mw.photography/presets/\">"
+    }
+  ],
+  "flowsPassed": [
+    {
+      "flow": "Switching to Hebrew flips the page to right-to-left",
+      "device": "iPhone SE",
+      "browser": "chromium"
+    },
+    {
+      "flow": "Switching to Hebrew flips the page to right-to-left",
+      "device": "Laptop",
+      "browser": "chromium"
+    },
+    {
+      "flow": "The cart opens from the header and closes again",
+      "device": "iPhone SE",
+      "browser": "chromium"
+    },
+    {
+      "flow": "The cart opens from the header and closes again",
+      "device": "Laptop",
+      "browser": "chromium"
+    },
+    {
+      "flow": "A buy button puts that product in the cart",
+      "device": "iPhone SE",
+      "browser": "chromium"
+    },
+    {
+      "flow": "A buy button puts that product in the cart",
+      "device": "Laptop",
+      "browser": "chromium"
+    },
+    {
+      "flow": "My downloads shows the sign-in form, and Create account switches to the sign-up form",
+      "device": "iPhone SE",
+      "browser": "chromium"
+    },
+    {
+      "flow": "My downloads shows the sign-in form, and Create account switches to the sign-up form",
+      "device": "Laptop",
+      "browser": "chromium"
+    },
+    {
+      "flow": "A missing page shows the 404 page with a way back",
+      "device": "iPhone SE",
+      "browser": "chromium"
+    },
+    {
+      "flow": "A missing page shows the 404 page with a way back",
+      "device": "Laptop",
+      "browser": "chromium"
+    },
+    {
+      "flow": "The sign-in form refuses an empty submit without calling the server",
+      "device": "iPhone SE",
+      "browser": "chromium"
+    },
+    {
+      "flow": "The sign-in form refuses an empty submit without calling the server",
+      "device": "Laptop",
+      "browser": "chromium"
+    },
+    {
+      "flow": "Switching to Hebrew flips the page to right-to-left",
+      "device": "iPhone SE",
+      "browser": "firefox"
+    },
+    {
+      "flow": "Switching to Hebrew flips the page to right-to-left",
+      "device": "Laptop",
+      "browser": "firefox"
+    },
+    {
+      "flow": "The cart opens from the header and closes again",
+      "device": "iPhone SE",
+      "browser": "firefox"
+    },
+    {
+      "flow": "The cart opens from the header and closes again",
+      "device": "Laptop",
+      "browser": "firefox"
+    },
+    {
+      "flow": "A buy button puts that product in the cart",
+      "device": "iPhone SE",
+      "browser": "firefox"
+    },
+    {
+      "flow": "A buy button puts that product in the cart",
+      "device": "Laptop",
+      "browser": "firefox"
+    },
+    {
+      "flow": "My downloads shows the sign-in form, and Create account switches to the sign-up form",
+      "device": "iPhone SE",
+      "browser": "firefox"
+    },
+    {
+      "flow": "My downloads shows the sign-in form, and Create account switches to the sign-up form",
+      "device": "Laptop",
+      "browser": "firefox"
+    },
+    {
+      "flow": "A missing page shows the 404 page with a way back",
+      "device": "iPhone SE",
+      "browser": "firefox"
+    },
+    {
+      "flow": "A missing page shows the 404 page with a way back",
+      "device": "Laptop",
+      "browser": "firefox"
+    },
+    {
+      "flow": "The sign-in form refuses an empty submit without calling the server",
+      "device": "iPhone SE",
+      "browser": "firefox"
+    },
+    {
+      "flow": "The sign-in form refuses an empty submit without calling the server",
+      "device": "Laptop",
+      "browser": "firefox"
+    },
+    {
+      "flow": "Switching to Hebrew flips the page to right-to-left",
+      "device": "iPhone SE",
+      "browser": "webkit"
+    },
+    {
+      "flow": "Switching to Hebrew flips the page to right-to-left",
+      "device": "Laptop",
+      "browser": "webkit"
+    },
+    {
+      "flow": "The cart opens from the header and closes again",
+      "device": "iPhone SE",
+      "browser": "webkit"
+    },
+    {
+      "flow": "The cart opens from the header and closes again",
+      "device": "Laptop",
+      "browser": "webkit"
+    },
+    {
+      "flow": "A buy button puts that product in the cart",
+      "device": "iPhone SE",
+      "browser": "webkit"
+    },
+    {
+      "flow": "A buy button puts that product in the cart",
+      "device": "Laptop",
+      "browser": "webkit"
+    },
+    {
+      "flow": "My downloads shows the sign-in form, and Create account switches to the sign-up form",
+      "device": "iPhone SE",
+      "browser": "webkit"
+    },
+    {
+      "flow": "My downloads shows the sign-in form, and Create account switches to the sign-up form",
+      "device": "Laptop",
+      "browser": "webkit"
+    },
+    {
+      "flow": "A missing page shows the 404 page with a way back",
+      "device": "iPhone SE",
+      "browser": "webkit"
+    },
+    {
+      "flow": "A missing page shows the 404 page with a way back",
+      "device": "Laptop",
+      "browser": "webkit"
+    },
+    {
+      "flow": "The sign-in form refuses an empty submit without calling the server",
+      "device": "iPhone SE",
+      "browser": "webkit"
+    },
+    {
+      "flow": "The sign-in form refuses an empty submit without calling the server",
+      "device": "Laptop",
+      "browser": "webkit"
+    }
+  ],
+  "visited": [
+    {
+      "page": "/shop/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "shop__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/shop/",
+      "lang": "English",
+      "status": 200,
+      "shot": "shop__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "home__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/",
+      "lang": "English",
+      "status": 200,
+      "shot": "home__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/product/?p=mwp-presets",
+      "lang": "English",
+      "status": 200,
+      "shot": "product_p_mwp_presets__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/product/?p=mwp-presets",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "product_p_mwp_presets__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/presets/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "presets__he__Laptop__chromium.jpg",
+      "redirectedTo": "/presets/he/"
+    },
+    {
+      "page": "/presets/",
+      "lang": "English",
+      "status": 200,
+      "shot": "presets__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/panel/",
+      "lang": "English",
+      "status": 200,
+      "shot": "panel__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/panel/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "panel__he__Laptop__chromium.jpg",
+      "redirectedTo": "/panel/he/"
+    },
+    {
+      "page": "/account/",
+      "lang": "English",
+      "status": 200,
+      "shot": "account__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/account/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "account__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/field-guides/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "field_guides__he__Laptop__chromium.jpg",
+      "redirectedTo": "/field-guides/he/"
+    },
+    {
+      "page": "/field-guides/",
+      "lang": "English",
+      "status": 200,
+      "shot": "field_guides__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/support/",
+      "lang": "English",
+      "status": 200,
+      "shot": "support__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/support/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "support__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/legal/",
+      "lang": "English",
+      "status": 200,
+      "shot": "legal__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/legal/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "legal__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/thank-you/",
+      "lang": "English",
+      "status": 200,
+      "shot": "thank_you__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/thank-you/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "thank_you__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/beta/",
+      "lang": "English",
+      "status": 200,
+      "shot": "beta__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/beta/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "beta__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/testers/",
+      "lang": "English",
+      "status": 200,
+      "shot": "testers__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/testers/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "testers__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/admin/",
+      "lang": "English",
+      "status": 200,
+      "shot": "admin__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/read/",
+      "lang": "English",
+      "status": 200,
+      "shot": "read__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/read/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "read__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/panel/he/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "panel_he__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/panel/he/",
+      "lang": "English",
+      "status": 200,
+      "shot": "panel_he__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/presets/he/",
+      "lang": "English",
+      "status": 200,
+      "shot": "presets_he__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/presets/he/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "presets_he__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/shop/?cat=bundle",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "shop_cat_bundle__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/shop/?cat=bundle",
+      "lang": "English",
+      "status": 200,
+      "shot": "shop_cat_bundle__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/field-guides/he/",
+      "lang": "English",
+      "status": 200,
+      "shot": "field_guides_he__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/field-guides/he/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "field_guides_he__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/product/",
+      "lang": "English",
+      "status": 200,
+      "shot": "product__en__Laptop__chromium.jpg",
+      "redirectedTo": "/shop/"
+    },
+    {
+      "page": "/support/?topic=download",
+      "lang": "English",
+      "status": 200,
+      "shot": "support_topic_download__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/product/",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "product__he__Laptop__chromium.jpg",
+      "redirectedTo": "/shop/"
+    },
+    {
+      "page": "/support/?topic=download",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "support_topic_download__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/support/?topic=refund",
+      "lang": "English",
+      "status": 200,
+      "shot": "support_topic_refund__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/support/?topic=refund",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "support_topic_refund__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/account/?next=%2Fread%2F",
+      "lang": "English",
+      "status": 200,
+      "shot": "account_next_2Fread_2F__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/account/?next=%2Fread%2F",
+      "lang": "Hebrew",
+      "status": 200,
+      "shot": "account_next_2Fread_2F__he__Laptop__chromium.jpg",
+      "redirectedTo": null
+    }
+  ],
+  "perf": [
+    {
+      "page": "/",
+      "score": 85,
+      "lcp": 3650.556,
+      "cls": 0.01788641899470144,
+      "tbt": 0,
+      "fcp": 2899.3925,
+      "weight": 1583949,
+      "tips": [
+        "Render-blocking requests (about 1.9s faster)",
+        "Use efficient cache lifetimes (about 0.8s faster)",
+        "Improve image delivery (about 0.8s faster)"
+      ],
+      "heavy": [
+        {
+          "url": "/assets/pages/img/1a2e3ed3f44db1f671babb09a599b29f.jpg",
+          "savingKb": 177
+        },
+        {
+          "url": "/assets/pages/img/5275cc7bcd4fb7560d8f7163592e3122.jpg",
+          "savingKb": 175
+        },
+        {
+          "url": "/assets/pages/img/d5f6d2a7c84cc3346ef45e4922528351.jpg",
+          "savingKb": 160
+        },
+        {
+          "url": "/assets/pages/img/ce73f34a054f9959d99fd850c1df9ce5.jpg",
+          "savingKb": 131
+        },
+        {
+          "url": "/assets/pages/img/8cb56471dbe5940badc7a93cad5c8bf1.jpg",
+          "savingKb": 116
+        },
+        {
+          "url": "/assets/pages/img/6d84bcea4206fe4c622103d7d3aea920.jpg",
+          "savingKb": 107
+        },
+        {
+          "url": "/assets/pages/img/try-raw-clean.jpg",
+          "savingKb": 90
+        },
+        {
+          "url": "/assets/pages/img/2f9794f404a12b19c251a68288a8f543.jpg",
+          "savingKb": 89
+        }
+      ]
+    },
+    {
+      "page": "/shop/",
+      "score": 67,
+      "lcp": 3056.5773000000004,
+      "cls": 0.5689579917186708,
+      "tbt": 0,
+      "fcp": 2831.4967499999993,
+      "weight": 186644,
+      "tips": [
+        "Render-blocking requests (about 1.6s faster)",
+        "Use efficient cache lifetimes (about 0.3s faster)"
+      ],
+      "heavy": []
+    },
+    {
+      "page": "/presets/",
+      "score": 77,
+      "lcp": 4804.6903999999995,
+      "cls": 0,
+      "tbt": 0,
+      "fcp": 2878.30575,
+      "weight": 849691,
+      "tips": [
+        "Use efficient cache lifetimes (about 1.9s faster)",
+        "Improve image delivery (about 1.9s faster)",
+        "Render-blocking requests (about 1.9s faster)"
+      ],
+      "heavy": [
+        {
+          "url": "/assets/pages/img/1a2e3ed3f44db1f671babb09a599b29f.jpg",
+          "savingKb": 192
+        },
+        {
+          "url": "/assets/pages/img/8cb56471dbe5940badc7a93cad5c8bf1.jpg",
+          "savingKb": 176
+        }
+      ]
+    },
+    {
+      "page": "/account/",
+      "score": 91,
+      "lcp": 2888.6163000000006,
+      "cls": 0.034610603522514126,
+      "tbt": 4,
+      "fcp": 2738.2343,
+      "weight": 297659,
+      "tips": [
+        "Render-blocking requests (about 1.9s faster)"
+      ],
+      "heavy": []
+    }
+  ],
+  "headers": [
+    {
+      "page": "/",
+      "status": 200,
+      "server": "GitHub.com"
+    },
+    {
+      "page": "/shop/",
+      "status": 200,
+      "server": "GitHub.com"
+    },
+    {
+      "page": "/product/?p=mwp-presets",
+      "status": 200,
+      "server": "GitHub.com"
+    },
+    {
+      "page": "/presets/",
+      "status": 200,
+      "server": "GitHub.com"
+    },
+    {
+      "page": "/panel/",
+      "status": 200,
+      "server": "GitHub.com"
+    },
+    {
+      "page": "/field-guides/",
+      "status": 200,
+      "server": "GitHub.com"
+    }
+  ],
+  "notes": [],
+  "comparison": null,
+  "fixes": null
+}
