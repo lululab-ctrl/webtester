@@ -1,0 +1,7 @@
+{
+  "name": "webtester-dashboard",
+  "private": true,
+  "type": "module",
+  "description": "The Website Tests dashboard: a private page that runs the tests in this repository.",
+  "engines": { "node": "22.x" }
+}

@@ -2,6 +2,26 @@
 
 Tests any website the way a QA team would, explains every problem in plain English, and fixes what it safely can. Every fix is re-tested before it's kept.
 
+## The dashboard (the easy way)
+
+**Website Tests** is a private web page for all of this: the list of websites, *Add a website* / *Edit website* (domain, name, code repository, key pages), *Run full test*, *Run quick test*, *Test and fix*, live run status, and each report sorted by severity with the exact change for every issue. It lives in `dashboard/` and is published by Vercel. Behind the scenes it starts the same GitHub runs described below.
+
+**Setting it up on Vercel (once):**
+1. vercel.com → **Add New → Project** → import this repository.
+2. **Root Directory:** `dashboard` (click *Edit* next to it). Framework preset: *Other*. Leave the build settings empty.
+3. **Environment Variables:**
+
+| Name | Value |
+|---|---|
+| `GITHUB_REPO` | `lululab-ctrl/webtester` |
+| `GITHUB_TOKEN` | A fine-grained GitHub token for this repository only, with **Actions: Read and write** and **Contents: Read-only**. |
+| `DASHBOARD_PASSWORD` | The password your team will use to open the dashboard. |
+| `SESSION_SECRET` | Any long random text (e.g. 40 random letters and numbers). Changing it signs everyone out. |
+
+4. **Deploy.** Open the address Vercel shows and sign in with the password.
+
+The dashboard sends strict security headers, isn't indexed by search engines, and every request needs the sign-in. For a second lock, turn on Vercel's **Deployment Protection → Vercel Authentication** for the project.
+
 ## How to use it
 
 ### 1. Add a website, or pick one you already have
