@@ -9,6 +9,9 @@ const CATEGORIES = { errors: "Bugs and errors", devices: "Phones, tablets and br
 const WHO = { "built-in": ["auto", "Fixed automatically"], "built-in + claude": ["auto", "Fixed automatically"], claude: ["claude", "Claude can fix"], you: ["you", "Needs you"] };
 const STATUS = { fixed: ["ok", "Fixed and re-tested"], improved: ["ok", "Improved and re-tested"], undone: ["warn", "Tried, then undone"], skipped: ["", "Not changed"], "needs-you": ["warn", "Needs you"] };
 let pollTimer = null;
+let currentSite = null;
+const CAN_FIX = new Set(["claude", "built-in", "built-in + claude"]);
+const HUB = "lululab-ctrl/webtester";
 
 async function api(path, { method = "GET", body } = {}) {
   const r = await fetch(`/api/${path}`, {
@@ -168,6 +171,7 @@ async function showSite(domain) {
   app.innerHTML = `<p class="muted pad">Loading ${esc(domain)}…</p>`;
   const { sites } = await api("sites");
   const site = sites.find((s) => s.domain === domain) ?? { domain, name: domain, repo: null, last: null };
+  currentSite = site;
   app.innerHTML = `<p class="small"><a href="#/">← All websites</a></p>
     <div class="spread"><div><h1>${esc(site.name)}</h1>
       <p class="muted"><a href="https://${esc(site.domain)}" target="_blank" rel="noopener">${esc(site.domain)}</a> · ${site.repo ? `code: ${esc(site.repo)}` : "no code linked (tests only)"}</p></div>
@@ -195,7 +199,7 @@ async function showSite(domain) {
   showReport(domain, "latest");
 }
 
-async function showReport(domain, which) {
+async function showReport(domain, which, site = currentSite) {
   const el = $("#report");
   el.innerHTML = `<p class="muted pad">Loading the report…</p>`;
   let fixAvailable = false;
@@ -209,6 +213,7 @@ async function showReport(domain, which) {
     bindTabs(domain); return;
   }
   const serious = r.issues.filter((i) => i.blocking).length;
+  const fixable = r.issues.filter((i) => CAN_FIX.has(i.fixBy));
   const flows = [...new Set(r.flowsPassed.map((f) => f.flow))];
   const failedFlows = new Set(r.issues.filter((i) => i.rule === "flow-failed").flatMap((i) => i.pages));
   el.innerHTML = `<div class="spread"><h2>Report <span class="small muted">· ${esc(r.tested === "code" ? "the site's code" : "the live website")}, ${esc(new Date(r.when).toLocaleString())}, ${esc(r.mode)} test</span></h2>${tabs}</div>
@@ -222,9 +227,15 @@ async function showReport(domain, which) {
     ${r.fixes ? fixSummary(r) : ""}
     ${r.comparison ? `<p class="muted">Before and after: <b>${plural(r.comparison.resolved.length, "issue")} gone</b>, ${plural(r.comparison.added.length, "new issue")}.</p>` : ""}
     ${r.perf?.length ? `<h2>Speed on a phone</h2><div class="card small">${r.perf.map((p) => p.error ? `<div>${esc(p.page)}: couldn't measure</div>` : `<div class="runline"><span class="what"><b>${esc(p.page)}</b></span><span>Score <b>${p.score}</b></span><span>Main content at <b>${(p.lcp / 1000).toFixed(1)}s</b></span><span class="when">${(p.weight / 1048576).toFixed(1)} MB</span></div>`).join("")}</div>` : ""}
-    <div class="spread"><h2 id="issues-h">Issues</h2><button class="link" id="expand">Open all</button></div>
+    <div class="spread"><h2 id="issues-h">Issues</h2><div class="row">${fixable.length ? `<button class="primary" id="fix-all">Fix all ${fixable.length} with Claude</button>` : ""}<button class="link" id="expand">Open all</button></div></div>
     <div id="issues">${r.issues.map((i) => issueCard(i, r)).join("") || `<div class="card empty"><p>No issues found.</p></div>`}</div>`;
   bindTabs(domain);
+  el.querySelectorAll("[data-fix]").forEach((b) => b.addEventListener("click", (e) => {
+    e.preventDefault();
+    const i = r.issues.find((x) => x.id === b.dataset.fix);
+    if (i) fixDialog(site, r, [i]);
+  }));
+  $("#fix-all")?.addEventListener("click", () => fixDialog(site, r, fixable));
   el.querySelectorAll("[data-sev]").forEach((b) => b.addEventListener("click", () => {
     const on = b.getAttribute("aria-pressed") !== "true";
     el.querySelectorAll("[data-sev]").forEach((x) => x.setAttribute("aria-pressed", "false"));
@@ -282,8 +293,66 @@ function issueCard(i, r) {
         ${i.learnMore && /^https:\/\//.test(i.learnMore) ? `<p class="small"><a href="${esc(i.learnMore)}" target="_blank" rel="noopener">Step-by-step guide →</a></p>` : ""}
       </div>
     </div>
+    ${CAN_FIX.has(i.fixBy) && !fixes.some((f) => ["fixed", "improved"].includes(f.status)) ? `<div class="actions"><button class="primary" data-fix="${esc(i.id)}">Fix with Claude</button></div>` : ""}
     ${fixes.map((f) => { const [c, t] = STATUS[f.status] ?? ["", f.status]; return `<div class="fixed"><b class="${c}">${esc(t)}</b> (${f.by === "claude" ? "Claude" : "built-in"}): ${esc(f.summary ?? "")} ${f.verified ? `<span class="muted">Re-test: ${esc(f.verified)}.</span>` : ""} ${f.reason ? esc(f.reason) : ""}</div>`; }).join("")}
   </details>`;
+}
+
+// ── Fix with Claude ─────────────────────────────────────────────────────
+// Writes a complete, ready-to-paste request for Claude: the issue(s), where, what to change, and the house rules.
+function fixTask(site, r, issues) {
+  const when = new Date(r.when).toLocaleDateString("en-CA");
+  const one = issues.length === 1;
+  const lines = [
+    one ? `Please fix this issue on ${site.name} (${site.domain}), found by the website test on ${when}.`
+        : `Please fix these ${issues.length} issues on ${site.name} (${site.domain}), found by the website test on ${when}.`,
+    "",
+    site.repo ? `Code: https://github.com/${site.repo}` : "Code: no repository is linked to this website yet. Ask me where the code is before changing anything.",
+    `Full report: https://github.com/${HUB}/blob/main/reports/${site.domain}/latest/details.md (issue ids below match results.json there)`,
+  ];
+  issues.forEach((i, n) => {
+    lines.push("", `${one ? "Issue" : `${n + 1}.`} [${i.severity}] ${i.title} (id ${i.id})`);
+    if (i.pages?.length) lines.push(`   Where: ${i.pages.slice(0, 10).join(", ")}${i.pages.length > 10 ? ` and ${i.pages.length - 10} more` : ""}`);
+    const sc = [i.devices?.length ? i.devices.join(", ") : "", i.browsers?.length ? i.browsers.join(", ") : "", i.langs?.length ? i.langs.join(", ") : ""].filter(Boolean).join(" · ");
+    if (sc) lines.push(`   Seen on: ${sc}`);
+    lines.push("   The test saw:", ...i.details.slice(0, 6).map((d) => `   - ${d}`));
+    if (i.moreDetails) lines.push(`   - …and ${i.moreDetails} more`);
+    lines.push(`   Suggested change: ${i.change ?? i.fix}`);
+    if (i.snippet) lines.push("   Example:", ...String(i.snippet).split("\n").slice(0, 12).map((x) => `     ${x}`));
+  });
+  lines.push("",
+    "How to work:",
+    "- Follow the repository's CLAUDE.md (its rules come first).",
+    "- Make the changes on a new branch, re-test the affected pages (English and Hebrew, phone and desktop), and open a draft pull request. Don't merge it.",
+    "- Never change prices, payments, sign-in, database migrations or secrets. Don't rewrite marketing text; page titles, search descriptions and image descriptions are fine, marked \"wording to review\".",
+    "- If something isn't a code problem (for example content missing in the admin, or a host setting), change nothing for it and tell me exactly what needs doing instead.",
+    "- When done, tell me in plain words what you changed and what's left.");
+  return lines.join("\n");
+}
+
+function fixDialog(site, r, issues) {
+  const text = fixTask(site, r, issues);
+  const d = document.createElement("dialog");
+  d.innerHTML = `<h2>${issues.length === 1 ? "Fix with Claude" : `Fix ${issues.length} issues with Claude`}</h2>
+    <p class="muted small" id="fx-msg">Copying the request…</p>
+    <ol class="small fx-steps"><li>Open Claude (button below).</li><li>Paste the request (Ctrl+V or ⌘V) and send it.</li><li>Claude fixes it and opens a pull request for your approval. Nothing goes live until you merge it.</li></ol>
+    <textarea class="fx-text" readonly rows="10" aria-label="The request for Claude"></textarea>
+    <div class="actions"><button id="fx-copy">Copy again</button><button id="fx-close">Close</button>
+      <a class="btn primary-link" href="https://claude.ai/code" target="_blank" rel="noopener">Open Claude →</a></div>`;
+  $(".fx-text", d).value = text;
+  document.body.appendChild(d);
+  d.showModal();
+  const copy = async () => {
+    let ok = false;
+    try { await navigator.clipboard.writeText(text); ok = true; } catch {}
+    if (!ok) { const t = $(".fx-text", d); t.focus(); t.select(); try { ok = document.execCommand("copy"); } catch {} }
+    $("#fx-msg", d).textContent = ok ? "✓ Copied. Now open Claude and paste it." : "Select the text below and copy it (Ctrl+C or ⌘C), then open Claude and paste it.";
+  };
+  copy().then(() => { $(".fx-text", d).scrollTop = 0; });
+  $("#fx-copy", d).addEventListener("click", copy);
+  const close = () => { d.close(); d.remove(); };
+  $("#fx-close", d).addEventListener("click", close);
+  d.addEventListener("close", () => d.remove());
 }
 
 // ── Routing ─────────────────────────────────────────────────────────────
