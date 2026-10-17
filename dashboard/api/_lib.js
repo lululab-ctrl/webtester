@@ -1,16 +1,17 @@
 // Shared helpers for the dashboard's server functions (Vercel).
 // Settings (Vercel → Project → Settings → Environment Variables):
 //   GITHUB_TOKEN        fine-grained token on the webtester repository: Actions read/write, Contents read
-//   GITHUB_REPO         owner/name of the webtester repository, e.g. lululab-ctrl/webtester
 //   DASHBOARD_PASSWORD  the password to open the dashboard
-//   SESSION_SECRET      any long random text (signs the sign-in cookie)
+// Optional: GITHUB_REPO (default lululab-ctrl/webtester), SESSION_SECRET (signs the sign-in cookie; by default
+// it's derived from the password and the GitHub key, so changing either signs everyone out).
 import crypto from "node:crypto";
 
 export const REPO = process.env.GITHUB_REPO || "lululab-ctrl/webtester";
 const COOKIE = "wt_session";
 const DAY = 24 * 3600 * 1000;
 
-const secret = () => process.env.SESSION_SECRET || "";
+const secret = () => process.env.SESSION_SECRET
+  || (process.env.DASHBOARD_PASSWORD ? crypto.createHash("sha256").update(`wt|${process.env.DASHBOARD_PASSWORD}|${process.env.GITHUB_TOKEN || ""}|${REPO}`).digest("hex") : "");
 
 export function send(res, status, body) {
   res.statusCode = status;

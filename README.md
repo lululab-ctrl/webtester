@@ -13,10 +13,8 @@ Tests any website the way a QA team would, explains every problem in plain Engli
 
 | Name | Value |
 |---|---|
-| `GITHUB_REPO` | `lululab-ctrl/webtester` |
 | `GITHUB_TOKEN` | A fine-grained GitHub token for this repository only, with **Actions: Read and write** and **Contents: Read-only**. |
 | `DASHBOARD_PASSWORD` | The password your team will use to open the dashboard. |
-| `SESSION_SECRET` | Any long random text (e.g. 40 random letters and numbers). Changing it signs everyone out. |
 
 4. **Deploy.** Open the address Vercel shows and sign in with the password.
 

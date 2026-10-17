@@ -291,7 +291,7 @@ async function route() {
   stopPolling();
   try {
     const { signedIn, configured } = await api("login");
-    if (!configured) { app.innerHTML = `<div class="card login"><h1>Almost there</h1><p>Add <code>DASHBOARD_PASSWORD</code> and <code>SESSION_SECRET</code> in Vercel → Settings → Environment Variables, then redeploy.</p></div>`; return; }
+    if (!configured) { app.innerHTML = `<div class="card login"><h1>Almost there</h1><p>Add <code>DASHBOARD_PASSWORD</code> (and <code>GITHUB_TOKEN</code>) in Vercel → Settings → Environment Variables, then redeploy.</p></div>`; return; }
     if (!signedIn) return showLogin();
     $("#signout").hidden = false;
     const m = location.hash.match(/^#\/site\/(.+)$/);
