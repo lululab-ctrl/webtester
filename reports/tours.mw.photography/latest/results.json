@@ -3,9 +3,9 @@
   "domain": "tours.mw.photography",
   "tested": "live",
   "liveUrl": "https://tours.mw.photography",
-  "when": "2026-10-17T08:34:04.546Z",
+  "when": "2026-10-17T09:04:58.233Z",
   "commit": null,
-  "durationS": 63,
+  "durationS": 53,
   "mode": "full",
   "coverage": {
     "pages": 5,
@@ -29,138 +29,18 @@
     "links": 5,
     "flows": 1
   },
-  "verdict": "blocked",
+  "verdict": "pass",
   "blockOn": [
     "Critical",
     "High"
   ],
   "counts": {
     "Critical": 0,
-    "High": 2,
-    "Medium": 6,
-    "Low": 9
+    "High": 0,
+    "Medium": 4,
+    "Low": 4
   },
   "issues": [
-    {
-      "key": "a11y|axe:aria-required-children",
-      "rule": "a11y",
-      "severity": "High",
-      "category": "accessibility",
-      "title": "Certain ARIA roles must contain particular children",
-      "ruleTitle": "Accessibility barrier",
-      "why": "Some visitors can't use this part of the page: people using screen readers, keyboard only, zoom, or with low vision or colour blindness. Accessibility is also a legal requirement in many countries, including Israel's accessibility regulations for websites.",
-      "fix": "See the specific rule below; each one links to a guide with the exact fix.",
-      "learnMore": "https://dequeuniversity.com/rules/axe/4.13/aria-required-children?application=playwright",
-      "details": [
-        "Certain ARIA roles must contain particular children (1 place: #list)"
-      ],
-      "pages": [
-        "/"
-      ],
-      "devices": [
-        "Laptop"
-      ],
-      "browsers": [
-        "Chrome / Edge"
-      ],
-      "langs": [
-        "Main language"
-      ],
-      "shots": [],
-      "snippets": [
-        "<ul class=\"list scroll more-below\" id=\"list\" role=\"listbox\" style=\"max-height: 256px;\">"
-      ],
-      "axeId": "aria-required-children",
-      "fixHint": "Fix any of the following:   Element has children which are not allowed: li",
-      "heavy": [],
-      "id": "3dde63b5ba",
-      "moreDetails": 0,
-      "known": false,
-      "blocking": true,
-      "fixBy": "claude",
-      "change": "Element has children which are not allowed: li. See the guide for the exact fix.",
-      "snippet": "Example of what's affected:\n<ul class=\"list scroll more-below\" id=\"list\" role=\"listbox\" style=\"max-height: 256px;\">"
-    },
-    {
-      "key": "a11y|axe:aria-required-parent",
-      "rule": "a11y",
-      "severity": "High",
-      "category": "accessibility",
-      "title": "Certain ARIA roles must be contained by particular parents",
-      "ruleTitle": "Accessibility barrier",
-      "why": "Some visitors can't use this part of the page: people using screen readers, keyboard only, zoom, or with low vision or colour blindness. Accessibility is also a legal requirement in many countries, including Israel's accessibility regulations for websites.",
-      "fix": "See the specific rule below; each one links to a guide with the exact fix.",
-      "learnMore": "https://dequeuniversity.com/rules/axe/4.13/aria-required-parent?application=playwright",
-      "details": [
-        "Certain ARIA roles must be contained by particular parents (4 places: #o0 · #o1 · #o2)"
-      ],
-      "pages": [
-        "/"
-      ],
-      "devices": [
-        "Laptop"
-      ],
-      "browsers": [
-        "Chrome / Edge"
-      ],
-      "langs": [
-        "Main language"
-      ],
-      "shots": [],
-      "snippets": [
-        "<a class=\"opt\" id=\"o0\" role=\"option\" aria-selected=\"false\" href=\"manas-kaziranga/\">"
-      ],
-      "axeId": "aria-required-parent",
-      "fixHint": "Fix any of the following:   Required ARIA parents role not present: group, listbox",
-      "heavy": [],
-      "id": "1e912ef4a9",
-      "moreDetails": 0,
-      "known": false,
-      "blocking": true,
-      "fixBy": "claude",
-      "change": "Required ARIA parents role not present: group, listbox. See the guide for the exact fix.",
-      "snippet": "Example of what's affected:\n<a class=\"opt\" id=\"o0\" role=\"option\" aria-selected=\"false\" href=\"manas-kaziranga/\">"
-    },
-    {
-      "key": "a11y|axe:listitem",
-      "rule": "a11y",
-      "severity": "Medium",
-      "category": "accessibility",
-      "title": "<li> elements must be contained in a <ul> or <ol>",
-      "ruleTitle": "Accessibility barrier",
-      "why": "Some visitors can't use this part of the page: people using screen readers, keyboard only, zoom, or with low vision or colour blindness. Accessibility is also a legal requirement in many countries, including Israel's accessibility regulations for websites.",
-      "fix": "See the specific rule below; each one links to a guide with the exact fix.",
-      "learnMore": "https://dequeuniversity.com/rules/axe/4.13/listitem?application=playwright",
-      "details": [
-        "<li> elements must be contained in a <ul> or <ol> (4 places: li:nth-child(1) · li:nth-child(2) · li:nth-child(3))"
-      ],
-      "pages": [
-        "/"
-      ],
-      "devices": [
-        "Laptop"
-      ],
-      "browsers": [
-        "Chrome / Edge"
-      ],
-      "langs": [
-        "Main language"
-      ],
-      "shots": [],
-      "snippets": [
-        "<li>"
-      ],
-      "axeId": "listitem",
-      "fixHint": "Fix any of the following:   List item parent element has a role that is not role=\"list\"",
-      "heavy": [],
-      "id": "17c3404adf",
-      "moreDetails": 0,
-      "known": false,
-      "blocking": false,
-      "fixBy": "claude",
-      "change": "List item parent element has a role that is not role=\"list\". See the guide for the exact fix.",
-      "snippet": "Example of what's affected:\n<li>"
-    },
     {
       "key": "request-failed|https://uiydebfzuxnxjqcnrylv.supabase.co/auth/v1/signup answered 429 (fetch)",
       "rule": "request-failed",
@@ -309,42 +189,6 @@
       "snippet": "GitHub Pages can't send this header. Options:\n1. Publish through Vercel or Netlify (both read headers from a file in the code), or\n2. Put Cloudflare (free plan) in front of the domain and add the header there:\n   X-Frame-Options: DENY"
     },
     {
-      "key": "description-missing|No meta description",
-      "rule": "description-missing",
-      "severity": "Medium",
-      "category": "seo",
-      "title": "The page has no search description",
-      "ruleTitle": "The page has no search description",
-      "why": "The description is the grey text under the title in Google. Without one, Google picks random text from the page, which usually sells it badly.",
-      "fix": "Add <meta name=\"description\" content=\"…\"> with one or two sentences (about 70–160 characters).",
-      "details": [
-        "No meta description"
-      ],
-      "pages": [
-        "/",
-        "/manas-kaziranga/",
-        "/pyrenees/",
-        "/iceland/",
-        "/iberian-lynx/"
-      ],
-      "devices": [],
-      "browsers": [],
-      "langs": [
-        "Main language"
-      ],
-      "shots": [],
-      "snippets": [],
-      "heavy": [],
-      "id": "54602ff55f",
-      "moreDetails": 0,
-      "known": false,
-      "blocking": false,
-      "fixBy": "claude",
-      "fixNote": "Claude writes the description from the page's own text; check the wording in the pull request.",
-      "change": "In the <head> of /, /manas-kaziranga/, /pyrenees/, /iceland/, /iberian-lynx/, add one or two sentences (70–160 characters) saying what the page offers:",
-      "snippet": "<meta name=\"description\" content=\"…\">"
-    },
-    {
       "key": "perf-lcp|perf",
       "rule": "perf-lcp",
       "severity": "Low",
@@ -354,7 +198,7 @@
       "why": "Largest Contentful Paint is when the biggest thing on screen (usually the hero image) appears. Google's target is under 2.5 seconds.",
       "fix": "Compress and resize the hero image (WebP/AVIF, no wider than it's shown), and preload it.",
       "details": [
-        "3.9s (target under 2.5s)"
+        "4.0s (target under 2.5s)"
       ],
       "pages": [
         "/"
@@ -377,69 +221,6 @@
       "fixNote": "The tool shrinks oversized images itself; Claude handles loading order (lazy-loading, deferring scripts).",
       "change": "Make the images smaller (resize to the size they're shown at, WebP or AVIF, about 80% quality), load images below the first screen with loading=\"lazy\", and let the main image load first with fetchpriority=\"high\".",
       "snippet": "<img src=\"hero.webp\" fetchpriority=\"high\" alt=\"…\">\n<img src=\"later.webp\" loading=\"lazy\" alt=\"…\">"
-    },
-    {
-      "key": "perf-cls|perf",
-      "rule": "perf-cls",
-      "severity": "Low",
-      "category": "performance",
-      "title": "The page jumps around while loading (CLS)",
-      "ruleTitle": "The page jumps around while loading (CLS)",
-      "why": "Content shifting as it loads makes visitors tap the wrong thing. Google's target is under 0.1.",
-      "fix": "Give images and embeds a width and height (or aspect-ratio), and reserve space for things that load in later, like prices.",
-      "details": [
-        "0.17 (target under 0.1)"
-      ],
-      "pages": [
-        "/"
-      ],
-      "devices": [
-        "Mid-range phone, 4G"
-      ],
-      "browsers": [
-        "Chrome / Edge"
-      ],
-      "langs": [],
-      "shots": [],
-      "snippets": [],
-      "heavy": [],
-      "id": "980ac87c23",
-      "moreDetails": 0,
-      "known": false,
-      "blocking": false,
-      "fixBy": "built-in + claude",
-      "fixNote": "The tool shrinks oversized images itself; Claude handles loading order (lazy-loading, deferring scripts).",
-      "change": "Give every image and embed a width and height (or CSS aspect-ratio) so the page doesn't jump while loading.",
-      "snippet": "<img src=\"photo.jpg\" width=\"1600\" height=\"1000\" alt=\"…\">"
-    },
-    {
-      "key": "script-no-integrity|https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js (version not pinned: updates automatically)",
-      "rule": "script-no-integrity",
-      "severity": "Low",
-      "category": "security",
-      "title": "A script from another company's server isn't locked to a version",
-      "ruleTitle": "A script from another company's server isn't locked to a version",
-      "why": "If that server is ever hacked or the library publishes a bad update, the changed code runs on your site with your visitors' sessions.",
-      "fix": "Pin the exact version in the address and add an integrity hash, or copy the file into your own site.",
-      "details": [
-        "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js (version not pinned: updates automatically)"
-      ],
-      "pages": [
-        "/manas-kaziranga/"
-      ],
-      "devices": [],
-      "browsers": [],
-      "langs": [],
-      "shots": [],
-      "snippets": [],
-      "heavy": [],
-      "id": "4b828d0136",
-      "moreDetails": 0,
-      "known": false,
-      "blocking": false,
-      "fixBy": "claude",
-      "change": "Copy the library into the site (or pin its exact version and add an integrity hash) instead of loading a version that updates itself.",
-      "snippet": "<script src=\"https://cdn.example.com/lib@1.2.3/lib.min.js\" integrity=\"sha384-…\" crossorigin=\"anonymous\"></script>"
     },
     {
       "key": "header-nosniff|Missing (GitHub Pages can't send custom headers; see the fix for the workaround or a host that can)",
@@ -513,23 +294,23 @@
       "snippet": "<meta name=\"referrer\" content=\"strict-origin-when-cross-origin\">"
     },
     {
-      "key": "canonical-missing|No canonical link",
-      "rule": "canonical-missing",
+      "key": "private-page-indexable|No noindex tag",
+      "rule": "private-page-indexable",
       "severity": "Low",
       "category": "seo",
-      "title": "The page doesn't name its main address",
-      "ruleTitle": "The page doesn't name its main address",
-      "why": "Pages reachable at several addresses (with and without .html, with tracking codes) can be counted as duplicates by search engines.",
-      "fix": "Add <link rel=\"canonical\" href=\"https://…/page/\"> with the page's preferred address.",
+      "title": "A private page can appear in Google",
+      "ruleTitle": "A private page can appear in Google",
+      "why": "Pages like accounts, admin or link-only programs aren't meant to be found by searching.",
+      "fix": "Add <meta name=\"robots\" content=\"noindex\"> to the page and list it as Disallow in robots.txt.",
       "details": [
-        "No canonical link"
+        "No noindex tag"
       ],
       "pages": [
         "/",
-        "/manas-kaziranga/",
-        "/pyrenees/",
         "/iceland/",
-        "/iberian-lynx/"
+        "/manas-kaziranga/",
+        "/iberian-lynx/",
+        "/pyrenees/"
       ],
       "devices": [],
       "browsers": [],
@@ -539,112 +320,13 @@
       "shots": [],
       "snippets": [],
       "heavy": [],
-      "id": "e985f643b2",
+      "id": "8df2fc1232",
       "moreDetails": 0,
       "known": false,
       "blocking": false,
       "fixBy": "built-in",
-      "change": "In the <head> of each page, add a link to its own address. For /:",
-      "snippet": "<link rel=\"canonical\" href=\"https://tours.mw.photography/\">"
-    },
-    {
-      "key": "social-preview-missing|Missing og:title, og:description, og:image",
-      "rule": "social-preview-missing",
-      "severity": "Low",
-      "category": "seo",
-      "title": "Links to this page share without a preview",
-      "ruleTitle": "Links to this page share without a preview",
-      "why": "When someone shares the page on WhatsApp, Facebook or LinkedIn, it appears as a bare link instead of a card with an image and title.",
-      "fix": "Add Open Graph tags: og:title, og:description, og:image (1200×630) and og:url.",
-      "details": [
-        "Missing og:title, og:description, og:image"
-      ],
-      "pages": [
-        "/",
-        "/manas-kaziranga/",
-        "/pyrenees/",
-        "/iceland/",
-        "/iberian-lynx/"
-      ],
-      "devices": [],
-      "browsers": [],
-      "langs": [
-        "Main language"
-      ],
-      "shots": [],
-      "snippets": [],
-      "heavy": [],
-      "id": "29a1dcd8da",
-      "moreDetails": 0,
-      "known": false,
-      "blocking": false,
-      "fixBy": "claude",
-      "change": "In the <head> of /, /manas-kaziranga/, /pyrenees/, /iceland/, /iberian-lynx/, add share-preview tags (the image should be 1200×630):",
-      "snippet": "<meta property=\"og:title\" content=\"…\">\n<meta property=\"og:description\" content=\"…\">\n<meta property=\"og:image\" content=\"https://tours.mw.photography/share.jpg\">\n<meta property=\"og:url\" content=\"https://tours.mw.photography/\">"
-    },
-    {
-      "key": "title-length|14 characters: \"מאנאס וקזירנגה\"",
-      "rule": "title-length",
-      "severity": "Low",
-      "category": "seo",
-      "title": "The page title is too short or too long",
-      "ruleTitle": "The page title is too short or too long",
-      "why": "Google cuts titles over about 60 characters, and very short titles don't say enough to earn the click.",
-      "fix": "Aim for 30–60 characters that say what the page is and who it's from.",
-      "details": [
-        "14 characters: \"מאנאס וקזירנגה\""
-      ],
-      "pages": [
-        "/manas-kaziranga/"
-      ],
-      "devices": [],
-      "browsers": [],
-      "langs": [
-        "Main language"
-      ],
-      "shots": [],
-      "snippets": [],
-      "heavy": [],
-      "id": "d96f0639ae",
-      "moreDetails": 0,
-      "known": false,
-      "blocking": false,
-      "fixBy": "claude",
-      "fixNote": "Claude writes the new title; check the wording in the pull request.",
-      "change": "Give /manas-kaziranga/ a specific title of 30–60 characters: what the page is, then the brand.",
-      "snippet": "<title>Lightroom presets for wildlife photographers · Brand</title>"
-    },
-    {
-      "key": "title-length|12 characters: \"השונר האיברי\"",
-      "rule": "title-length",
-      "severity": "Low",
-      "category": "seo",
-      "title": "The page title is too short or too long",
-      "ruleTitle": "The page title is too short or too long",
-      "why": "Google cuts titles over about 60 characters, and very short titles don't say enough to earn the click.",
-      "fix": "Aim for 30–60 characters that say what the page is and who it's from.",
-      "details": [
-        "12 characters: \"השונר האיברי\""
-      ],
-      "pages": [
-        "/iberian-lynx/"
-      ],
-      "devices": [],
-      "browsers": [],
-      "langs": [
-        "Main language"
-      ],
-      "shots": [],
-      "snippets": [],
-      "heavy": [],
-      "id": "e979a78bfd",
-      "moreDetails": 0,
-      "known": false,
-      "blocking": false,
-      "fixBy": "claude",
-      "fixNote": "Claude writes the new title; check the wording in the pull request.",
-      "change": "Give /iberian-lynx/ a specific title of 30–60 characters: what the page is, then the brand.",
-      "snippet": "<title>Lightroom presets for wildlife photographers · Brand</title>"
+      "change": "In the <head> of /, /iceland/, /manas-kaziranga/, /iberian-lynx/, /pyrenees/, add:",
+      "snippet": "<meta name=\"robots\" content=\"noindex\">"
     }
   ],
   "flowsPassed": [
@@ -688,24 +370,17 @@
       "redirectedTo": null
     },
     {
-      "page": "/manas-kaziranga/",
-      "lang": "Main language",
-      "status": 200,
-      "shot": "manas_kaziranga__en__Laptop__chromium.jpg",
-      "redirectedTo": null
-    },
-    {
-      "page": "/pyrenees/",
-      "lang": "Main language",
-      "status": 200,
-      "shot": "pyrenees__en__Laptop__chromium.jpg",
-      "redirectedTo": null
-    },
-    {
       "page": "/iceland/",
       "lang": "Main language",
       "status": 200,
       "shot": "iceland__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/manas-kaziranga/",
+      "lang": "Main language",
+      "status": 200,
+      "shot": "manas_kaziranga__en__Laptop__chromium.jpg",
       "redirectedTo": null
     },
     {
@@ -714,17 +389,24 @@
       "status": 200,
       "shot": "iberian_lynx__en__Laptop__chromium.jpg",
       "redirectedTo": null
+    },
+    {
+      "page": "/pyrenees/",
+      "lang": "Main language",
+      "status": 200,
+      "shot": "pyrenees__en__Laptop__chromium.jpg",
+      "redirectedTo": null
     }
   ],
   "perf": [
     {
       "page": "/",
-      "score": 81,
-      "lcp": 3903.4539999999997,
-      "cls": 0.16887797792713405,
+      "score": 86,
+      "lcp": 3969.038,
+      "cls": 0.08700411184282432,
       "tbt": 0,
-      "fcp": 1053.454,
-      "weight": 627688,
+      "fcp": 857.038,
+      "weight": 627772,
       "tips": [
         "Use efficient cache lifetimes (about 2.7s faster)"
       ],

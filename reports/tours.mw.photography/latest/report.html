@@ -47,14 +47,14 @@ td.good{color:var(--good);font-weight:700}td.ok{color:var(--med);font-weight:700
 </style></head><body><main>
 <p class="meta">Site QA report · the live website</p>
 <h1>MW Photo Tours</h1>
-<p class="meta">Tested Sat, 17 Oct 2026 08:34:04 GMT · took 1 min · full check</p>
+<p class="meta">Tested Sat, 17 Oct 2026 09:04:58 GMT · took 1 min · full check</p>
 
-<div class="verdict blocked"><span class="dot"></span><div>
-<b>Not ready to go live: 2 serious issues</b>These are Critical or High issues that aren't on the known-issues list. Fix them, or ask a reviewer to accept them as known.
+<div class="verdict "><span class="dot"></span><div>
+<b>No serious issues outside the known list</b>Nothing at Critical or High level that isn't already known. 
 </div></div>
 
-<div class="counts"><div class="count c-critical"><b>0</b><span>Critical</span></div><div class="count c-high"><b>2</b><span>High</span></div><div class="count c-medium"><b>6</b><span>Medium</span></div><div class="count c-low"><b>9</b><span>Low</span></div></div>
-<div class="cats"><a class="cat-tile" href="#c-errors"><span>Bugs and errors</span><b class="sev-medium">1 issue</b></a><a class="cat-tile" href="#c-devices"><span>Phones, tablets and browsers</span><b class="clean">All clear</b></a><a class="cat-tile" href="#c-flows"><span>Things visitors do</span><b class="clean">All clear</b></a><a class="cat-tile" href="#c-accessibility"><span>Accessibility</span><b class="sev-high">3 issues</b></a><a class="cat-tile" href="#c-seo"><span>Search engines and sharing</span><b class="sev-medium">5 issues</b></a><a class="cat-tile" href="#c-security"><span>Security</span><b class="sev-medium">6 issues</b></a><a class="cat-tile" href="#c-performance"><span>Speed</span><b class="sev-low">2 issues</b></a></div>
+<div class="counts"><div class="count c-critical"><b>0</b><span>Critical</span></div><div class="count c-high"><b>0</b><span>High</span></div><div class="count c-medium"><b>4</b><span>Medium</span></div><div class="count c-low"><b>4</b><span>Low</span></div></div>
+<div class="cats"><a class="cat-tile" href="#c-errors"><span>Bugs and errors</span><b class="sev-medium">1 issue</b></a><a class="cat-tile" href="#c-devices"><span>Phones, tablets and browsers</span><b class="clean">All clear</b></a><a class="cat-tile" href="#c-flows"><span>Things visitors do</span><b class="clean">All clear</b></a><a class="cat-tile" href="#c-accessibility"><span>Accessibility</span><b class="clean">All clear</b></a><a class="cat-tile" href="#c-seo"><span>Search engines and sharing</span><b class="sev-low">1 issue</b></a><a class="cat-tile" href="#c-security"><span>Security</span><b class="sev-medium">5 issues</b></a><a class="cat-tile" href="#c-performance"><span>Speed</span><b class="sev-low">1 issue</b></a></div>
 
 
 <h2>What was tested</h2>
@@ -63,7 +63,7 @@ td.good{color:var(--good);font-weight:700}td.ok{color:var(--med);font-weight:700
 <h4>Visitor journeys that work</h4><ul class="passed"><li>✓ A missing page shows an error page with a way back</li></ul>
 
 <h2>Speed on a phone</h2><p class="meta">Google's scoring: 90+ is good, 50–89 needs work, under 50 is poor. LCP = when the main content appears (target under 2.5s). CLS = how much things jump (target under 0.1). TBT = how long the page ignores taps (target under 300ms).</p>
-<table><thead><tr><th>Page</th><th class="num">Score</th><th class="num">LCP</th><th class="num">CLS</th><th class="num">TBT</th><th class="num">Size</th></tr></thead><tbody><tr><td>/</td><td class="num ok">81</td><td class="num">3.9s</td><td class="num">0.17</td><td class="num">0ms</td><td class="num">0.6 MB</td></tr></tbody></table>
+<table><thead><tr><th>Page</th><th class="num">Score</th><th class="num">LCP</th><th class="num">CLS</th><th class="num">TBT</th><th class="num">Size</th></tr></thead><tbody><tr><td>/</td><td class="num ok">86</td><td class="num">4.0s</td><td class="num">0.09</td><td class="num">0ms</td><td class="num">0.6 MB</td></tr></tbody></table>
 
 <h2>What the levels mean</h2>
 <div class="legend"><b class="sev-critical">Critical</b><span>Fix today. Real harm is possible right now.</span><b class="sev-high">High</b><span>Fix before the next release. Visitors or data are affected.</span><b class="sev-medium">Medium</b><span>Fix soon. It hurts some visitors, sales or search ranking.</span><b class="sev-low">Low</b><span>Polish. Worth doing when you're in that area.</span></div>
@@ -87,165 +87,26 @@ td.good{color:var(--good);font-weight:700}td.ok{color:var(--med);font-weight:700
     </div>
     
     
-  </article></section><section class="category" id="c-devices"><h2>Phones, tablets and browsers <small>no issues found</small></h2></section><section class="category" id="c-flows"><h2>Things visitors do <small>no issues found</small></h2></section><section class="category" id="c-accessibility"><h2>Accessibility <small>3 issues</small></h2><article class="issue sev-high" id="i-3dde63b5ba">
-    <header>
-      <span class="badge">High</span>
-      <span class="tag block">Serious, not on the known list</span>
-      <span class="cat">Accessibility</span>
-    </header>
-    <h3>Certain ARIA roles must contain particular children</h3>
-    <p class="kind">Accessibility barrier</p>
-    <dl class="where"><div><dt>Where</dt><dd>/</dd></div><div><dt>Screens</dt><dd>Laptop</dd></div><div><dt>Browsers</dt><dd>Chrome / Edge</dd></div><div><dt>Language</dt><dd>Main language</dd></div></dl>
-    
-    <div class="cols">
-      <section><h4>What we found</h4><ul class="details"><li><code>Certain ARIA roles must contain particular children (1 place: #list)</code></li></ul></section>
-      <section><h4>Why it matters</h4><p>Some visitors can&#39;t use this part of the page: people using screen readers, keyboard only, zoom, or with low vision or colour blindness. Accessibility is also a legal requirement in many countries, including Israel&#39;s accessibility regulations for websites.</p>
-        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
-        <p>Element has children which are not allowed: li. See the guide for the exact fix.</p><pre>Example of what&#39;s affected:
-&lt;ul class=&quot;list scroll more-below&quot; id=&quot;list&quot; role=&quot;listbox&quot; style=&quot;max-height: 256px;&quot;&gt;</pre>
-        <p><a href="https://dequeuniversity.com/rules/axe/4.13/aria-required-children?application=playwright" target="_blank" rel="noopener">Step-by-step guide →</a></p></section>
-    </div>
-    
-    
-  </article><article class="issue sev-high" id="i-1e912ef4a9">
-    <header>
-      <span class="badge">High</span>
-      <span class="tag block">Serious, not on the known list</span>
-      <span class="cat">Accessibility</span>
-    </header>
-    <h3>Certain ARIA roles must be contained by particular parents</h3>
-    <p class="kind">Accessibility barrier</p>
-    <dl class="where"><div><dt>Where</dt><dd>/</dd></div><div><dt>Screens</dt><dd>Laptop</dd></div><div><dt>Browsers</dt><dd>Chrome / Edge</dd></div><div><dt>Language</dt><dd>Main language</dd></div></dl>
-    
-    <div class="cols">
-      <section><h4>What we found</h4><ul class="details"><li><code>Certain ARIA roles must be contained by particular parents (4 places: #o0 · #o1 · #o2)</code></li></ul></section>
-      <section><h4>Why it matters</h4><p>Some visitors can&#39;t use this part of the page: people using screen readers, keyboard only, zoom, or with low vision or colour blindness. Accessibility is also a legal requirement in many countries, including Israel&#39;s accessibility regulations for websites.</p>
-        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
-        <p>Required ARIA parents role not present: group, listbox. See the guide for the exact fix.</p><pre>Example of what&#39;s affected:
-&lt;a class=&quot;opt&quot; id=&quot;o0&quot; role=&quot;option&quot; aria-selected=&quot;false&quot; href=&quot;manas-kaziranga/&quot;&gt;</pre>
-        <p><a href="https://dequeuniversity.com/rules/axe/4.13/aria-required-parent?application=playwright" target="_blank" rel="noopener">Step-by-step guide →</a></p></section>
-    </div>
-    
-    
-  </article><article class="issue sev-medium" id="i-17c3404adf">
-    <header>
-      <span class="badge">Medium</span>
-      
-      <span class="cat">Accessibility</span>
-    </header>
-    <h3>&lt;li&gt; elements must be contained in a &lt;ul&gt; or &lt;ol&gt;</h3>
-    <p class="kind">Accessibility barrier</p>
-    <dl class="where"><div><dt>Where</dt><dd>/</dd></div><div><dt>Screens</dt><dd>Laptop</dd></div><div><dt>Browsers</dt><dd>Chrome / Edge</dd></div><div><dt>Language</dt><dd>Main language</dd></div></dl>
-    
-    <div class="cols">
-      <section><h4>What we found</h4><ul class="details"><li><code>&lt;li&gt; elements must be contained in a &lt;ul&gt; or &lt;ol&gt; (4 places: li:nth-child(1) · li:nth-child(2) · li:nth-child(3))</code></li></ul></section>
-      <section><h4>Why it matters</h4><p>Some visitors can&#39;t use this part of the page: people using screen readers, keyboard only, zoom, or with low vision or colour blindness. Accessibility is also a legal requirement in many countries, including Israel&#39;s accessibility regulations for websites.</p>
-        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
-        <p>List item parent element has a role that is not role=&quot;list&quot;. See the guide for the exact fix.</p><pre>Example of what&#39;s affected:
-&lt;li&gt;</pre>
-        <p><a href="https://dequeuniversity.com/rules/axe/4.13/listitem?application=playwright" target="_blank" rel="noopener">Step-by-step guide →</a></p></section>
-    </div>
-    
-    
-  </article></section><section class="category" id="c-seo"><h2>Search engines and sharing <small>5 issues</small></h2><article class="issue sev-medium" id="i-54602ff55f">
-    <header>
-      <span class="badge">Medium</span>
-      
-      <span class="cat">Search engines and sharing</span>
-    </header>
-    <h3>The page has no search description</h3>
-    
-    <dl class="where"><div><dt>Where</dt><dd>/, /manas-kaziranga/, /pyrenees/, /iceland/, /iberian-lynx/</dd></div><div><dt>Language</dt><dd>Main language</dd></div></dl>
-    
-    <div class="cols">
-      <section><h4>What we found</h4><ul class="details"><li><code>No meta description</code></li></ul></section>
-      <section><h4>Why it matters</h4><p>The description is the grey text under the title in Google. Without one, Google picks random text from the page, which usually sells it badly.</p>
-        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
-        <p>In the &lt;head&gt; of /, /manas-kaziranga/, /pyrenees/, /iceland/, /iberian-lynx/, add one or two sentences (70–160 characters) saying what the page offers:</p><pre>&lt;meta name=&quot;description&quot; content=&quot;…&quot;&gt;</pre><p class="kind">Claude writes the description from the page&#39;s own text; check the wording in the pull request.</p>
-        </section>
-    </div>
-    
-    
-  </article><article class="issue sev-low" id="i-e985f643b2">
+  </article></section><section class="category" id="c-devices"><h2>Phones, tablets and browsers <small>no issues found</small></h2></section><section class="category" id="c-flows"><h2>Things visitors do <small>no issues found</small></h2></section><section class="category" id="c-accessibility"><h2>Accessibility <small>no issues found</small></h2></section><section class="category" id="c-seo"><h2>Search engines and sharing <small>1 issue</small></h2><article class="issue sev-low" id="i-8df2fc1232">
     <header>
       <span class="badge">Low</span>
       
       <span class="cat">Search engines and sharing</span>
     </header>
-    <h3>The page doesn&#39;t name its main address</h3>
+    <h3>A private page can appear in Google</h3>
     
-    <dl class="where"><div><dt>Where</dt><dd>/, /manas-kaziranga/, /pyrenees/, /iceland/, /iberian-lynx/</dd></div><div><dt>Language</dt><dd>Main language</dd></div></dl>
+    <dl class="where"><div><dt>Where</dt><dd>/, /iceland/, /manas-kaziranga/, /iberian-lynx/, /pyrenees/</dd></div><div><dt>Language</dt><dd>Main language</dd></div></dl>
     
     <div class="cols">
-      <section><h4>What we found</h4><ul class="details"><li><code>No canonical link</code></li></ul></section>
-      <section><h4>Why it matters</h4><p>Pages reachable at several addresses (with and without .html, with tracking codes) can be counted as duplicates by search engines.</p>
+      <section><h4>What we found</h4><ul class="details"><li><code>No noindex tag</code></li></ul></section>
+      <section><h4>Why it matters</h4><p>Pages like accounts, admin or link-only programs aren&#39;t meant to be found by searching.</p>
         <h4>What to change <span class="who who-built-in">Fixed automatically by the tool</span></h4>
-        <p>In the &lt;head&gt; of each page, add a link to its own address. For /:</p><pre>&lt;link rel=&quot;canonical&quot; href=&quot;https://tours.mw.photography/&quot;&gt;</pre>
+        <p>In the &lt;head&gt; of /, /iceland/, /manas-kaziranga/, /iberian-lynx/, /pyrenees/, add:</p><pre>&lt;meta name=&quot;robots&quot; content=&quot;noindex&quot;&gt;</pre>
         </section>
     </div>
     
     
-  </article><article class="issue sev-low" id="i-29a1dcd8da">
-    <header>
-      <span class="badge">Low</span>
-      
-      <span class="cat">Search engines and sharing</span>
-    </header>
-    <h3>Links to this page share without a preview</h3>
-    
-    <dl class="where"><div><dt>Where</dt><dd>/, /manas-kaziranga/, /pyrenees/, /iceland/, /iberian-lynx/</dd></div><div><dt>Language</dt><dd>Main language</dd></div></dl>
-    
-    <div class="cols">
-      <section><h4>What we found</h4><ul class="details"><li><code>Missing og:title, og:description, og:image</code></li></ul></section>
-      <section><h4>Why it matters</h4><p>When someone shares the page on WhatsApp, Facebook or LinkedIn, it appears as a bare link instead of a card with an image and title.</p>
-        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
-        <p>In the &lt;head&gt; of /, /manas-kaziranga/, /pyrenees/, /iceland/, /iberian-lynx/, add share-preview tags (the image should be 1200×630):</p><pre>&lt;meta property=&quot;og:title&quot; content=&quot;…&quot;&gt;
-&lt;meta property=&quot;og:description&quot; content=&quot;…&quot;&gt;
-&lt;meta property=&quot;og:image&quot; content=&quot;https://tours.mw.photography/share.jpg&quot;&gt;
-&lt;meta property=&quot;og:url&quot; content=&quot;https://tours.mw.photography/&quot;&gt;</pre>
-        </section>
-    </div>
-    
-    
-  </article><article class="issue sev-low" id="i-d96f0639ae">
-    <header>
-      <span class="badge">Low</span>
-      
-      <span class="cat">Search engines and sharing</span>
-    </header>
-    <h3>The page title is too short or too long</h3>
-    
-    <dl class="where"><div><dt>Where</dt><dd>/manas-kaziranga/</dd></div><div><dt>Language</dt><dd>Main language</dd></div></dl>
-    
-    <div class="cols">
-      <section><h4>What we found</h4><ul class="details"><li><code>14 characters: &quot;מאנאס וקזירנגה&quot;</code></li></ul></section>
-      <section><h4>Why it matters</h4><p>Google cuts titles over about 60 characters, and very short titles don&#39;t say enough to earn the click.</p>
-        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
-        <p>Give /manas-kaziranga/ a specific title of 30–60 characters: what the page is, then the brand.</p><pre>&lt;title&gt;Lightroom presets for wildlife photographers · Brand&lt;/title&gt;</pre><p class="kind">Claude writes the new title; check the wording in the pull request.</p>
-        </section>
-    </div>
-    
-    
-  </article><article class="issue sev-low" id="i-e979a78bfd">
-    <header>
-      <span class="badge">Low</span>
-      
-      <span class="cat">Search engines and sharing</span>
-    </header>
-    <h3>The page title is too short or too long</h3>
-    
-    <dl class="where"><div><dt>Where</dt><dd>/iberian-lynx/</dd></div><div><dt>Language</dt><dd>Main language</dd></div></dl>
-    
-    <div class="cols">
-      <section><h4>What we found</h4><ul class="details"><li><code>12 characters: &quot;השונר האיברי&quot;</code></li></ul></section>
-      <section><h4>Why it matters</h4><p>Google cuts titles over about 60 characters, and very short titles don&#39;t say enough to earn the click.</p>
-        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
-        <p>Give /iberian-lynx/ a specific title of 30–60 characters: what the page is, then the brand.</p><pre>&lt;title&gt;Lightroom presets for wildlife photographers · Brand&lt;/title&gt;</pre><p class="kind">Claude writes the new title; check the wording in the pull request.</p>
-        </section>
-    </div>
-    
-    
-  </article></section><section class="category" id="c-security"><h2>Security <small>6 issues</small></h2><article class="issue sev-medium" id="i-f6b8edf422">
+  </article></section><section class="category" id="c-security"><h2>Security <small>5 issues</small></h2><article class="issue sev-medium" id="i-f6b8edf422">
     <header>
       <span class="badge">Medium</span>
       
@@ -314,25 +175,6 @@ Without header support, a CSP can also go in each page&#39;s &lt;head&gt;:
     </div>
     
     
-  </article><article class="issue sev-low" id="i-4b828d0136">
-    <header>
-      <span class="badge">Low</span>
-      
-      <span class="cat">Security</span>
-    </header>
-    <h3>A script from another company&#39;s server isn&#39;t locked to a version</h3>
-    
-    <dl class="where"><div><dt>Where</dt><dd>/manas-kaziranga/</dd></div></dl>
-    
-    <div class="cols">
-      <section><h4>What we found</h4><ul class="details"><li><code>https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js (version not pinned: updates automatically)</code></li></ul></section>
-      <section><h4>Why it matters</h4><p>If that server is ever hacked or the library publishes a bad update, the changed code runs on your site with your visitors&#39; sessions.</p>
-        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
-        <p>Copy the library into the site (or pin its exact version and add an integrity hash) instead of loading a version that updates itself.</p><pre>&lt;script src=&quot;https://cdn.example.com/lib@1.2.3/lib.min.js&quot; integrity=&quot;sha384-…&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;</pre>
-        </section>
-    </div>
-    
-    
   </article><article class="issue sev-low" id="i-2212ebc442">
     <header>
       <span class="badge">Low</span>
@@ -374,7 +216,7 @@ Without header support, a CSP can also go in each page&#39;s &lt;head&gt;:
     </div>
     
     
-  </article></section><section class="category" id="c-performance"><h2>Speed <small>2 issues</small></h2><article class="issue sev-low" id="i-9d082d4108">
+  </article></section><section class="category" id="c-performance"><h2>Speed <small>1 issue</small></h2><article class="issue sev-low" id="i-9d082d4108">
     <header>
       <span class="badge">Low</span>
       
@@ -385,30 +227,11 @@ Without header support, a CSP can also go in each page&#39;s &lt;head&gt;:
     <dl class="where"><div><dt>Where</dt><dd>/</dd></div><div><dt>Screens</dt><dd>Mid-range phone, 4G</dd></div><div><dt>Browsers</dt><dd>Chrome / Edge</dd></div></dl>
     
     <div class="cols">
-      <section><h4>What we found</h4><ul class="details"><li><code>3.9s (target under 2.5s)</code></li></ul></section>
+      <section><h4>What we found</h4><ul class="details"><li><code>4.0s (target under 2.5s)</code></li></ul></section>
       <section><h4>Why it matters</h4><p>Largest Contentful Paint is when the biggest thing on screen (usually the hero image) appears. Google&#39;s target is under 2.5 seconds.</p>
         <h4>What to change <span class="who who-built-in">Fixed automatically (the tool and Claude)</span></h4>
         <p>Make the images smaller (resize to the size they&#39;re shown at, WebP or AVIF, about 80% quality), load images below the first screen with loading=&quot;lazy&quot;, and let the main image load first with fetchpriority=&quot;high&quot;.</p><pre>&lt;img src=&quot;hero.webp&quot; fetchpriority=&quot;high&quot; alt=&quot;…&quot;&gt;
 &lt;img src=&quot;later.webp&quot; loading=&quot;lazy&quot; alt=&quot;…&quot;&gt;</pre><p class="kind">The tool shrinks oversized images itself; Claude handles loading order (lazy-loading, deferring scripts).</p>
-        </section>
-    </div>
-    
-    
-  </article><article class="issue sev-low" id="i-980ac87c23">
-    <header>
-      <span class="badge">Low</span>
-      
-      <span class="cat">Speed</span>
-    </header>
-    <h3>The page jumps around while loading (CLS)</h3>
-    
-    <dl class="where"><div><dt>Where</dt><dd>/</dd></div><div><dt>Screens</dt><dd>Mid-range phone, 4G</dd></div><div><dt>Browsers</dt><dd>Chrome / Edge</dd></div></dl>
-    
-    <div class="cols">
-      <section><h4>What we found</h4><ul class="details"><li><code>0.17 (target under 0.1)</code></li></ul></section>
-      <section><h4>Why it matters</h4><p>Content shifting as it loads makes visitors tap the wrong thing. Google&#39;s target is under 0.1.</p>
-        <h4>What to change <span class="who who-built-in">Fixed automatically (the tool and Claude)</span></h4>
-        <p>Give every image and embed a width and height (or CSS aspect-ratio) so the page doesn&#39;t jump while loading.</p><pre>&lt;img src=&quot;photo.jpg&quot; width=&quot;1600&quot; height=&quot;1000&quot; alt=&quot;…&quot;&gt;</pre><p class="kind">The tool shrinks oversized images itself; Claude handles loading order (lazy-loading, deferring scripts).</p>
         </section>
     </div>
     
