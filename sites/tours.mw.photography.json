@@ -1,5 +1,11 @@
 {
   "domain": "tours.mw.photography",
   "name": "MW Photo Tours",
-  "repo": "matansharon-a11y/mw.tours"
+  "repo": "matansharon-a11y/mw.tours",
+  "searchEngines": {
+    "private": [
+      "/"
+    ],
+    "$why": "Every page is private (code-locked expeditions): they should be hidden from search engines."
+  }
 }
