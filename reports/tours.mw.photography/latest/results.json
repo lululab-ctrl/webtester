@@ -3,9 +3,9 @@
   "domain": "tours.mw.photography",
   "tested": "live",
   "liveUrl": "https://tours.mw.photography",
-  "when": "2026-10-17T08:19:20.715Z",
+  "when": "2026-10-17T08:34:04.546Z",
   "commit": null,
-  "durationS": 51,
+  "durationS": 63,
   "mode": "full",
   "coverage": {
     "pages": 5,
@@ -77,8 +77,7 @@
       "moreDetails": 0,
       "known": false,
       "blocking": true,
-      "fixBy": "you",
-      "fixNote": "Needs the site's code. Add the code repository to this site's settings to let Claude fix it.",
+      "fixBy": "claude",
       "change": "Element has children which are not allowed: li. See the guide for the exact fix.",
       "snippet": "Example of what's affected:\n<ul class=\"list scroll more-below\" id=\"list\" role=\"listbox\" style=\"max-height: 256px;\">"
     },
@@ -118,8 +117,7 @@
       "moreDetails": 0,
       "known": false,
       "blocking": true,
-      "fixBy": "you",
-      "fixNote": "Needs the site's code. Add the code repository to this site's settings to let Claude fix it.",
+      "fixBy": "claude",
       "change": "Required ARIA parents role not present: group, listbox. See the guide for the exact fix.",
       "snippet": "Example of what's affected:\n<a class=\"opt\" id=\"o0\" role=\"option\" aria-selected=\"false\" href=\"manas-kaziranga/\">"
     },
@@ -159,8 +157,7 @@
       "moreDetails": 0,
       "known": false,
       "blocking": false,
-      "fixBy": "you",
-      "fixNote": "Needs the site's code. Add the code repository to this site's settings to let Claude fix it.",
+      "fixBy": "claude",
       "change": "List item parent element has a role that is not role=\"list\". See the guide for the exact fix.",
       "snippet": "Example of what's affected:\n<li>"
     },
@@ -200,8 +197,7 @@
       "moreDetails": 0,
       "known": false,
       "blocking": false,
-      "fixBy": "you",
-      "fixNote": "Needs the site's code. Add the code repository to this site's settings to let Claude fix it.",
+      "fixBy": "claude",
       "change": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working."
     },
     {
@@ -326,10 +322,10 @@
       ],
       "pages": [
         "/",
-        "/iberian-lynx/",
-        "/iceland/",
         "/manas-kaziranga/",
-        "/pyrenees/"
+        "/pyrenees/",
+        "/iceland/",
+        "/iberian-lynx/"
       ],
       "devices": [],
       "browsers": [],
@@ -343,8 +339,9 @@
       "moreDetails": 0,
       "known": false,
       "blocking": false,
-      "fixBy": "you",
-      "change": "In the <head> of /, /iberian-lynx/, /iceland/, /manas-kaziranga/, /pyrenees/, add one or two sentences (70–160 characters) saying what the page offers:",
+      "fixBy": "claude",
+      "fixNote": "Claude writes the description from the page's own text; check the wording in the pull request.",
+      "change": "In the <head> of /, /manas-kaziranga/, /pyrenees/, /iceland/, /iberian-lynx/, add one or two sentences (70–160 characters) saying what the page offers:",
       "snippet": "<meta name=\"description\" content=\"…\">"
     },
     {
@@ -357,7 +354,7 @@
       "why": "Largest Contentful Paint is when the biggest thing on screen (usually the hero image) appears. Google's target is under 2.5 seconds.",
       "fix": "Compress and resize the hero image (WebP/AVIF, no wider than it's shown), and preload it.",
       "details": [
-        "4.0s (target under 2.5s)"
+        "3.9s (target under 2.5s)"
       ],
       "pages": [
         "/"
@@ -376,7 +373,8 @@
       "moreDetails": 0,
       "known": false,
       "blocking": false,
-      "fixBy": "you",
+      "fixBy": "built-in + claude",
+      "fixNote": "The tool shrinks oversized images itself; Claude handles loading order (lazy-loading, deferring scripts).",
       "change": "Make the images smaller (resize to the size they're shown at, WebP or AVIF, about 80% quality), load images below the first screen with loading=\"lazy\", and let the main image load first with fetchpriority=\"high\".",
       "snippet": "<img src=\"hero.webp\" fetchpriority=\"high\" alt=\"…\">\n<img src=\"later.webp\" loading=\"lazy\" alt=\"…\">"
     },
@@ -409,7 +407,8 @@
       "moreDetails": 0,
       "known": false,
       "blocking": false,
-      "fixBy": "you",
+      "fixBy": "built-in + claude",
+      "fixNote": "The tool shrinks oversized images itself; Claude handles loading order (lazy-loading, deferring scripts).",
       "change": "Give every image and embed a width and height (or CSS aspect-ratio) so the page doesn't jump while loading.",
       "snippet": "<img src=\"photo.jpg\" width=\"1600\" height=\"1000\" alt=\"…\">"
     },
@@ -426,7 +425,7 @@
         "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js (version not pinned: updates automatically)"
       ],
       "pages": [
-        "/iberian-lynx/"
+        "/manas-kaziranga/"
       ],
       "devices": [],
       "browsers": [],
@@ -438,8 +437,7 @@
       "moreDetails": 0,
       "known": false,
       "blocking": false,
-      "fixBy": "you",
-      "fixNote": "Needs the site's code. Add the code repository to this site's settings to let Claude fix it.",
+      "fixBy": "claude",
       "change": "Copy the library into the site (or pin its exact version and add an integrity hash) instead of loading a version that updates itself.",
       "snippet": "<script src=\"https://cdn.example.com/lib@1.2.3/lib.min.js\" integrity=\"sha384-…\" crossorigin=\"anonymous\"></script>"
     },
@@ -510,8 +508,7 @@
       "moreDetails": 0,
       "known": false,
       "blocking": false,
-      "fixBy": "you",
-      "fixNote": "Needs the site's code. Add the code repository to this site's settings and this is fixed automatically.",
+      "fixBy": "built-in",
       "change": "In the <head> of every page, add:",
       "snippet": "<meta name=\"referrer\" content=\"strict-origin-when-cross-origin\">"
     },
@@ -529,10 +526,10 @@
       ],
       "pages": [
         "/",
-        "/iberian-lynx/",
-        "/iceland/",
         "/manas-kaziranga/",
-        "/pyrenees/"
+        "/pyrenees/",
+        "/iceland/",
+        "/iberian-lynx/"
       ],
       "devices": [],
       "browsers": [],
@@ -546,8 +543,7 @@
       "moreDetails": 0,
       "known": false,
       "blocking": false,
-      "fixBy": "you",
-      "fixNote": "Needs the site's code. Add the code repository to this site's settings and this is fixed automatically.",
+      "fixBy": "built-in",
       "change": "In the <head> of each page, add a link to its own address. For /:",
       "snippet": "<link rel=\"canonical\" href=\"https://tours.mw.photography/\">"
     },
@@ -565,10 +561,10 @@
       ],
       "pages": [
         "/",
-        "/iberian-lynx/",
-        "/iceland/",
         "/manas-kaziranga/",
-        "/pyrenees/"
+        "/pyrenees/",
+        "/iceland/",
+        "/iberian-lynx/"
       ],
       "devices": [],
       "browsers": [],
@@ -582,41 +578,9 @@
       "moreDetails": 0,
       "known": false,
       "blocking": false,
-      "fixBy": "you",
-      "fixNote": "Needs the site's code. Add the code repository to this site's settings to let Claude fix it.",
-      "change": "In the <head> of /, /iberian-lynx/, /iceland/, /manas-kaziranga/, /pyrenees/, add share-preview tags (the image should be 1200×630):",
+      "fixBy": "claude",
+      "change": "In the <head> of /, /manas-kaziranga/, /pyrenees/, /iceland/, /iberian-lynx/, add share-preview tags (the image should be 1200×630):",
       "snippet": "<meta property=\"og:title\" content=\"…\">\n<meta property=\"og:description\" content=\"…\">\n<meta property=\"og:image\" content=\"https://tours.mw.photography/share.jpg\">\n<meta property=\"og:url\" content=\"https://tours.mw.photography/\">"
-    },
-    {
-      "key": "title-length|12 characters: \"השונר האיברי\"",
-      "rule": "title-length",
-      "severity": "Low",
-      "category": "seo",
-      "title": "The page title is too short or too long",
-      "ruleTitle": "The page title is too short or too long",
-      "why": "Google cuts titles over about 60 characters, and very short titles don't say enough to earn the click.",
-      "fix": "Aim for 30–60 characters that say what the page is and who it's from.",
-      "details": [
-        "12 characters: \"השונר האיברי\""
-      ],
-      "pages": [
-        "/iberian-lynx/"
-      ],
-      "devices": [],
-      "browsers": [],
-      "langs": [
-        "Main language"
-      ],
-      "shots": [],
-      "snippets": [],
-      "heavy": [],
-      "id": "e979a78bfd",
-      "moreDetails": 0,
-      "known": false,
-      "blocking": false,
-      "fixBy": "you",
-      "change": "Give /iberian-lynx/ a specific title of 30–60 characters: what the page is, then the brand.",
-      "snippet": "<title>Lightroom presets for wildlife photographers · Brand</title>"
     },
     {
       "key": "title-length|14 characters: \"מאנאס וקזירנגה\"",
@@ -645,8 +609,41 @@
       "moreDetails": 0,
       "known": false,
       "blocking": false,
-      "fixBy": "you",
+      "fixBy": "claude",
+      "fixNote": "Claude writes the new title; check the wording in the pull request.",
       "change": "Give /manas-kaziranga/ a specific title of 30–60 characters: what the page is, then the brand.",
+      "snippet": "<title>Lightroom presets for wildlife photographers · Brand</title>"
+    },
+    {
+      "key": "title-length|12 characters: \"השונר האיברי\"",
+      "rule": "title-length",
+      "severity": "Low",
+      "category": "seo",
+      "title": "The page title is too short or too long",
+      "ruleTitle": "The page title is too short or too long",
+      "why": "Google cuts titles over about 60 characters, and very short titles don't say enough to earn the click.",
+      "fix": "Aim for 30–60 characters that say what the page is and who it's from.",
+      "details": [
+        "12 characters: \"השונר האיברי\""
+      ],
+      "pages": [
+        "/iberian-lynx/"
+      ],
+      "devices": [],
+      "browsers": [],
+      "langs": [
+        "Main language"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "e979a78bfd",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "claude",
+      "fixNote": "Claude writes the new title; check the wording in the pull request.",
+      "change": "Give /iberian-lynx/ a specific title of 30–60 characters: what the page is, then the brand.",
       "snippet": "<title>Lightroom presets for wildlife photographers · Brand</title>"
     }
   ],
@@ -691,20 +688,6 @@
       "redirectedTo": null
     },
     {
-      "page": "/iberian-lynx/",
-      "lang": "Main language",
-      "status": 200,
-      "shot": "iberian_lynx__en__Laptop__chromium.jpg",
-      "redirectedTo": null
-    },
-    {
-      "page": "/iceland/",
-      "lang": "Main language",
-      "status": 200,
-      "shot": "iceland__en__Laptop__chromium.jpg",
-      "redirectedTo": null
-    },
-    {
       "page": "/manas-kaziranga/",
       "lang": "Main language",
       "status": 200,
@@ -717,17 +700,31 @@
       "status": 200,
       "shot": "pyrenees__en__Laptop__chromium.jpg",
       "redirectedTo": null
+    },
+    {
+      "page": "/iceland/",
+      "lang": "Main language",
+      "status": 200,
+      "shot": "iceland__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/iberian-lynx/",
+      "lang": "Main language",
+      "status": 200,
+      "shot": "iberian_lynx__en__Laptop__chromium.jpg",
+      "redirectedTo": null
     }
   ],
   "perf": [
     {
       "page": "/",
-      "score": 80,
-      "lcp": 3981.3469999999998,
+      "score": 81,
+      "lcp": 3903.4539999999997,
       "cls": 0.16887797792713405,
       "tbt": 0,
-      "fcp": 851.347,
-      "weight": 627803,
+      "fcp": 1053.454,
+      "weight": 627688,
       "tips": [
         "Use efficient cache lifetimes (about 2.7s faster)"
       ],
