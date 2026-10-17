@@ -144,7 +144,7 @@ jobs:
         id: ready
         env:
           HAS_SITES_TOKEN: ${{ secrets.SITES_TOKEN != '' }}
-          HAS_ANTHROPIC: ${{ secrets.ANTHROPIC_API_KEY != '' }}
+          HAS_ANTHROPIC: ${{ secrets.ANTHROPIC_API_KEY != '' || secrets.CLAUDE_CODE_OAUTH_TOKEN != '' }}
         run: |
           ok=true
           if [ -z "$REPO" ]; then
@@ -155,7 +155,7 @@ jobs:
             echo "### Missing key: SITES_TOKEN" >> "$GITHUB_STEP_SUMMARY"
             echo "A GitHub key that can read your sites' code and open pull requests there. See README → Setup." >> "$GITHUB_STEP_SUMMARY"; ok=false
           fi
-          [ "$HAS_ANTHROPIC" != "true" ] && echo "No ANTHROPIC_API_KEY: only the built-in fixes will run (see README → Setup)." >> "$GITHUB_STEP_SUMMARY"
+          [ "$HAS_ANTHROPIC" != "true" ] && echo "No Claude key (ANTHROPIC_API_KEY or CLAUDE_CODE_OAUTH_TOKEN): only the built-in fixes will run (see README → Setup)." >> "$GITHUB_STEP_SUMMARY"
           echo "ok=$ok" >> "$GITHUB_OUTPUT"
           echo "claude=$HAS_ANTHROPIC" >> "$GITHUB_OUTPUT"
 
@@ -221,6 +221,7 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}   # a Claude Pro/Max subscription instead of paid API credits
           github_token: ${{ github.token }}   # read-only in this job
           prompt: "Follow the instructions in qa-task.md exactly, from start to finish."
           claude_args: |

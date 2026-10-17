@@ -86,7 +86,8 @@ Add two keys under **Settings → Secrets and variables → Actions → New repo
 
 | Name | What it is | Where to get it |
 |---|---|---|
-| `ANTHROPIC_API_KEY` | Lets Claude make fixes. Billed per use, usually a few dollars per fix run. Without it, only built-in fixes run. | console.anthropic.com → API keys |
+| `ANTHROPIC_API_KEY` | Lets Claude make fixes. Billed per use from prepaid API credits. Without a Claude key, only built-in fixes run. | console.anthropic.com → API keys |
+| `CLAUDE_CODE_OAUTH_TOKEN` | Instead of `ANTHROPIC_API_KEY`: Claude's fixes run on a Claude Pro or Max subscription, no API credits. Counts toward the plan's usage limits. | In a terminal with Claude Code installed: `claude setup-token` |
 | `SITES_TOKEN` | Lets the tool read your sites' code and open pull requests there. | github.com → Settings → Developer settings → Fine-grained tokens → Generate. Repository access: the sites' repositories. Permissions: **Contents: Read and write**, **Pull requests: Read and write**. |
 
 ## Settings per site (optional)
