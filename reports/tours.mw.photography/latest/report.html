@@ -47,47 +47,27 @@ td.good{color:var(--good);font-weight:700}td.ok{color:var(--med);font-weight:700
 </style></head><body><main>
 <p class="meta">Site QA report · the live website</p>
 <h1>MW Photo Tours</h1>
-<p class="meta">Tested Sat, 17 Oct 2026 14:28:25 GMT · took 1 min · full check</p>
+<p class="meta">Tested Sun, 18 Oct 2026 00:26:59 GMT · took 0 min · quick check</p>
 
 <div class="verdict "><span class="dot"></span><div>
 <b>No serious issues outside the known list</b>Nothing at Critical or High level that isn't already known. 
 </div></div>
 
-<div class="counts"><div class="count c-critical"><b>0</b><span>Critical</span></div><div class="count c-high"><b>0</b><span>High</span></div><div class="count c-medium"><b>4</b><span>Medium</span></div><div class="count c-low"><b>4</b><span>Low</span></div></div>
-<div class="cats"><a class="cat-tile" href="#c-errors"><span>Bugs and errors</span><b class="sev-medium">1 issue</b></a><a class="cat-tile" href="#c-devices"><span>Phones, tablets and browsers</span><b class="clean">All clear</b></a><a class="cat-tile" href="#c-flows"><span>Things visitors do</span><b class="clean">All clear</b></a><a class="cat-tile" href="#c-accessibility"><span>Accessibility</span><b class="clean">All clear</b></a><a class="cat-tile" href="#c-seo"><span>Search engines and sharing</span><b class="sev-low">1 issue</b></a><a class="cat-tile" href="#c-security"><span>Security</span><b class="sev-medium">5 issues</b></a><a class="cat-tile" href="#c-performance"><span>Speed</span><b class="sev-low">1 issue</b></a></div>
+<div class="counts"><div class="count c-critical"><b>0</b><span>Critical</span></div><div class="count c-high"><b>0</b><span>High</span></div><div class="count c-medium"><b>3</b><span>Medium</span></div><div class="count c-low"><b>2</b><span>Low</span></div></div>
+<div class="cats"><a class="cat-tile" href="#c-errors"><span>Bugs and errors</span><b class="clean">All clear</b></a><a class="cat-tile" href="#c-devices"><span>Phones, tablets and browsers</span><b class="clean">All clear</b></a><a class="cat-tile" href="#c-flows"><span>Things visitors do</span><b class="clean">All clear</b></a><a class="cat-tile" href="#c-accessibility"><span>Accessibility</span><b class="clean">All clear</b></a><a class="cat-tile" href="#c-seo"><span>Search engines and sharing</span><b class="sev-low">1 issue</b></a><a class="cat-tile" href="#c-security"><span>Security</span><b class="sev-medium">4 issues</b></a><a class="cat-tile" href="#c-performance"><span>Speed</span><b class="untested">Not tested</b></a></div>
 
 
 <h2>What was tested</h2>
-<p>5 pages in Main language, on 7 screen sizes (iPhone SE (375×667), iPhone 15 (393×852), Galaxy S23 (360×780), iPad Mini (768×1024), iPad Pro landscape (1366×1024), Laptop (1280×800), Desktop (1920×1080)), in Chrome / Edge, Firefox, Safari (iPhone, Mac). 5 links followed. 1 visitor journey walked through step by step.</p>
+<p>5 pages in Main language, on 3 screen sizes (iPhone SE (375×667), iPad Mini (768×1024), Laptop (1280×800)), in Chrome / Edge. 5 links followed. 1 visitor journey walked through step by step.</p>
 
 <h4>Visitor journeys that work</h4><ul class="passed"><li>✓ A missing page shows an error page with a way back</li></ul>
 
-<h2>Speed on a phone</h2><p class="meta">Google's scoring: 90+ is good, 50–89 needs work, under 50 is poor. LCP = when the main content appears (target under 2.5s). CLS = how much things jump (target under 0.1). TBT = how long the page ignores taps (target under 300ms).</p>
-<table><thead><tr><th>Page</th><th class="num">Score</th><th class="num">LCP</th><th class="num">CLS</th><th class="num">TBT</th><th class="num">Size</th></tr></thead><tbody><tr><td>/</td><td class="num ok">86</td><td class="num">3.9s</td><td class="num">0.09</td><td class="num">0ms</td><td class="num">0.6 MB</td></tr></tbody></table>
+
 
 <h2>What the levels mean</h2>
 <div class="legend"><b class="sev-critical">Critical</b><span>Fix today. Real harm is possible right now.</span><b class="sev-high">High</b><span>Fix before the next release. Visitors or data are affected.</span><b class="sev-medium">Medium</b><span>Fix soon. It hurts some visitors, sales or search ranking.</span><b class="sev-low">Low</b><span>Polish. Worth doing when you're in that area.</span></div>
 
-<section class="category" id="c-errors"><h2>Bugs and errors <small>1 issue</small></h2><article class="issue sev-medium" id="i-8a3a9685f0">
-    <header>
-      <span class="badge">Medium</span>
-      
-      <span class="cat">Bugs and errors</span>
-    </header>
-    <h3>A file or server request failed</h3>
-    
-    <dl class="where"><div><dt>Where</dt><dd>/iberian-lynx/, /pyrenees/, /iceland/, /manas-kaziranga/</dd></div><div><dt>Screens</dt><dd>iPhone 15, Laptop</dd></div><div><dt>Browsers</dt><dd>Firefox, Safari (iPhone, Mac)</dd></div><div><dt>Language</dt><dd>Main language</dd></div></dl>
-    
-    <div class="cols">
-      <section><h4>What we found</h4><ul class="details"><li><code>https://uiydebfzuxnxjqcnrylv.supabase.co/auth/v1/signup answered 429 (fetch)</code></li></ul></section>
-      <section><h4>Why it matters</h4><p>The page asked for something (a script, style, image, font, or data from the server) and didn&#39;t get it. Missing scripts and styles break the page; missing data shows empty or wrong content.</p>
-        <h4>What to change <span class="who who-claude">Claude can fix this</span></h4>
-        <p>Check the address listed. If the file moved or was renamed, update the link; if it&#39;s a server call, check the server function is deployed and working.</p>
-        </section>
-    </div>
-    
-    
-  </article></section><section class="category" id="c-devices"><h2>Phones, tablets and browsers <small>no issues found</small></h2></section><section class="category" id="c-flows"><h2>Things visitors do <small>no issues found</small></h2></section><section class="category" id="c-accessibility"><h2>Accessibility <small>no issues found</small></h2></section><section class="category" id="c-seo"><h2>Search engines and sharing <small>1 issue</small></h2><article class="issue sev-low" id="i-8df2fc1232">
+<section class="category" id="c-errors"><h2>Bugs and errors <small>no issues found</small></h2></section><section class="category" id="c-devices"><h2>Phones, tablets and browsers <small>no issues found</small></h2></section><section class="category" id="c-flows"><h2>Things visitors do <small>no issues found</small></h2></section><section class="category" id="c-accessibility"><h2>Accessibility <small>no issues found</small></h2></section><section class="category" id="c-seo"><h2>Search engines and sharing <small>1 issue</small></h2><article class="issue sev-low" id="i-8df2fc1232">
     <header>
       <span class="badge">Low</span>
       
@@ -95,18 +75,18 @@ td.good{color:var(--good);font-weight:700}td.ok{color:var(--med);font-weight:700
     </header>
     <h3>A private page can appear in Google</h3>
     
-    <dl class="where"><div><dt>Where</dt><dd>/, /pyrenees/, /iceland/, /iberian-lynx/, /manas-kaziranga/</dd></div><div><dt>Language</dt><dd>Main language</dd></div></dl>
+    <dl class="where"><div><dt>Where</dt><dd>/, /iceland/, /iberian-lynx/, /pyrenees/, /manas-kaziranga/</dd></div><div><dt>Language</dt><dd>Main language</dd></div></dl>
     
     <div class="cols">
       <section><h4>What we found</h4><ul class="details"><li><code>No noindex tag</code></li></ul></section>
       <section><h4>Why it matters</h4><p>Pages like accounts, admin or link-only programs aren&#39;t meant to be found by searching.</p>
         <h4>What to change <span class="who who-built-in">Fixed automatically by the tool</span></h4>
-        <p>In the &lt;head&gt; of /, /pyrenees/, /iceland/, /iberian-lynx/, /manas-kaziranga/, add:</p><pre>&lt;meta name=&quot;robots&quot; content=&quot;noindex&quot;&gt;</pre>
+        <p>In the &lt;head&gt; of /, /iceland/, /iberian-lynx/, /pyrenees/, /manas-kaziranga/, add:</p><pre>&lt;meta name=&quot;robots&quot; content=&quot;noindex&quot;&gt;</pre>
         </section>
     </div>
     
     
-  </article></section><section class="category" id="c-security"><h2>Security <small>5 issues</small></h2><article class="issue sev-medium" id="i-f6b8edf422">
+  </article></section><section class="category" id="c-security"><h2>Security <small>4 issues</small></h2><article class="issue sev-medium" id="i-f6b8edf422">
     <header>
       <span class="badge">Medium</span>
       
@@ -114,7 +94,7 @@ td.good{color:var(--good);font-weight:700}td.ok{color:var(--med);font-weight:700
     </header>
     <h3>Browsers aren&#39;t told to always use the secure address</h3>
     
-    <dl class="where"><div><dt>Where</dt><dd>/, /manas-kaziranga/, /iberian-lynx/, /pyrenees/, /iceland/</dd></div><div><dt>Browsers</dt><dd>live site</dd></div></dl>
+    <dl class="where"><div><dt>Where</dt><dd>/, /manas-kaziranga/, /iberian-lynx/, /pyrenees/, /iceland/</dd></div><div><dt>Browsers</dt><dd>all browsers</dd></div></dl>
     
     <div class="cols">
       <section><h4>What we found</h4><ul class="details"><li><code>No Strict-Transport-Security header (GitHub Pages can&#39;t send custom headers; see the fix for the workaround or a host that can)</code></li></ul></section>
@@ -136,7 +116,7 @@ td.good{color:var(--good);font-weight:700}td.ok{color:var(--med);font-weight:700
     </header>
     <h3>No Content Security Policy</h3>
     
-    <dl class="where"><div><dt>Where</dt><dd>/, /manas-kaziranga/, /iberian-lynx/, /pyrenees/, /iceland/</dd></div><div><dt>Browsers</dt><dd>live site</dd></div></dl>
+    <dl class="where"><div><dt>Where</dt><dd>/, /manas-kaziranga/, /iberian-lynx/, /pyrenees/, /iceland/</dd></div><div><dt>Browsers</dt><dd>all browsers</dd></div></dl>
     
     <div class="cols">
       <section><h4>What we found</h4><ul class="details"><li><code>No CSP header or meta tag (GitHub Pages can&#39;t send custom headers; see the fix for the workaround or a host that can)</code></li></ul></section>
@@ -161,7 +141,7 @@ Without header support, a CSP can also go in each page&#39;s &lt;head&gt;:
     </header>
     <h3>Other sites can embed this page invisibly</h3>
     
-    <dl class="where"><div><dt>Where</dt><dd>/, /manas-kaziranga/, /iberian-lynx/, /pyrenees/, /iceland/</dd></div><div><dt>Browsers</dt><dd>live site</dd></div></dl>
+    <dl class="where"><div><dt>Where</dt><dd>/, /manas-kaziranga/, /iberian-lynx/, /pyrenees/, /iceland/</dd></div><div><dt>Browsers</dt><dd>all browsers</dd></div></dl>
     
     <div class="cols">
       <section><h4>What we found</h4><ul class="details"><li><code>No X-Frame-Options or frame-ancestors (GitHub Pages can&#39;t send custom headers; see the fix for the workaround or a host that can)</code></li></ul></section>
@@ -183,7 +163,7 @@ Without header support, a CSP can also go in each page&#39;s &lt;head&gt;:
     </header>
     <h3>Missing X-Content-Type-Options</h3>
     
-    <dl class="where"><div><dt>Where</dt><dd>/, /manas-kaziranga/, /iberian-lynx/, /pyrenees/, /iceland/</dd></div><div><dt>Browsers</dt><dd>live site</dd></div></dl>
+    <dl class="where"><div><dt>Where</dt><dd>/, /manas-kaziranga/, /iberian-lynx/, /pyrenees/, /iceland/</dd></div><div><dt>Browsers</dt><dd>all browsers</dd></div></dl>
     
     <div class="cols">
       <section><h4>What we found</h4><ul class="details"><li><code>Missing (GitHub Pages can&#39;t send custom headers; see the fix for the workaround or a host that can)</code></li></ul></section>
@@ -197,44 +177,5 @@ Without header support, a CSP can also go in each page&#39;s &lt;head&gt;:
     </div>
     
     
-  </article><article class="issue sev-low" id="i-e96471fb8a">
-    <header>
-      <span class="badge">Low</span>
-      
-      <span class="cat">Security</span>
-    </header>
-    <h3>No referrer policy</h3>
-    
-    <dl class="where"><div><dt>Where</dt><dd>/, /manas-kaziranga/, /iberian-lynx/, /pyrenees/, /iceland/</dd></div><div><dt>Browsers</dt><dd>live site</dd></div></dl>
-    
-    <div class="cols">
-      <section><h4>What we found</h4><ul class="details"><li><code>No Referrer-Policy header or meta tag</code></li></ul></section>
-      <section><h4>Why it matters</h4><p>Full page addresses (which can include sign-in tokens or order details) may be passed to other sites the visitor goes to.</p>
-        <h4>What to change <span class="who who-built-in">Fixed automatically by the tool</span></h4>
-        <p>In the &lt;head&gt; of every page, add:</p><pre>&lt;meta name=&quot;referrer&quot; content=&quot;strict-origin-when-cross-origin&quot;&gt;</pre>
-        </section>
-    </div>
-    
-    
-  </article></section><section class="category" id="c-performance"><h2>Speed <small>1 issue</small></h2><article class="issue sev-low" id="i-9d082d4108">
-    <header>
-      <span class="badge">Low</span>
-      
-      <span class="cat">Speed</span>
-    </header>
-    <h3>The main content appears late (LCP)</h3>
-    
-    <dl class="where"><div><dt>Where</dt><dd>/</dd></div><div><dt>Screens</dt><dd>Mid-range phone, 4G</dd></div><div><dt>Browsers</dt><dd>Chrome / Edge</dd></div></dl>
-    
-    <div class="cols">
-      <section><h4>What we found</h4><ul class="details"><li><code>3.9s (target under 2.5s)</code></li></ul></section>
-      <section><h4>Why it matters</h4><p>Largest Contentful Paint is when the biggest thing on screen (usually the hero image) appears. Google&#39;s target is under 2.5 seconds.</p>
-        <h4>What to change <span class="who who-built-in">Fixed automatically (the tool and Claude)</span></h4>
-        <p>Make the images smaller (resize to the size they&#39;re shown at, WebP or AVIF, about 80% quality), load images below the first screen with loading=&quot;lazy&quot;, and let the main image load first with fetchpriority=&quot;high&quot;.</p><pre>&lt;img src=&quot;hero.webp&quot; fetchpriority=&quot;high&quot; alt=&quot;…&quot;&gt;
-&lt;img src=&quot;later.webp&quot; loading=&quot;lazy&quot; alt=&quot;…&quot;&gt;</pre><p class="kind">The tool shrinks oversized images itself; Claude handles loading order (lazy-loading, deferring scripts).</p>
-        </section>
-    </div>
-    
-    
-  </article></section>
+  </article></section><section class="category" id="c-performance"><h2>Speed <small>no issues found</small></h2></section>
 </main></body></html>

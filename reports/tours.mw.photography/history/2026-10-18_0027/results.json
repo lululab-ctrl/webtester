@@ -1,0 +1,298 @@
+{
+  "site": "MW Photo Tours",
+  "domain": "tours.mw.photography",
+  "tested": "live",
+  "liveUrl": "https://tours.mw.photography",
+  "when": "2026-10-18T00:26:59.240Z",
+  "commit": null,
+  "durationS": 13,
+  "mode": "quick",
+  "coverage": {
+    "pages": 5,
+    "languages": [
+      "Main language"
+    ],
+    "devices": [
+      "iPhone SE (375×667)",
+      "iPad Mini (768×1024)",
+      "Laptop (1280×800)"
+    ],
+    "browsers": [
+      "Chrome / Edge"
+    ],
+    "links": 5,
+    "flows": 1
+  },
+  "verdict": "pass",
+  "blockOn": [
+    "Critical",
+    "High"
+  ],
+  "counts": {
+    "Critical": 0,
+    "High": 0,
+    "Medium": 3,
+    "Low": 2
+  },
+  "issues": [
+    {
+      "key": "header-hsts|No Strict-Transport-Security header (GitHub Pages can't send custom headers; see the fix for the workaround or a host that can)",
+      "rule": "header-hsts",
+      "severity": "Medium",
+      "category": "security",
+      "title": "Browsers aren't told to always use the secure address",
+      "ruleTitle": "Browsers aren't told to always use the secure address",
+      "why": "Without HSTS, a visitor's very first request can be sent unencrypted and redirected by an attacker on public Wi-Fi.",
+      "fix": "Send the Strict-Transport-Security header (max-age of at least six months). Most hosts have a switch for this.",
+      "details": [
+        "No Strict-Transport-Security header (GitHub Pages can't send custom headers; see the fix for the workaround or a host that can)"
+      ],
+      "pages": [
+        "/",
+        "/manas-kaziranga/",
+        "/iberian-lynx/",
+        "/pyrenees/",
+        "/iceland/"
+      ],
+      "devices": [],
+      "browsers": [
+        "live site"
+      ],
+      "langs": [],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "f6b8edf422",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "you",
+      "fixNote": "This site is hosted on GitHub Pages, which can't send security headers. It needs a host change (or Cloudflare in front), which is a decision for you.",
+      "change": "Make the host send this header on every page.",
+      "snippet": "GitHub Pages can't send this header. Options:\n1. Publish through Vercel or Netlify (both read headers from a file in the code), or\n2. Put Cloudflare (free plan) in front of the domain and add the header there:\n   Strict-Transport-Security: max-age=31536000; includeSubDomains"
+    },
+    {
+      "key": "header-csp|No CSP header or meta tag (GitHub Pages can't send custom headers; see the fix for the workaround or a host that can)",
+      "rule": "header-csp",
+      "severity": "Medium",
+      "category": "security",
+      "title": "No Content Security Policy",
+      "ruleTitle": "No Content Security Policy",
+      "why": "A CSP is a whitelist of where scripts may come from. If any bug ever lets someone inject a script, the CSP stops it from running. It's the main safety net against account-stealing attacks.",
+      "fix": "Add a Content-Security-Policy header, or a <meta http-equiv=\"Content-Security-Policy\"> tag when the host can't set headers. Start in report-only mode and tighten it.",
+      "details": [
+        "No CSP header or meta tag (GitHub Pages can't send custom headers; see the fix for the workaround or a host that can)"
+      ],
+      "pages": [
+        "/",
+        "/manas-kaziranga/",
+        "/iberian-lynx/",
+        "/pyrenees/",
+        "/iceland/"
+      ],
+      "devices": [],
+      "browsers": [
+        "live site"
+      ],
+      "langs": [],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "5a89e03d60",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "you",
+      "fixNote": "This site is hosted on GitHub Pages, which can't send security headers. It needs a host change (or Cloudflare in front), which is a decision for you.",
+      "change": "Add a Content Security Policy. Start with the report-only version below, check nothing breaks for a week, then switch the name to Content-Security-Policy.",
+      "snippet": "GitHub Pages can't send this header. Options:\n1. Publish through Vercel or Netlify (both read headers from a file in the code), or\n2. Put Cloudflare (free plan) in front of the domain and add the header there:\n   Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https: data:; connect-src 'self' https:; frame-ancestors 'none'\n\nWithout header support, a CSP can also go in each page's <head>:\n<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'; script-src 'self' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https: data:; connect-src 'self' https:\">"
+    },
+    {
+      "key": "header-frame|No X-Frame-Options or frame-ancestors (GitHub Pages can't send custom headers; see the fix for the workaround or a host that can)",
+      "rule": "header-frame",
+      "severity": "Medium",
+      "category": "security",
+      "title": "Other sites can embed this page invisibly",
+      "ruleTitle": "Other sites can embed this page invisibly",
+      "why": "An attacker can load the page inside an invisible frame on their own site and trick visitors into clicking buttons (\"clickjacking\").",
+      "fix": "Send X-Frame-Options: DENY or a CSP with frame-ancestors 'none'. (This one can't be set with a <meta> tag.)",
+      "details": [
+        "No X-Frame-Options or frame-ancestors (GitHub Pages can't send custom headers; see the fix for the workaround or a host that can)"
+      ],
+      "pages": [
+        "/",
+        "/manas-kaziranga/",
+        "/iberian-lynx/",
+        "/pyrenees/",
+        "/iceland/"
+      ],
+      "devices": [],
+      "browsers": [
+        "live site"
+      ],
+      "langs": [],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "fedf4bd24f",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "you",
+      "fixNote": "This site is hosted on GitHub Pages, which can't send security headers. It needs a host change (or Cloudflare in front), which is a decision for you.",
+      "change": "Make the host send this header on every page.",
+      "snippet": "GitHub Pages can't send this header. Options:\n1. Publish through Vercel or Netlify (both read headers from a file in the code), or\n2. Put Cloudflare (free plan) in front of the domain and add the header there:\n   X-Frame-Options: DENY"
+    },
+    {
+      "key": "header-nosniff|Missing (GitHub Pages can't send custom headers; see the fix for the workaround or a host that can)",
+      "rule": "header-nosniff",
+      "severity": "Low",
+      "category": "security",
+      "title": "Missing X-Content-Type-Options",
+      "ruleTitle": "Missing X-Content-Type-Options",
+      "why": "Without it, some browsers guess file types, which can turn an uploaded file into running code.",
+      "fix": "Send X-Content-Type-Options: nosniff.",
+      "details": [
+        "Missing (GitHub Pages can't send custom headers; see the fix for the workaround or a host that can)"
+      ],
+      "pages": [
+        "/",
+        "/manas-kaziranga/",
+        "/iberian-lynx/",
+        "/pyrenees/",
+        "/iceland/"
+      ],
+      "devices": [],
+      "browsers": [
+        "live site"
+      ],
+      "langs": [],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "2212ebc442",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "you",
+      "fixNote": "This site is hosted on GitHub Pages, which can't send security headers. It needs a host change (or Cloudflare in front), which is a decision for you.",
+      "change": "Make the host send this header on every page.",
+      "snippet": "GitHub Pages can't send this header. Options:\n1. Publish through Vercel or Netlify (both read headers from a file in the code), or\n2. Put Cloudflare (free plan) in front of the domain and add the header there:\n   X-Content-Type-Options: nosniff"
+    },
+    {
+      "key": "private-page-indexable|No noindex tag",
+      "rule": "private-page-indexable",
+      "severity": "Low",
+      "category": "seo",
+      "title": "A private page can appear in Google",
+      "ruleTitle": "A private page can appear in Google",
+      "why": "Pages like accounts, admin or link-only programs aren't meant to be found by searching.",
+      "fix": "Add <meta name=\"robots\" content=\"noindex\"> to the page and list it as Disallow in robots.txt.",
+      "details": [
+        "No noindex tag"
+      ],
+      "pages": [
+        "/",
+        "/iceland/",
+        "/iberian-lynx/",
+        "/pyrenees/",
+        "/manas-kaziranga/"
+      ],
+      "devices": [],
+      "browsers": [],
+      "langs": [
+        "Main language"
+      ],
+      "shots": [],
+      "snippets": [],
+      "heavy": [],
+      "id": "8df2fc1232",
+      "moreDetails": 0,
+      "known": false,
+      "blocking": false,
+      "fixBy": "built-in",
+      "change": "In the <head> of /, /iceland/, /iberian-lynx/, /pyrenees/, /manas-kaziranga/, add:",
+      "snippet": "<meta name=\"robots\" content=\"noindex\">"
+    }
+  ],
+  "flowsPassed": [
+    {
+      "flow": "A missing page shows an error page with a way back",
+      "device": "iPhone SE",
+      "browser": "chromium"
+    },
+    {
+      "flow": "A missing page shows an error page with a way back",
+      "device": "Laptop",
+      "browser": "chromium"
+    }
+  ],
+  "visited": [
+    {
+      "page": "/",
+      "lang": "Main language",
+      "status": 200,
+      "shot": "home__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/iceland/",
+      "lang": "Main language",
+      "status": 200,
+      "shot": "iceland__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/iberian-lynx/",
+      "lang": "Main language",
+      "status": 200,
+      "shot": "iberian_lynx__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/pyrenees/",
+      "lang": "Main language",
+      "status": 200,
+      "shot": "pyrenees__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
+      "page": "/manas-kaziranga/",
+      "lang": "Main language",
+      "status": 200,
+      "shot": "manas_kaziranga__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    }
+  ],
+  "perf": [],
+  "headers": [
+    {
+      "page": "/",
+      "status": 200,
+      "server": "GitHub.com"
+    },
+    {
+      "page": "/manas-kaziranga/",
+      "status": 200,
+      "server": "GitHub.com"
+    },
+    {
+      "page": "/iberian-lynx/",
+      "status": 200,
+      "server": "GitHub.com"
+    },
+    {
+      "page": "/pyrenees/",
+      "status": 200,
+      "server": "GitHub.com"
+    },
+    {
+      "page": "/iceland/",
+      "status": 200,
+      "server": "GitHub.com"
+    }
+  ],
+  "notes": [],
+  "comparison": null,
+  "fixes": null
+}

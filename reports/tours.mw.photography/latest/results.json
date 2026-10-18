@@ -3,10 +3,10 @@
   "domain": "tours.mw.photography",
   "tested": "live",
   "liveUrl": "https://tours.mw.photography",
-  "when": "2026-10-17T14:28:25.032Z",
+  "when": "2026-10-18T00:26:59.240Z",
   "commit": null,
-  "durationS": 52,
-  "mode": "full",
+  "durationS": 13,
+  "mode": "quick",
   "coverage": {
     "pages": 5,
     "languages": [
@@ -14,17 +14,11 @@
     ],
     "devices": [
       "iPhone SE (375×667)",
-      "iPhone 15 (393×852)",
-      "Galaxy S23 (360×780)",
       "iPad Mini (768×1024)",
-      "iPad Pro landscape (1366×1024)",
-      "Laptop (1280×800)",
-      "Desktop (1920×1080)"
+      "Laptop (1280×800)"
     ],
     "browsers": [
-      "Chrome / Edge",
-      "Firefox",
-      "Safari (iPhone, Mac)"
+      "Chrome / Edge"
     ],
     "links": 5,
     "flows": 1
@@ -37,49 +31,10 @@
   "counts": {
     "Critical": 0,
     "High": 0,
-    "Medium": 4,
-    "Low": 4
+    "Medium": 3,
+    "Low": 2
   },
   "issues": [
-    {
-      "key": "request-failed|https://uiydebfzuxnxjqcnrylv.supabase.co/auth/v1/signup answered 429 (fetch)",
-      "rule": "request-failed",
-      "severity": "Medium",
-      "category": "errors",
-      "title": "A file or server request failed",
-      "ruleTitle": "A file or server request failed",
-      "why": "The page asked for something (a script, style, image, font, or data from the server) and didn't get it. Missing scripts and styles break the page; missing data shows empty or wrong content.",
-      "fix": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working.",
-      "details": [
-        "https://uiydebfzuxnxjqcnrylv.supabase.co/auth/v1/signup answered 429 (fetch)"
-      ],
-      "pages": [
-        "/iberian-lynx/",
-        "/pyrenees/",
-        "/iceland/",
-        "/manas-kaziranga/"
-      ],
-      "devices": [
-        "iPhone 15",
-        "Laptop"
-      ],
-      "browsers": [
-        "Firefox",
-        "Safari (iPhone, Mac)"
-      ],
-      "langs": [
-        "Main language"
-      ],
-      "shots": [],
-      "snippets": [],
-      "heavy": [],
-      "id": "8a3a9685f0",
-      "moreDetails": 0,
-      "known": false,
-      "blocking": false,
-      "fixBy": "claude",
-      "change": "Check the address listed. If the file moved or was renamed, update the link; if it's a server call, check the server function is deployed and working."
-    },
     {
       "key": "header-hsts|No Strict-Transport-Security header (GitHub Pages can't send custom headers; see the fix for the workaround or a host that can)",
       "rule": "header-hsts",
@@ -189,40 +144,6 @@
       "snippet": "GitHub Pages can't send this header. Options:\n1. Publish through Vercel or Netlify (both read headers from a file in the code), or\n2. Put Cloudflare (free plan) in front of the domain and add the header there:\n   X-Frame-Options: DENY"
     },
     {
-      "key": "perf-lcp|perf",
-      "rule": "perf-lcp",
-      "severity": "Low",
-      "category": "performance",
-      "title": "The main content appears late (LCP)",
-      "ruleTitle": "The main content appears late (LCP)",
-      "why": "Largest Contentful Paint is when the biggest thing on screen (usually the hero image) appears. Google's target is under 2.5 seconds.",
-      "fix": "Compress and resize the hero image (WebP/AVIF, no wider than it's shown), and preload it.",
-      "details": [
-        "3.9s (target under 2.5s)"
-      ],
-      "pages": [
-        "/"
-      ],
-      "devices": [
-        "Mid-range phone, 4G"
-      ],
-      "browsers": [
-        "Chrome / Edge"
-      ],
-      "langs": [],
-      "shots": [],
-      "snippets": [],
-      "heavy": [],
-      "id": "9d082d4108",
-      "moreDetails": 0,
-      "known": false,
-      "blocking": false,
-      "fixBy": "built-in + claude",
-      "fixNote": "The tool shrinks oversized images itself; Claude handles loading order (lazy-loading, deferring scripts).",
-      "change": "Make the images smaller (resize to the size they're shown at, WebP or AVIF, about 80% quality), load images below the first screen with loading=\"lazy\", and let the main image load first with fetchpriority=\"high\".",
-      "snippet": "<img src=\"hero.webp\" fetchpriority=\"high\" alt=\"…\">\n<img src=\"later.webp\" loading=\"lazy\" alt=\"…\">"
-    },
-    {
       "key": "header-nosniff|Missing (GitHub Pages can't send custom headers; see the fix for the workaround or a host that can)",
       "rule": "header-nosniff",
       "severity": "Low",
@@ -259,41 +180,6 @@
       "snippet": "GitHub Pages can't send this header. Options:\n1. Publish through Vercel or Netlify (both read headers from a file in the code), or\n2. Put Cloudflare (free plan) in front of the domain and add the header there:\n   X-Content-Type-Options: nosniff"
     },
     {
-      "key": "header-referrer|No Referrer-Policy header or meta tag",
-      "rule": "header-referrer",
-      "severity": "Low",
-      "category": "security",
-      "title": "No referrer policy",
-      "ruleTitle": "No referrer policy",
-      "why": "Full page addresses (which can include sign-in tokens or order details) may be passed to other sites the visitor goes to.",
-      "fix": "Send Referrer-Policy: strict-origin-when-cross-origin, or add <meta name=\"referrer\" content=\"strict-origin-when-cross-origin\">.",
-      "details": [
-        "No Referrer-Policy header or meta tag"
-      ],
-      "pages": [
-        "/",
-        "/manas-kaziranga/",
-        "/iberian-lynx/",
-        "/pyrenees/",
-        "/iceland/"
-      ],
-      "devices": [],
-      "browsers": [
-        "live site"
-      ],
-      "langs": [],
-      "shots": [],
-      "snippets": [],
-      "heavy": [],
-      "id": "e96471fb8a",
-      "moreDetails": 0,
-      "known": false,
-      "blocking": false,
-      "fixBy": "built-in",
-      "change": "In the <head> of every page, add:",
-      "snippet": "<meta name=\"referrer\" content=\"strict-origin-when-cross-origin\">"
-    },
-    {
       "key": "private-page-indexable|No noindex tag",
       "rule": "private-page-indexable",
       "severity": "Low",
@@ -307,9 +193,9 @@
       ],
       "pages": [
         "/",
-        "/pyrenees/",
         "/iceland/",
         "/iberian-lynx/",
+        "/pyrenees/",
         "/manas-kaziranga/"
       ],
       "devices": [],
@@ -325,7 +211,7 @@
       "known": false,
       "blocking": false,
       "fixBy": "built-in",
-      "change": "In the <head> of /, /pyrenees/, /iceland/, /iberian-lynx/, /manas-kaziranga/, add:",
+      "change": "In the <head> of /, /iceland/, /iberian-lynx/, /pyrenees/, /manas-kaziranga/, add:",
       "snippet": "<meta name=\"robots\" content=\"noindex\">"
     }
   ],
@@ -339,26 +225,6 @@
       "flow": "A missing page shows an error page with a way back",
       "device": "Laptop",
       "browser": "chromium"
-    },
-    {
-      "flow": "A missing page shows an error page with a way back",
-      "device": "iPhone SE",
-      "browser": "firefox"
-    },
-    {
-      "flow": "A missing page shows an error page with a way back",
-      "device": "Laptop",
-      "browser": "firefox"
-    },
-    {
-      "flow": "A missing page shows an error page with a way back",
-      "device": "iPhone SE",
-      "browser": "webkit"
-    },
-    {
-      "flow": "A missing page shows an error page with a way back",
-      "device": "Laptop",
-      "browser": "webkit"
     }
   ],
   "visited": [
@@ -367,13 +233,6 @@
       "lang": "Main language",
       "status": 200,
       "shot": "home__en__Laptop__chromium.jpg",
-      "redirectedTo": null
-    },
-    {
-      "page": "/pyrenees/",
-      "lang": "Main language",
-      "status": 200,
-      "shot": "pyrenees__en__Laptop__chromium.jpg",
       "redirectedTo": null
     },
     {
@@ -391,6 +250,13 @@
       "redirectedTo": null
     },
     {
+      "page": "/pyrenees/",
+      "lang": "Main language",
+      "status": 200,
+      "shot": "pyrenees__en__Laptop__chromium.jpg",
+      "redirectedTo": null
+    },
+    {
       "page": "/manas-kaziranga/",
       "lang": "Main language",
       "status": 200,
@@ -398,21 +264,7 @@
       "redirectedTo": null
     }
   ],
-  "perf": [
-    {
-      "page": "/",
-      "score": 86,
-      "lcp": 3903.735,
-      "cls": 0.08700411184282432,
-      "tbt": 0,
-      "fcp": 1053.7350000000001,
-      "weight": 627844,
-      "tips": [
-        "Use efficient cache lifetimes (about 2.7s faster)"
-      ],
-      "heavy": []
-    }
-  ],
+  "perf": [],
   "headers": [
     {
       "page": "/",
